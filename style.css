@@ -1,0 +1,40 @@
+.navigation {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.column {
+  float: left;
+  width: 33.33%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.header123 {
+  padding: 60px;
+  text-align: center;
+  color: black;
+  font-size: 20px;
+}
+
+
+.footer-text-left {
+  font-size:25px;
+  padding-left:40px;
+  float:left;
+  word-spacing:20px;
+}
+
+a.menu:hover {
+  background-color:yellow;
+  font-size:20px;
+}
+
+.container-fluid-w1000 {
+  width: 1500px;
+ 
+} 

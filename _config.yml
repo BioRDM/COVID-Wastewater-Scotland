@@ -1,0 +1,6 @@
+theme: jekyll-theme-cayman
+email : "bio_rdm@ed.ac.uk"
+wiki : "https://www.wiki.ed.ac.uk/display/RDMS"
+github:
+  is_project_page: false
+  
