@@ -1,5 +1,5 @@
 ---
-title: Covid waste water project
+title: COVID Wastewater Scotland
 ---
 {% include navbar.html %} 
 
