@@ -25,6 +25,6 @@ In this method, a known volume of sample is concentrated using a centrifugal fil
 As an analytical control, samples are spiked with a known quantity of non-target RNA (PRRS1) at the start of the process to demonstrate that the method has been successful at concentrating and recovering RNA particles.
 
 The complete protocol is available under:
-(https://protocols.io/view/rna-extraction-from-wastewater-for-detection-of-sa-bzv5p686)
+[link](https://protocols.io/view/rna-extraction-from-wastewater-for-detection-of-sa-bzv5p686)
 
 {% include bottomnavbar.html %}
