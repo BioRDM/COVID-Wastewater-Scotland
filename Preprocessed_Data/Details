@@ -1,1 +1,5 @@
+The prevalence-data-per-site-LScorza.xlsx file which is in the data folder is converted in to csv file and converted in to a three column file: where first column contains the Site_name, secon column contains the Date_Collected and third column contains the N1_Reported_Value.
+Three column csv file (Samplefile.csv) which is attached to this folder is then converted in to a wider table format ie, printing the site names as row names, date collected as the column headers and the the reported values as the data points using the command line bash script:
+awk -F, -f Preprocessing.awk Samplefile.csv | sort -k1  > sample.csv # Preprocessing.awk script is attached in this folder
+sample.csv is also attached to this folder. Also you can find columnsorted.csv (column labels in ascending order) file and another file (columnsorted_datechangeloc.csv) containing the column location where the date changes(used in heatmap column annotation)
 
