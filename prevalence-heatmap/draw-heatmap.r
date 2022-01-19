@@ -5,6 +5,7 @@ install.packages("circlize")
 library("circlize")
 library("devtools")
 install_github("jokergoo/ComplexHeatmap")
+library("ComplexHeatmap")
 
 Data = read.table("/home/sbaby/Desktop/NewData/sample.csv", header =TRUE, sep = ",", row.names = 1) #Read the data fiile  as a table. sample.csv is the datafile after preprocessing
 Data1 = as.matrix(Data) #Converts the Data table in to matrix
