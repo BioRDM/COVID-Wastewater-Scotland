@@ -5,3 +5,7 @@ Three column csv file (SampleFile.csv) which is attached to this folder is then 
 awk -F, -f Preprocessing.awk SampleFile.csv | sort -k1  > Sample.csv # Preprocessing.awk script and Sample.scv is attached in this folder
 Also you can find Columnsorted.csv (column labels in ascending order) file and another file (Columnsorted_datechangeloc.csv) containing the column location where the date changes(used in heatmap column annotation)
 
+For dicrete variable map use:
+awk 'BEGIN {FS=",";OFS=","} {print $2,$3,$6}' prevalence-data-per-site-LScorza.csv | grep -v "Site" > SampleFile.csv 
+followed by the other steps as mentioned above.
+
