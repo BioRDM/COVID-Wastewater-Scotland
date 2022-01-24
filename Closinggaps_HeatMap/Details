@@ -1,1 +1,5 @@
+For closing gaps between n the Heatmap, generated date column as YYYY-MM-Read$number so that more data falls in to the same category.
 
+code: awk 'BEGIN {FS=","; OFS=",";} {if($2==prev && $3==prev1 ) {offset++; print $1,$2,$3,"Read"offset,$7; prev=$2;prev1=$3} else{offset=1; print $1,$2,$3,"Read"offset,$7 ;prev=$2;prev1=$3}}' prevalence-data-per-site-LScorza-1.csv > prevalence-data-per-site-LScorza_arrangesasReads.csv
+The column $3  of is changed in format to YYYY-MM and saved to  Reads1.csv
+Then: awk 'BEGIN {FS=","; OFS=",";} {print $1,$2"-"$3,$4}' Reads1.csv > Reads2.csv
