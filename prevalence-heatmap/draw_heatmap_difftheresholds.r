@@ -18,7 +18,7 @@ Data4 = as.matrix(Data3)
 Data5 = Data4[,order(colnames(Data4))]
 col_fun1 = colorRamp2(c(0,.329559007,.67793917,91.31779), c("yellow", "purple","orange","blue")) # 91.31779 is the third quantile from the set of positivevalues for normalized data.Break points are set for the normalized values referring to the N1.Reported.Value range
 col_fun2 = colorRamp2(c(0,.329559007,.67793917,44.36021), c("yellow", "purple","orange","blue")) # 44.36021 is the median from the set of positive values  for normalized data.
-col_fun3 = colorRamp2(c(-5,-1.11,-0.3886977,4.5143454), c("yellow", "purple","orange","blue"))   # 4.5143454 is the third quantile from the set of positive values for log normalized data
+col_fun3 = colorRamp2(c(-5,-1.11,-0.3886977,4.5143454), c("yellow", "purple","orange","blue"))   # -Inf corresponding to log(0) is substituted with -5 ( a value outside the range of whole values). 4.5143454 is the third quantile from the set of positive values for log normalized data
 col_fun4 = colorRamp2(c(-5,-1.11,-0.3886977,3.792343), c("yellow", "purple","orange","blue"))    # 3.792343 is the median from the the set of positives for log normalized data
 my_data<- as.data.frame(my_data)
 my_data<- as.data.frame(Data2)
