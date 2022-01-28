@@ -1,3 +1,6 @@
+awk 'BEGIN {FS=",";OFS=","} {print $2,$3,$17}' prevalence-data-per-site-LScorza.csv > Data.csv # Extract the Site, Date and Normalizeddata from the prevalence-data-per-site-LScorza.csv
+This Data.csv file is used in the R code
+
 For Closing the gaps data in each week is averaged using the Rcode  and then the resultant file is processed as follows
 
 awk 'BEGIN {FS=",";OFS=","} {print $2,$3"-"$4"-"$5, $6}' Meanaggregate.csv |grep -v "Site" | sort -k1  | sed 's/"//g' > Meanaggregate1.csv # Print the Site,Year-Month-Week and averaged normalized data for each week. Sort by column 1 and replace " with null 
