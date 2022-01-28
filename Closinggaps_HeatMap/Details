@@ -1,5 +1,9 @@
-For closing gaps between n the Heatmap, generated date column as YYYY-MM-Read$number so that more data falls in to the same category.
+For Closing the gaps data in each week is averaged using the Rcode  and then the resultant file is processed as follows
 
-code: awk 'BEGIN {FS=","; OFS=",";} {if($2==prev && $3==prev1 ) {offset++; print $1,$2,$3,"Read"offset,$7; prev=$2;prev1=$3} else{offset=1; print $1,$2,$3,"Read"offset,$7 ;prev=$2;prev1=$3}}' prevalence-data-per-site-LScorza-1.csv > prevalence-data-per-site-LScorza_arrangesasReads.csv
-The column $3  of is changed in format to YYYY-MM and saved to  Reads1.csv
-Then: awk 'BEGIN {FS=","; OFS=",";} {print $1,$2"-"$3,$4}' Reads1.csv > Reads2.csv
+awk 'BEGIN {FS=",";OFS=","} {print $2,$3"-"$4"-"$5, $6}' Meanaggregate.csv |grep -v "Site" | sort -k1  | sed 's/"//g' > Meanaggregate1.csv # Print the Site,Year-Month-Week and averaged normalized data for each week. Sort by column 1 and replace " with null 
+
+Then Preprocess the file: 
+awk -F, -f foo.awk Meanaggregate1.csv | sort -k1  > Sample.csv 
+
+
+
