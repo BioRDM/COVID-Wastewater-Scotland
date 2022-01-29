@@ -16,4 +16,5 @@ Data1$Year = year(date)
 
 aggregate(Data1$Million.Gene.Copies.Per.Person.per.Day, by=list(Site=Data1$Site, Year= Data1$Year,Month = Data1$month, Week = Data1$week), FUN=mean, na.rm=TRUE) ->Meanaggregate
 View(Meanaggregate)
+Meanaggregate$LogNormalized <- log(Meanaggregate$x) # Find the log of mean aggregate column
 write.csv(Meanaggregate,file="/home/sbaby/Desktop/Latest_data/Meanaggregate.csv")
