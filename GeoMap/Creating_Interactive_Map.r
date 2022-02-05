@@ -28,12 +28,12 @@ Data1 = read.table("/home/sbaby/Desktop/Latest_data/Map/MapPop.csv", header =TRU
 Data1 = as.data.frame(Data1) 
 pal1 <- colorQuantile(palette = "Dark2",domain = Data1$Population)
 map <- leaflet(countries) %>% addTiles()                             
-Map_Population <- map %>% addPolygons(fillColor = ~pal(area),
+Map_Population <- map %>% setView(-3.475300, 55.89687, zoom = 8) %>% addPolygons(fillColor = ~pal(area),
                      fillOpacity = 0.8,
                      color = "#FF0000",
                      weight = 1,
                      popup = myfile$name) %>% addLegend(data= Data1,"bottomright",pal = pal1, values = Data1$Population,
-                                                        title = "Population", opacity = 1)%>% addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =10,color = ~pal1(Data1$Population),opacity = 1) 
+                                                        title = "Population", opacity = 1)%>% addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =8,color = ~pal1(Data1$Population),opacity = 1) 
 saveWidget(widget = Map_Population, file = "/home/sbaby/Desktop/Map_Population.html")                               
                                
                                
