@@ -4,7 +4,7 @@ library(htmlwidgets)
 Localities <- readOGR("/home/sbaby/Desktop/localities2016boundaries/Localities2016_MHW.shp")
 proj4string(Localities) <- CRS("+init=epsg:27700") # tells it to be UK Grid system
 myfile <- spTransform(Localities, CRS("+init=epsg:4326"))
-myfile@data$area <- sapply(Localities@polygons, function(x) 1000*x@area)
+myfile@data$area <- sapply(myfile@polygons, function(x) 1000*x@area)
 pal <- colorQuantile(palette = "Blues",domain = myfile@data$area)
 Data = read.table("/home/sbaby/Desktop/Latest_data/Data_4326.csv", header =TRUE, sep = ",")
 Data = as.data.frame(Data)
