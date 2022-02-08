@@ -5,15 +5,15 @@ library(devtools)
 library("ComplexHeatmap")
 
 # Read the normalized data
-Data = read.table("/home/sbaby/Desktop/Latest_data/Normalizeddata/Sample.csv", header =TRUE, sep = ",", row.names = 1)
+Data = read.table("/home/sbaby/Desktop/Latest_data/Gaps_Closing1/Sample.csv", header =TRUE, sep = ",", row.names = 1)
 Data1 = as.matrix(Data)
 Data2 = Data1[,order(colnames(Data1))]
 Dates <- c("May-2020", "Jun-2020", "Jul-2020", "Aug-2020", "Sep-2020", "Oct-2020", "Nov-2020", "Dec-2020", "Jan-2021", "Feb-2021","Mar-2021", "Apr-2021","May-2021", "Jun-2021", "Jul-2021", "Aug-2021", "Sep-2021", "Oct-2021", "Nov-2021", "Dec-2021", "Jan-2022")
 ha = HeatmapAnnotation(foo=anno_mark(at = c(1,2,7,12,17,22,27,32,37,41,45,50,55,60,65,70,75,80,85,90,95), labels = Dates,  labels_gp = gpar(fontsize=9),which = "column", side = "bottom"))
 
 # Read the log of normalized data
-Data3 = read.table("/home/sbaby/Desktop/Latest_data/LogNormalizedData/Sample.csv", header =TRUE, sep = ",", row.names = 1)
-Data3 = read.table("/home/sbaby/Desktop/Latest_data/LogNormalized/Sample.csv", header =TRUE, sep = ",", row.names = 1)
+
+Data3 = read.table("/home/sbaby/Desktop/Latest_data/Gaps_Closing1/LogNormalized/Sample.csv", header =TRUE, sep = ",", row.names = 1)
 Data4 = as.matrix(Data3)
 Data5 = Data4[,order(colnames(Data4))]
 
