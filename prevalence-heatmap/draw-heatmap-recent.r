@@ -5,6 +5,7 @@ library("devtools")
 install_github("jokergoo/ComplexHeatmap")
 library("ComplexHeatmap")
 library(tidyverse)
+library(dplyr)
 
 Data = read.table("/home/sbaby/Desktop/Latest_data/Gaps_Closing1/Sample.csv", header =TRUE, sep = ",", row.names = 1) # Read the Preprocessed file (Normalized data arranged as mean value for each week)
 Data1 = as.matrix(Data)
