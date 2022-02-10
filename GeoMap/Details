@@ -1,1 +1,4 @@
 The Shape file (shp) used in the Rcode is downloaded from : https://www.nrscotland.gov.uk/files//geography/dataset/localities2016boundaries.zip
+awk 'BEGIN {FS=","; OFS=","} {print $1,$69}' Columnsorted.csv   | grep -v "X2021.07.29" | sed 's/"//g' | sed '1 s/^/Site,Virus levels\n/ ' | sort -k1 > Mapviruslevels.csv
+join -t , sitessorted.csv Mapviruslevels.csv | sed '1 s/^/Site,lon,lat,Virus levels\n/ ' > MapVirus.csv
+
