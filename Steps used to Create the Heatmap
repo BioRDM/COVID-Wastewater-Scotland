@@ -1,0 +1,41 @@
+1.Steps used to create the Heat map 
+
+The data set consisted of three columns: Site, Date, and Million Gene Copies Per Person per Day (Normalized data).  The weeks in which the dates are falling are extracted. Data is binned by finding mean aggregate with respect to site, year, month and week. The data from the same site and falling into same year, month, and week (For example, you can have two Datas from 2nd Feb 2022 and 3rd Feb 2022 which falls in same week) are averaged.   
+
+The dates are then arranged as YYYY- MM-WW (Year- Month-Week) and the data file is converted to a wider table format having sites as row names, dates as columns and the binned data values as data points. 
+
+The data is then converted into matrix format and rows are filtered for preferred sites and custom sorted according to the health boards. The column names are sorted in ascending order and filtered from Dec2020 to Jan2022. 
+
+Data matrix is then used to plot the heat map 
+
+ 
+
+2.Breakpoints 
+
+There are 3 break points used in the heatmap. It is 0 for negative, 2.276259 for positive, and 91.317799 for 3rd quartile positive. 
+
+The N1 Reported Value is filtered based on filtration criteria: N1 Reported Value > 11386. Then the minimum value in the normalized data is selected as positive breakpoint. Quantile function is applied to the normalized data to find the 3rd quartile value for the positive range.  
+
+Rcode for Reference: 
+
+Data5<-( filter(Data, Data$N1.Reported.Value > 11386)) # Filter the values which are greater than 11386(LOQ) 
+
+quantile( Data5$Million.Gene.Copies.Per.Person.per.Day, na.rm=TRUE) 
+
+# 0% 25% 50% 75% 100%  
+
+# 2.276259 19.511840 44.360206 91.317799 23570.757432    3rd quartile positive = 91.317799 
+
+min( Data5$Million.Gene.Copies.Per.Person.per.Day, na.rm=TRUE) 
+
+# [1] 2.276259 Positive breakpoint 
+
+ 
+
+3.Tools used  
+
+Data is processed using R studio version 4.1.2 and shell scripting.  
+
+For Heatmap plotting,  an r library,  ComplexHeatmap is used. Reference : https://jokergoo.github.io/ComplexHeatmap-reference/book/ 
+
+ 
