@@ -1,7 +1,7 @@
 library(rgdal)
 library(leaflet)
 library(htmlwidgets)
-Localities <- readOGR("/home/sbaby/Desktop/localities2016boundaries/Localities2016_MHW.shp")
+Localities <- readOGR("https://github.com/BioRDM/COVID-Wastewater-Scotland/blob/CovidProject/GeoMap/localities2016boundaries/Localities2016_MHW.shp")
 proj4string(Localities) <- CRS("+init=epsg:27700") # tells it to be UK Grid system
 myfile <- spTransform(Localities, CRS("+init=epsg:4326"))
 myfile@data$area <- sapply(myfile@polygons, function(x) 1000*x@area)
