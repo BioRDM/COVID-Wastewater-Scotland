@@ -5,7 +5,7 @@ Localities <- readOGR("https://github.com/BioRDM/COVID-Wastewater-Scotland/blob/
 proj4string(Localities) <- CRS("+init=epsg:27700") # tells it to be UK Grid system
 myfile <- spTransform(Localities, CRS("+init=epsg:4326"))
 myfile@data$area <- sapply(myfile@polygons, function(x) 1000*x@area) # generarate a column area by using function. You can also use Shape_Area attribute in creating addPolygons
-pal <- colorQuantile(palette = "Blues",domain = myfile@data$area) ~ Select the color for the polygon area
+pal <- colorQuantile(palette = "Blues",domain = myfile@data$area) # Select the color for the polygon area
 
 
 ********************Creating map frpm Virus levells on 4rth week of July 2021 **************************
@@ -17,11 +17,9 @@ pal <- colorQuantile(palette = "Blues",domain = myfile@data$area) ~ Select the c
  Data1[Data1$Site %in% c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Linlithgow","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway", "Kirkcaldy"),] -> Selected_Sites                                                 
  
                            
- labels=c("Negative", "Positive") # Assign labels
- pal1 <- colorNumeric(palette = c("yellow","dark orange","blue"),domain = Selected_Sites$Virus.levels)
                            
- # Add a function for decreasing legend                         
- addLegend_decreasing <- function (map, position = c("topright", "bottomright", "bottomleft","topleft"),
+ # Add a function for decreasing legend 
+  addLegend_decreasing <- function (map, position = c("topright", "bottomright", "bottomleft","topleft"),
                                   pal, values, na.label = "NA", bins = 7, colors, 
                                   opacity = 0.5, labels = NULL, labFormat = labelFormat(), 
                                   title = NULL, className = "info legend", layerId = NULL, 
@@ -121,20 +119,30 @@ pal <- colorQuantile(palette = "Blues",domain = myfile@data$area) ~ Select the c
                                      layerId = layerId, className = className, group = group)
         invokeMethod(map, data, "addLegend", legend)
         } 
-  # Circle markers only for selected sites                  
+                           
+                        
+  # Circle markers only for selected sites 
+ labels=c("Negative", "Positive") # Assign labels
+ pal1 <- colorNumeric(palette = c("yellow","dark orange","blue"),domain = Selected_Sites$Virus.levels)                          
  Map_Virus<- map %>% addTiles() %>% setView(-3.475300, 55.89687, zoom = 10) %>% addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica")))%>% addLegend_decreasing(data= Selected_Sites,"bottomright",pal = pal1,values = Selected_Sites$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE,labFormat = function(type, cuts, p) {paste0(labels)})%>% addCircles(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,weight =20, color = ~pal1(Selected_Sites$Virus.levels),opacity = 1)%>% addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = T,opacity = 1,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                                             
  saveWidget(widget = Map_Virus, file = "/home/sbaby/Desktop/Map_Virus-1.html")
   # Circle markers only for selected sites & With opaque text box in the labels                         
  Map_Virus<- map %>% addTiles() %>% setView(-3.475300, 55.89687, zoom = 10) %>% addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica")))%>% addLegend_decreasing(data= Selected_Sites,"bottomright",pal = pal1,values = Selected_Sites$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE,labFormat = function(type, cuts, p) {paste0(labels)})%>% addCircles(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,weight =20, color = ~pal1(Selected_Sites$Virus.levels),opacity = 1)%>% addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = F,opacity = .6,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                                             
  saveWidget(widget = Map_Virus, file = "/home/sbaby/Desktop/Map_Virus-2.html")                          
                            
- pal1 <- colorNumeric(palette = c("yellow","purple","dark orange", "green", "blue"),domain =Data1$Virus.levels,na.color = NA)
- # Circle markers only for all sites                           
+ 
+ # Circle markers only for all sites
+ pal1 <- colorNumeric(palette = c("yellow","purple","dark orange", "green", "blue"),domain =Data1$Virus.levels,na.color = NA)                         
  Map_Virus<- map %>% addTiles() %>% setView(-3.475300, 55.89687, zoom = 10) %>% addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica")))%>% addLegend_decreasing(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE)%>% addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~pal1(Data1$Virus.levels),opacity = 1)%>% addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = T,opacity = 1,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                          
  saveWidget(widget = Map_Virus, file = "/home/sbaby/Desktop/Map_Virus-3.html")
   # Circle markers only for all sites  & With opaque text box                         
  Map_Virus<- map %>% addTiles() %>% setView(-3.475300, 55.89687, zoom = 10) %>% addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica")))%>% addLegend_decreasing(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE)%>% addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~pal1(Data1$Virus.levels),opacity = 1)%>% addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = F,opacity = .6,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                                                   
  saveWidget(widget = Map_Virus, file = "/home/sbaby/Desktop/Map_Virus-4.html") 
                            
-                           
-                           
+ # Using ColorQuantile function and Circle markers only for all sites
+pal1 <- colorQuantile(palette = c("Dark2"),domain =Data1$Virus.levels,na.color = NA)     
+Map_Virus<- map %>% addTiles() %>% setView(-3.475300, 55.89687, zoom = 10) %>% addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica")))%>% addLegend_decreasing(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE)%>% addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~pal1(Data1$Virus.levels),opacity = 1)%>% addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = T,opacity = 1,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                             
+saveWidget(widget = Map_Virus, file = "/home/sbaby/Desktop/Map_Virus-5.html")
+# Using ColorQuantile function and Circle markers only for all sites and opaque text boxes                          
+Map_Virus<- map %>% addTiles() %>% setView(-3.475300, 55.89687, zoom = 10) %>% addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica")))%>% addLegend_decreasing(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE)%>% addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~pal1(Data1$Virus.levels),opacity = 1)%>% addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = F,opacity = .6,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                            
+saveWidget(widget = Map_Virus, file = "/home/sbaby/Desktop/Map_Virus-6.html")
