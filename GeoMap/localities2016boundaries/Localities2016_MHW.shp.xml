@@ -1,0 +1,433 @@
+<?xml version="1.0"?>
+<!-- <!DOCTYPE metadata SYSTEM "http://www.esri.com/metadata/esriprof80.dtd"> -->
+<metadata xml:lang="en"><Esri><CreaDate>20180222</CreaDate><CreaTime>07374200</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>FALSE</SyncOnce><DataProperties><lineage><Process ToolSource="c:\program files (x86)\arcgis\desktop10.3\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20180207" Time="155919">CalculateField Localities_2016 Population [SUM_Population] VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.3\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20180207" Time="155959">CalculateField Localities_2016 Households [SUM_HC] VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.3\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20180207" Time="160136">CalculateField Localities_2016 DPCNR2 [SUM_DPCNR2] VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.3\ArcToolbox\Toolboxes\Data Management Tools.tbx\CalculateField" Date="20180207" Time="160515">CalculateField Localities_2016 MHW_Hect [SUM_MHW_Hect] VB #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Analysis Tools.tbx\Clip" Date="20180221" Time="142723">Clip Localities2016_EoR "C:\Users\z340038\Documents\High Water Mark\2017-10\HWM201710.mdb\BritishNationalGrid\HWM201710" \\tsclient\C\TEMP\Publish\Localities2016_MHW.shp #</Process><Process ToolSource="c:\program files (x86)\arcgis\desktop10.1\ArcToolbox\Toolboxes\Data Management Tools.tbx\CopyFeatures" Date="20180221" Time="153609">CopyFeatures \\tsclient\C\TEMP\Publish\Localities2016_MHW.shp "\\tsclient\C\TEMP\Publish\New File Geodatabase.gdb\BritishNationalGrid\Localities2016_MHW" # 0 0 0</Process></lineage><itemProps><itemName Sync="TRUE">Localities2016_MHW</itemName><imsContentType Sync="TRUE">002</imsContentType><itemSize Sync="TRUE">0.000</itemSize><itemLocation><linkage Sync="TRUE">file://\\tsclient\C\TEMP\Publish\New File Geodatabase.gdb</linkage><protocol Sync="TRUE">Local Area Network</protocol></itemLocation></itemProps><coordRef><type Sync="TRUE">Projected</type><geogcsn Sync="TRUE">GCS_OSGB_1936</geogcsn><csUnits Sync="TRUE">Linear Unit: Meter (1.000000)</csUnits><projcsn Sync="TRUE">British_National_Grid</projcsn><peXml Sync="TRUE">&lt;ProjectedCoordinateSystem xsi:type='typens:ProjectedCoordinateSystem' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:typens='http://www.esri.com/schemas/ArcGIS/10.1'&gt;&lt;WKT&gt;PROJCS[&amp;quot;British_National_Grid&amp;quot;,GEOGCS[&amp;quot;GCS_OSGB_1936&amp;quot;,DATUM[&amp;quot;D_OSGB_1936&amp;quot;,SPHEROID[&amp;quot;Airy_1830&amp;quot;,6377563.396,299.3249646]],PRIMEM[&amp;quot;Greenwich&amp;quot;,0.0],UNIT[&amp;quot;Degree&amp;quot;,0.0174532925199433]],PROJECTION[&amp;quot;Transverse_Mercator&amp;quot;],PARAMETER[&amp;quot;False_Easting&amp;quot;,400000.0],PARAMETER[&amp;quot;False_Northing&amp;quot;,-100000.0],PARAMETER[&amp;quot;Central_Meridian&amp;quot;,-2.0],PARAMETER[&amp;quot;Scale_Factor&amp;quot;,0.9996012717],PARAMETER[&amp;quot;Latitude_Of_Origin&amp;quot;,49.0],UNIT[&amp;quot;Meter&amp;quot;,1.0],AUTHORITY[&amp;quot;EPSG&amp;quot;,27700]]&lt;/WKT&gt;&lt;XOrigin&gt;-5220400&lt;/XOrigin&gt;&lt;YOrigin&gt;-15524400&lt;/YOrigin&gt;&lt;XYScale&gt;10000&lt;/XYScale&gt;&lt;ZOrigin&gt;-100000&lt;/ZOrigin&gt;&lt;ZScale&gt;10000&lt;/ZScale&gt;&lt;MOrigin&gt;-100000&lt;/MOrigin&gt;&lt;MScale&gt;10000&lt;/MScale&gt;&lt;XYTolerance&gt;0.001&lt;/XYTolerance&gt;&lt;ZTolerance&gt;0.001&lt;/ZTolerance&gt;&lt;MTolerance&gt;0.001&lt;/MTolerance&gt;&lt;HighPrecision&gt;true&lt;/HighPrecision&gt;&lt;WKID&gt;27700&lt;/WKID&gt;&lt;LatestWKID&gt;27700&lt;/LatestWKID&gt;&lt;/ProjectedCoordinateSystem&gt;</peXml></coordRef><copyHistory><copy source="C:\TEMP\Publish\Localities2016_MHW" dest="\\LT69683\C$\TEMP\Publish\bin\Localities2016_MHWCopy" date="20180221" time="15133000"></copy></copyHistory></DataProperties><ArcGISstyle>FGDC CSDGM Metadata</ArcGISstyle><SyncDate>20180221</SyncDate><SyncTime>15355600</SyncTime><ModDate>20180221</ModDate><ModTime>15355600</ModTime></Esri><dataIdInfo><envirDesc Sync="TRUE">Microsoft Windows 7 Version 6.1 (Build 7601) Service Pack 1; Esri ArcGIS 10.1.1.3143</envirDesc><dataLang><languageCode value="eng" Sync="TRUE"></languageCode><countryCode value="GBR" Sync="TRUE"></countryCode></dataLang><idCitation><resTitle Sync="TRUE">Localities2016_MHW</resTitle><presForm><PresFormCd value="005" Sync="TRUE"></PresFormCd></presForm></idCitation><spatRpType><SpatRepTypCd value="001" Sync="TRUE"></SpatRepTypCd></spatRpType></dataIdInfo><mdLang><languageCode value="eng" Sync="TRUE"></languageCode><countryCode value="GBR" Sync="TRUE"></countryCode></mdLang><mdChar><CharSetCd value="004" Sync="TRUE"></CharSetCd></mdChar><distInfo><distFormat><formatName Sync="TRUE">File Geodatabase Feature Class</formatName></distFormat><distTranOps><transSize Sync="TRUE">0.000</transSize></distTranOps></distInfo><mdHrLv><ScopeCd value="005" Sync="TRUE"></ScopeCd></mdHrLv><mdHrLvName Sync="TRUE">dataset</mdHrLvName><refSysInfo><RefSystem><refSysID><identCode code="27700" Sync="TRUE"></identCode><idCodeSpace Sync="TRUE">EPSG</idCodeSpace><idVersion Sync="TRUE">7.11.2</idVersion></refSysID></RefSystem></refSysInfo><spatRepInfo><VectSpatRep><geometObjs Name="Localities2016_MHW"><geoObjTyp><GeoObjTypCd value="002" Sync="TRUE"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">0</geoObjCnt></geometObjs><topLvl><TopoLevCd value="001" Sync="TRUE"></TopoLevCd></topLvl></VectSpatRep></spatRepInfo><spdoinfo><ptvctinf><esriterm Name="Localities2016_MHW"><efeatyp Sync="TRUE">Simple</efeatyp><efeageom code="4" Sync="TRUE"></efeageom><esritopo Sync="TRUE">FALSE</esritopo><efeacnt Sync="TRUE">0</efeacnt><spindex Sync="TRUE">TRUE</spindex><linrefer Sync="TRUE">FALSE</linrefer></esriterm></ptvctinf></spdoinfo><eainfo><detailed Name="Localities2016_MHW"><enttyp><enttypl Sync="TRUE">Localities2016_MHW</enttypl><enttypt Sync="TRUE">Feature Class</enttypt><enttypc Sync="TRUE">0</enttypc></enttyp><attr><attrlabl Sync="TRUE">OBJECTID_1</attrlabl><attalias Sync="TRUE">OBJECTID_1</attalias><attrtype Sync="TRUE">OID</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdef Sync="TRUE">Internal feature number.</attrdef><attrdefs Sync="TRUE">Esri</attrdefs><attrdomv><udom Sync="TRUE">Sequential unique whole numbers that are automatically generated.</udom></attrdomv></attr><attr><attrlabl Sync="TRUE">Shape</attrlabl><attalias Sync="TRUE">Shape</attalias><attrtype Sync="TRUE">Geometry</attrtype><attwidth Sync="TRUE">0</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdef Sync="TRUE">Feature geometry.</attrdef><attrdefs Sync="TRUE">Esri</attrdefs><attrdomv><udom Sync="TRUE">Coordinates defining the features.</udom></attrdomv></attr><attr><attrlabl Sync="TRUE">OBJECTID</attrlabl><attalias Sync="TRUE">OBJECTID</attalias><attrtype Sync="TRUE">Integer</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr><attrlabl Sync="TRUE">name</attrlabl><attalias Sync="TRUE">name</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">254</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr><attrlabl Sync="TRUE">code</attrlabl><attalias Sync="TRUE">code</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">254</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr><attrlabl Sync="TRUE">Shape_Leng</attrlabl><attalias Sync="TRUE">Shape_Leng</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">8</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale></attr><attr><attrlabl Sync="TRUE">Shape_Length</attrlabl><attalias Sync="TRUE">Shape_Length</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">8</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdef Sync="TRUE">Length of feature in internal units.</attrdef><attrdefs Sync="TRUE">Esri</attrdefs><attrdomv><udom Sync="TRUE">Positive real numbers that are automatically generated.</udom></attrdomv></attr><attr><attrlabl Sync="TRUE">Shape_Area</attrlabl><attalias Sync="TRUE">Shape_Area</attalias><attrtype Sync="TRUE">Double</attrtype><attwidth Sync="TRUE">8</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdef Sync="TRUE">Area of feature in internal units squared.</attrdef><attrdefs Sync="TRUE">Esri</attrdefs><attrdomv><udom Sync="TRUE">Positive real numbers that are automatically generated.</udom></attrdomv></attr></detailed></eainfo><mdDateSt Sync="TRUE">20180221</mdDateSt><gmd:GEMINI_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+		<gmd:fileIdentifier>
+			<gco:CharacterString>5c8e0cca-a620-4eff-8e78-1518851a0e5b</gco:CharacterString>
+		</gmd:fileIdentifier>
+		<gmd:hierarchyLevel>
+			<gmd:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset">Dataset</gmd:MD_ScopeCode>
+		</gmd:hierarchyLevel>
+		<gmd:dateStamp>
+			<gco:Date>2018-03-12</gco:Date>
+		</gmd:dateStamp>
+		<gmd:language>
+			<gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="eng">English</gmd:LanguageCode>
+		</gmd:language>
+		<gmd:identificationInfo>
+			<gmd:MD_DataIdentification>
+				<gmd:language>
+					<gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="eng">English</gmd:LanguageCode>
+				</gmd:language>
+				<gmd:abstract>
+					<gco:CharacterString>Following the re-organisation of local government in May 1975, smaller local authorities, known as large and small burghs, ceased to exist. There was, however, an ongoing need expressed by census users to know the population (and the characteristics of the population) of such areas.
+
+The National Records of Scotland (NRS), produces 2 datasets biennially which are designed to show the boundaries of urban areas in Scotland: these datasets are Settlements and Localities.
+
+While settlements can go a long way in defining the towns and cities in Scotland, some are very extensive and group together some very large populations.
+
+As an example, the settlement of ‘Greater Glasgow’ has a large population which covers several towns and cities including Clydebank and Paisley as well as Glasgow.  Accordingly, since 2001, the larger settlements have been divided into localities.
+
+By the time of the Census in 1991, NRS had digitised the boundaries of postcodes, which made calculation of population densities possible within postcodes.
+
+The method used to identify localities in 1991 was a three stage process:
+1.	Postcodes were classified as urban or rural.
+2.	Groups of adjoining urban postcodes were identified.
+3.	Local authorities were asked to suggest any changes needed to refine the above.
+
+For the 2001 Census, National Records of Scotland (NRS) had developed a new process to identify settlements in Scotland and the definition of a settlement was defined as:
+
+‘A collection of contiguous high density postcodes bounded by low density postcodes whose population was 500 or more.’
+
+A high density postcode had previously been referred to as an urban postcode but with a slightly different definition. Localities were then determined by first creating settlements and then assigning a locality value to each of the postcodes in the settlement based on whether they fell within a previous locality.
+
+Since 2003, a postcode has been defined high density if at least one of the following applied:
+•	It had more than 2.1 residential addresses per hectare;
+•	It had more than 0.1 non-residential addresses per hectare; or
+•	The estimate of the population per hectare exceeds five people.
+
+NRS has created both settlement and locality boundary datasets for 2016.
+
+For the 2016 datasets, Councils were consulted for their views on the proposed settlement and locality boundaries. Some, but not all, responded and their suggestions were taken into account, where possible, in the formation of the final datasets.
+
+Further details on settlements and localities, including the methodology, can be found in the Special Area Population Estimates: Settlements and Localities section of the NRS website. Changes to the methodology and publication are consulted on through the Population and Migration Statistics Committee.
+
+The Settlement and Locality boundaries have been created using an amended version of the Scottish Postcode Directory 2016-2 boundaries.
+
+NRS Geography upgraded their postcode management system in early 2016. This involved changing postcode boundaries so that they would align with Extent of the Realm, which mirrors Ordnance Survey’s Boundary-Line product. 2011 Census postcode boundaries were used as a base because they already align with Extent of the Realm. However, over 5000 postcodes had to be added or removed to reflect changes that happened since 2011. Due to the volume of work involved, it was not possible to also process all postcode boundary amendments where the addresses within the postcode fell outside the existing postcode boundary.  
+
+As the Settlement and Locality boundaries were to be created from the 2016-2 data an ad-hoc amend was required on postcodes on the boundary of the previous 2012 set of Settlements to remove any excess land, and to ensure that postcodes on the outskirts of the Settlements contained all the address content.  In some cases, due to time constraints, this was not possible.
+
+The Settlement and Locality boundaries were then clipped to the coastline using Ordnance Survey Boundary-Line High Water Mark (as at November 2017).  We have also removed the inland water as listed in the Standard Area Measurements (SAM) produced by the Office for National Statistics.
+
+There are 519 Settlements and 655 Localities within the 2016 dataset.
+</gco:CharacterString>
+				</gmd:abstract>
+				<gmd:spatialResolution>
+					<gmd:MD_Resolution>
+						<gmd:distance>
+							<gco:Distance uom="Meters">0.0001</gco:Distance>
+						</gmd:distance>
+						<gmd:equivalentScale>
+							<gmd:MD_RepresentativeFraction>
+								<gmd:denominator>
+									<gco:Integer>10000</gco:Integer>
+								</gmd:denominator>
+							</gmd:MD_RepresentativeFraction>
+						</gmd:equivalentScale>
+					</gmd:MD_Resolution>
+				</gmd:spatialResolution>
+				<gmd:citation>
+					<gmd:CI_Citation>
+						<gmd:title>
+							<gco:CharacterString>Localities2016_MHW</gco:CharacterString>
+						</gmd:title>
+						<gmd:date>
+							<gmd:CI_Date>
+								<gmd:date>
+									<gco:Date>2018-03-12</gco:Date>
+								</gmd:date>
+								<gmd:dateType>
+									<gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">Publication</gmd:CI_DateTypeCode>
+								</gmd:dateType>
+							</gmd:CI_Date>
+						</gmd:date>
+						<gmd:date>
+							<gmd:CI_Date>
+								<gmd:date>
+									<gco:Date>2018-03-12</gco:Date>
+								</gmd:date>
+								<gmd:dateType>
+									<gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation">Creation</gmd:CI_DateTypeCode>
+								</gmd:dateType>
+							</gmd:CI_Date>
+						</gmd:date>
+						<gmd:identifier>
+							<gmd:RS_Identifier>
+								<gmd:code>
+									<gco:CharacterString>Localities2016_MHW</gco:CharacterString>
+								</gmd:code>
+								<gmd:codeSpace>
+									<gco:CharacterString>www.nrscotland.gov.uk</gco:CharacterString>
+								</gmd:codeSpace>
+							</gmd:RS_Identifier>
+						</gmd:identifier>
+					</gmd:CI_Citation>
+				</gmd:citation>
+				<gmd:topicCategory>
+					<gmd:MD_TopicCategoryCode>boundaries</gmd:MD_TopicCategoryCode>
+				</gmd:topicCategory>
+				<gmd:descriptiveKeywords>
+					<gmd:MD_Keywords>
+						<gmd:keyword>
+							<gco:CharacterString>Land Units</gco:CharacterString>
+						</gmd:keyword>
+						<gmd:thesaurusName>
+							<gmd:CI_Citation>
+								<gmd:title>
+									<gco:CharacterString>GEMET - INSPIRE themes, version 1.0</gco:CharacterString>
+								</gmd:title>
+								<gmd:date>
+									<gmd:CI_Date>
+										<gmd:date>
+											<gco:Date>2008-06-01</gco:Date>
+										</gmd:date>
+										<gmd:dateType>
+											<gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">Publication</gmd:CI_DateTypeCode>
+										</gmd:dateType>
+									</gmd:CI_Date>
+								</gmd:date>
+							</gmd:CI_Citation>
+						</gmd:thesaurusName>
+						<gmd:type>
+							<gmd:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">Theme</gmd:MD_KeywordTypeCode>
+						</gmd:type>
+					</gmd:MD_Keywords>
+				</gmd:descriptiveKeywords>
+				<gmd:extent>
+					<gmd:EX_Extent>
+						<gmd:geographicElement>
+							<gmd:EX_GeographicDescription>
+								<gmd:geographicIdentifier>
+									<gmd:RS_Identifier>
+										<gmd:code>
+											<gco:CharacterString>SCT</gco:CharacterString>
+										</gmd:code>
+										<gmd:authority>
+											<gmd:CI_Citation>
+												<gmd:title>
+													<gco:CharacterString>ISO3166-2</gco:CharacterString>
+												</gmd:title>
+												<gmd:date>
+													<gmd:CI_Date>
+														<gmd:date>
+															<gco:Date/>
+														</gmd:date>
+														<gmd:dateType>
+															<gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue=""/>
+														</gmd:dateType>
+													</gmd:CI_Date>
+												</gmd:date>
+											</gmd:CI_Citation>
+										</gmd:authority>
+									</gmd:RS_Identifier>
+								</gmd:geographicIdentifier>
+							</gmd:EX_GeographicDescription>
+						</gmd:geographicElement>
+						<gmd:geographicElement>
+							<gmd:EX_GeographicBoundingBox>
+								<gmd:westBoundLongitude>
+									<gco:Decimal>-7.75714</gco:Decimal>
+								</gmd:westBoundLongitude>
+								<gmd:eastBoundLongitude>
+									<gco:Decimal>-0.53202</gco:Decimal>
+								</gmd:eastBoundLongitude>
+								<gmd:southBoundLatitude>
+									<gco:Decimal>54.53297</gco:Decimal>
+								</gmd:southBoundLatitude>
+								<gmd:northBoundLatitude>
+									<gco:Decimal>61.46459</gco:Decimal>
+								</gmd:northBoundLatitude>
+							</gmd:EX_GeographicBoundingBox>
+						</gmd:geographicElement>
+						<gmd:temporalElement>
+							<gmd:EX_TemporalExtent>
+								<gmd:extent>
+									<gml:TimePeriod>
+										<gml:beginPosition>2016-10-13</gml:beginPosition>
+										<gml:endPosition>2016-10-13</gml:endPosition>
+									</gml:TimePeriod>
+								</gmd:extent>
+							</gmd:EX_TemporalExtent>
+						</gmd:temporalElement>
+					</gmd:EX_Extent>
+				</gmd:extent>
+				<gmd:pointOfContact>
+					<gmd:CI_ResponsibleParty>
+						<gmd:individualName>
+							<gco:CharacterString>National Records of Scotland</gco:CharacterString>
+						</gmd:individualName>
+						<gmd:organisationName>
+							<gco:CharacterString>Geography Branch</gco:CharacterString>
+						</gmd:organisationName>
+						<gmd:contactInfo>
+							<gmd:CI_Contact>
+								<gmd:address>
+									<gmd:CI_Address>
+										<gmd:deliveryPoint>
+											<gco:CharacterString>Ladywell House, Ladywell Road</gco:CharacterString>
+										</gmd:deliveryPoint>
+										<gmd:city>
+											<gco:CharacterString>Edinburgh</gco:CharacterString>
+										</gmd:city>
+										<gmd:postalCode>
+											<gco:CharacterString>EH12 7TF </gco:CharacterString>
+										</gmd:postalCode>
+										<gmd:electronicMailAddress>
+											<gco:CharacterString>geographycustomerservices@nrscotland.gov.uk</gco:CharacterString>
+										</gmd:electronicMailAddress>
+										<gmd:country>
+											<gmd:Country codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#Country" codeListValue="GBR">United Kingdom of Great Britain &amp; N. Ireland</gmd:Country>
+										</gmd:country>
+									</gmd:CI_Address>
+								</gmd:address>
+							</gmd:CI_Contact>
+						</gmd:contactInfo>
+						<gmd:role>
+							<gmd:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="owner">Owner</gmd:CI_RoleCode>
+						</gmd:role>
+					</gmd:CI_ResponsibleParty>
+				</gmd:pointOfContact>
+				<gmd:resourceConstraints>
+					<gmd:MD_Constraints>
+						<gmd:useLimitation>
+							<gco:CharacterString>The following attribution statement must be used to acknowledge the source of the information: Contains NRS data © Crown copyright and database right (insert year), contains Ordnance Survey data © Crown copyright and database right (insert year).</gco:CharacterString>
+						</gmd:useLimitation>
+					</gmd:MD_Constraints>
+				</gmd:resourceConstraints>
+				<gmd:resourceConstraints>
+					<gmd:MD_LegalConstraints>
+						<gmd:otherConstraints>
+							<gco:CharacterString>Available under the Ordnance Survey (OS) Open Data Licence (www.ordnancesurvey.co.uk/opendata/licence)</gco:CharacterString>
+						</gmd:otherConstraints>
+					</gmd:MD_LegalConstraints>
+				</gmd:resourceConstraints>
+				<gmd:resourceMaintenance>
+					<gmd:MD_MaintenanceInformation>
+						<gmd:maintenanceAndUpdateFrequency>
+							<gmd:MD_MaintenanceFrequencyCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="asNeeded">As needed</gmd:MD_MaintenanceFrequencyCode>
+						</gmd:maintenanceAndUpdateFrequency>
+					</gmd:MD_MaintenanceInformation>
+				</gmd:resourceMaintenance>
+			</gmd:MD_DataIdentification>
+		</gmd:identificationInfo>
+		<gmd:distributionInfo>
+			<gmd:MD_Distribution>
+				<gmd:transferOptions>
+					<gmd:MD_DigitalTransferOptions>
+						<gmd:onLine>
+							<gmd:CI_OnlineResource>
+								<gmd:linkage>
+									<gmd:URL>http://www.nrscotland.gov.uk/statistics-and-data/geography/our-products/settlements-and-localities-dataset </gmd:URL>
+								</gmd:linkage>
+							</gmd:CI_OnlineResource>
+						</gmd:onLine>
+					</gmd:MD_DigitalTransferOptions>
+				</gmd:transferOptions>
+				<gmd:distributionFormat>
+					<gmd:MD_Format>
+						<gmd:name>
+							<gco:CharacterString>ESRI Arc/View Shapefile</gco:CharacterString>
+						</gmd:name>
+						<gmd:version>
+							<gco:CharacterString></gco:CharacterString>
+						</gmd:version>
+					</gmd:MD_Format>
+				</gmd:distributionFormat>
+			</gmd:MD_Distribution>
+		</gmd:distributionInfo>
+		<gmd:dataQualityInfo>
+			<gmd:DQ_DataQuality>
+				<gmd:lineage>
+					<gmd:LI_Lineage>
+						<gmd:statement>
+							<gco:CharacterString>Purpose
+
+Following the re-organisation of local government in May 1975, smaller local authorities, known as large and small burghs, ceased to exist. There was, however, an ongoing need expressed by census users to know the population (and the characteristics of the population) of such areas.
+
+The National Records of Scotland (NRS), produces 2 datasets biennially which are designed to show the boundaries of urban areas in Scotland: these datasets are Settlements and Localities.
+
+While settlements can go a long way in defining the towns and cities in Scotland, some are very extensive and group together some very large populations.
+
+As an example, the settlement of ‘Greater Glasgow’ has a large population which covers several towns and cities including Clydebank and Paisley as well as Glasgow.  Accordingly, since 2001, the larger settlements have been divided into localities using as a basis the areas so designated in the 1991 Census report ‘Key Statistics for Localities in Scotland’ (ISBN 0-11-495736-3) and the 2001 Census report ‘Key Statistics for Settlements and Localities Scotland’ (ISBN 1-874451-68-0).
+
+Localities
+
+In 1981, the method used to define localities in Scotland was, in effect, based on built-up areas.  More specifically a locality was defined as:
+
+‘A continuous built-up area that had a population of approximately 500 or more at the time of the 1971 Census.’
+
+In deciding whether one built-up area joined on to another, gaps of more than about 1 km were considered to form a break. In addition, those areas that had existed as former burghs were separately identified, even if they were joined to other localities. In most cases the old burgh boundary was used to make the division. However, localities did not coincide exactly with the former burghs if the latter were not wholly built-up.
+
+Urban growth between 1971 and 1981 was reflected in the planning of the 1981 Enumeration Districts (EDs) so that each locality was an aggregate of one or more EDs. During the ED planning, the new local authorities were asked to confirm that the localities based on the 1971 Census would be valid for the purposes of the 1981 Census.
+
+The process identified 540 localities and following an examination of the 1981 Census output for Localities, the Scottish Office identified a further 17 urban areas which had populations of less than 500 at the time of the 1971 Census but which should have qualified in 1981 as localities because of population growth.
+
+By the time of the Census in 1991, NRS had digitised the boundaries of postcodes, which made calculation of population densities possible within postcodes.
+
+A postcode was defined to be urban if:
+•	It was assigned to a locality in 1981, or
+•	If had five or more people per hectare.
+Otherwise it was classed as rural.
+
+The method used to identify localities in 1991 was a three stage process:
+1.	Postcodes were classified as urban or rural.
+2.	Groups of adjoining urban postcodes were identified.
+3.	Local authorities were asked to suggest any changes needed to refine the above.
+
+The local authorities were asked to bear in mind that stages 1 and 2 may have failed to include postcodes that were unpopulated but which should still be deemed urban, e.g. industrial estates. They were also asked to take into consideration that the process may have combined several areas into one locality when each was associated locally as having a separate identity.
+
+The 1991 method identified 603 localities, 448 of which contained 1,000 residents or more, with the remainder containing a population of 500 or more but less than 1,000.
+
+Settlements
+
+For the 2001 Census, National Records of Scotland (NRS) had developed a new process to identify settlements in Scotland and the definition of a settlement was defined as:
+
+‘A collection of contiguous high density postcodes bounded by low density postcodes (or water) whose population was 500 or more.’
+
+A high density postcode had previously been referred to as an urban postcode but with a slightly different definition.
+
+A postcode was defined as high density if at least one of the following applied:
+
+•	It had more than 2.1 residential addresses per hectare; or
+•	It had more than 0.1 non-residential addresses per hectare.
+
+The second condition was included so that non-residential parts (e.g. industrial estates) of built-up areas could be identified.
+
+These density thresholds were adjusted downwards for some Council areas (generally those with crofting communities) in order to ensure that at least 95 per cent of postcodes identified as localities in 1991 were selected as high density.
+
+Having identified the individual high density postcodes it was then possible to identify groups of neighbouring high density postcodes containing in total more than 210 residential addresses. These groups were made to include any ‘holes’, i.e. low density postcodes entirely surrounded by high density ones. Estimates of the population in each group were made, and any group considered to have fewer than 500 residents was discarded.
+
+The threshold densities of 2.1 and 0.1 were found to give a good approximation to the built-up areas identified in previous Censuses using the more traditional methods.
+
+The threshold densities were adjusted in two Council areas, Eilean Siar and Shetland, where crofting and other factors such as settlement patterns vary considerably from the Scottish norm.
+
+2001 to Present
+
+From the 2001 Census onwards, settlements have been created using the above methodology. Localities have been determined by first creating settlements and then assigning a locality value to each of the postcodes in the settlement based on whether they fall within a previous locality.
+
+From 2003 onwards the same density thresholds were applied to all council areas and a third condition was added to identify high density postcodes, expanding the definition to:
+
+A postcode is high density if at least one of the following applied:
+•	It had more than 2.1 residential addresses per hectare;
+•	It had more than 0.1 non-residential addresses per hectare; or
+•	The estimate of the population per hectare exceeds five people.
+
+Postcodes with the same locality value are then aggregated together to form localities. Most settlement and locality boundaries are co-incidental, however, large settlements can be subdivided into two or more localities.
+
+For the 2016 datasets, Councils were consulted for their views on the proposed settlement and locality boundaries. Some, but not all, responded and their suggestions were taken into account, where possible, in the formation of the final datasets.
+
+Further details on settlements and localities, including the methodology, can be found in the Special Area Population Estimates: Settlements and Localities section of the NRS website. Changes to the methodology and publication are consulted on through the Population and Migration Statistics Committee.
+
+The Settlement and Locality boundaries have been created using an amended version of the Scottish Postcode Directory 2016-2 boundaries.
+
+NRS Geography upgraded their postcode management system in early 2016. This involved changing postcode boundaries so that they would align with Extent of the Realm, which mirrors Ordnance Survey’s Boundary-Line product. 2011 Census postcode boundaries were used as a base because they already align with Extent of the Realm. However, over 5000 postcodes had to be added or removed to reflect changes that happened since 2011. Due to the volume of work involved, it was not possible to also process all postcode boundary amendments where the addresses within the postcode fell outside the existing postcode boundary.  
+
+As the Settlement and Locality boundaries were to be created from the 2016-2 data an ad-hoc amend was required on postcodes on the boundary of the previous 2012 set of Settlements to remove any excess land, and to ensure that postcodes on the outskirts of the Settlements contained all the address content.  In some cases, due to time constraints, this was not possible.
+
+The Settlement and Locality boundaries were then clipped to the coastline using Ordnance Survey Boundary-Line High Water Mark (as at November 2017).  We have also removed the inland water as listed in the Standard Area Measurements (SAM) produced by the Office for National Statistics.
+
+There are 519 Settlements and 655 Localities within the 2016 dataset.
+</gco:CharacterString>
+						</gmd:statement>
+					</gmd:LI_Lineage>
+				</gmd:lineage>
+			</gmd:DQ_DataQuality>
+		</gmd:dataQualityInfo>
+		<gmd:referenceSystemInfo>
+			<gmd:MD_ReferenceSystem>
+				<gmd:referenceSystemIdentifier>
+					<gmd:RS_Identifier>
+						<gmd:code>
+							<gco:CharacterString>Great Britain National Grid</gco:CharacterString>
+						</gmd:code>
+					</gmd:RS_Identifier>
+				</gmd:referenceSystemIdentifier>
+			</gmd:MD_ReferenceSystem>
+		</gmd:referenceSystemInfo>
+		<gmd:contact>
+			<gmd:CI_ResponsibleParty>
+				<gmd:individualName>
+					<gco:CharacterString>National Records of Scotland</gco:CharacterString>
+				</gmd:individualName>
+				<gmd:organisationName>
+					<gco:CharacterString>Geography Branch</gco:CharacterString>
+				</gmd:organisationName>
+				<gmd:contactInfo>
+					<gmd:CI_Contact>
+						<gmd:address>
+							<gmd:CI_Address>
+								<gmd:deliveryPoint>
+									<gco:CharacterString>Ladywell House, Ladywell Road</gco:CharacterString>
+								</gmd:deliveryPoint>
+								<gmd:city>
+									<gco:CharacterString>Edinburgh</gco:CharacterString>
+								</gmd:city>
+								<gmd:postalCode>
+									<gco:CharacterString>EH12 7TF </gco:CharacterString>
+								</gmd:postalCode>
+								<gmd:electronicMailAddress>
+									<gco:CharacterString>geographycustomerservices@nrscotland.gov.uk</gco:CharacterString>
+								</gmd:electronicMailAddress>
+								<gmd:country>
+									<gmd:Country codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#Country" codeListValue="GBR">United Kingdom of Great Britain &amp; N. Ireland</gmd:Country>
+								</gmd:country>
+							</gmd:CI_Address>
+						</gmd:address>
+					</gmd:CI_Contact>
+				</gmd:contactInfo>
+				<gmd:role>
+					<gmd:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="pointOfContact">Point of contact</gmd:CI_RoleCode>
+				</gmd:role>
+			</gmd:CI_ResponsibleParty>
+		</gmd:contact>
+	</gmd:GEMINI_Metadata></metadata>
