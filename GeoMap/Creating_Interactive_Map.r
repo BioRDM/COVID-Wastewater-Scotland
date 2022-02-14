@@ -1,7 +1,7 @@
 library(rgdal)
 library(leaflet)
 library(htmlwidgets)
-Localities <- readOGR("https://github.com/BioRDM/COVID-Wastewater-Scotland/blob/CovidProject/GeoMap/localities2016boundaries/Localities2016_MHW.shp") # Read the shape file 
+Localities <- readOGR("localities2016boundaries/Localities2016_MHW.shp") # Read the shape file 
 proj4string(Localities) <- CRS("+init=epsg:27700") # tells it to be UK Grid system
 myfile <- spTransform(Localities, CRS("+init=epsg:4326"))
 myfile@data$area <- sapply(myfile@polygons, function(x) 1000*x@area) # generarate a column area by using function. You can also use Shape_Area attribute in creating addPolygons
@@ -10,7 +10,7 @@ pal <- colorQuantile(palette = "Blues",domain = myfile@data$area) # Select the c
 
 ********************Creating map frpm Virus levells on 4rth week of July 2021 **************************
                            
- Data1 = read.table("https://github.com/BioRDM/COVID-Wastewater-Scotland/blob/CovidProject/GeoMap/MapVirus.csv", header =TRUE, sep = ",") #Read a file with virus levels ,locations and Site name
+ Data1 = read.table("MapVirus.csv", header =TRUE, sep = ",") #Read a file with virus levels ,locations and Site name
  Data1 = as.data.frame(Data1)
                            
  # Filter the selected sites
