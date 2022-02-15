@@ -2,7 +2,7 @@
 install.packages("lubridate")
 install.packages("dplyr")
 library(lubridate)
-library(dplr)
+library(dplyr)
 
 Data = read.table("/home/sbaby/Desktop/Latest_data/Data.csv", header =TRUE, sep = ",")
 Data1 = as.data.frame(Data)
