@@ -22,6 +22,7 @@ Data2 = Data1[,order(colnames(Data1))] # Sort columns
 #Filtering by row name and columns
 Data2[row.names(Data2) %in% c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Linlithgow","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway"),32:95] -> DF_new
 # Convert the row.names to a column to facilitate the arrange function for custom sort 
+DF_new <- as.data.frame(DF_new)
 rownames_to_column(DF_new, var = "rowname") -> DF
 # Custom sort
 DF %>% arrange(factor(rowname, levels = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway"))) -> DF1
