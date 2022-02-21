@@ -14,12 +14,13 @@ Since May 2020, the Scottish Environment Protection Agency (SEPA) has been monit
 
 Currently, researchers at the University of Edinburgh are investigating whether different variants of SARS-CoV-2 can be detected and quantified in wastewater. This opens up the possibility to provide real-time data to PHS and related agencies to monitor and respond to new variants. 
 
-[![sampling sites](20211011%20Scotland%20map%20covid%20cases%20WW.jpg)](./Map_Virus-5)
+[
 
  
  |Sampling locations for COVID detection wastewater |Daily new case rates with samples taken up until 4th October|
  |:-:|:-:|
- |![sampling sites](20211011%20Scotland%20map%20covid%20cases%20WW.jpg)|![wastewater vs cases](20211011%20average%20trends%20in%20WW-%20modelling%20the%20epidemic%20issue%2072.jpg)|
+ |![sampling sites](20211011%20Scotland%20map%20covid%20cases%20WW.jpg)](./Map_Virus-5)
+ (click for interactive map) |![wastewater vs cases](20211011%20average%20trends%20in%20WW-%20modelling%20the%20epidemic%20issue%2072.jpg)|
 
 ## <span style="color: black;"> <span>&#9759;</span> Here are some useful links </span>
 
