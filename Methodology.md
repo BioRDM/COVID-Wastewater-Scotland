@@ -5,7 +5,7 @@ title: COVID Wastewater Scotland
 # Methodology
 
 ![detection_workflow](detection_workflow.jpg)
-**Flow chart ilustrating the steps from sample collection to final data.**
+***Flow chart ilustrating the steps from sample collection to final data.***
 
 The wastewater samples were collected by Scottish Water and its operators and SEPA. Samples were collected from sewage 
 influent using either autosamplers over a period of 24 hours or, in some cases, by means of a grab sample via manholes 
@@ -31,7 +31,7 @@ samples were clarified to remove particles and filter-concentrated to obtain suf
 RNA was then extracted, and SARS-CoV-2 gene copies (as well as the PRRS control) were quantified using one-step RT-qPCR. More 
 specifically, the amplification of the SARS-CoV-2 nucleocapsid gene N1 was monitored. 
 
-## Data analysis and description 
+## Data analysis  
 
 Depending on the amount of gene copies per litre obtained, samples were described as “Negative”, “Weak Positive”, 
 “Positive Detected, Not Quantifiable” (“Positive DNQ”) or “Positive”. The cut-off values used to apply this description 
@@ -40,7 +40,7 @@ and the limit of quantification (LoQ) values. The LoD is the value at which the 
 virus material with certainty, and in this case it was set to be 1,316 gc/L. The LoQ is the value above which the test 
 has been deemed to measure the virus material with a high degree of accuracy, and in this case was set at 11,368 gc/L. 
 
-Normalisation 
+### Normalisation 
 
 Although the gene copies per litre values described above are useful indicators of the presence of the virus in each 
 specific site, they do not consider the dilution factor caused by the incoming flow in wastewater or the size of the 
@@ -53,7 +53,7 @@ viral gene copies compared with the same number of positive individuals in a lar
 A better 
 representation of the spread of the virus within the population can be derived from normalised values that use the site 
 population and the incoming wastewater flow to determine the million gene copies per person per day. The detailed 
-normalisation protocol is provided on [Protocols](./Protocols). In short, to produce a daily value of million gene copies per 
+normalisation protocol is provided in [Protocols](./Protocols). In short, to produce a daily value of million gene copies per 
 person, the raw gene copies per litre value is multiplied by the daily flow total and divided by the population served at 
 each site. The flow for a specific site (waterworks location) is either measured directly or estimated using an ammonia data.
 
