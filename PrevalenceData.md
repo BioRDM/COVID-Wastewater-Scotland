@@ -14,9 +14,9 @@ individually, testing of wastewater in the sewage network could provide valuable
 within communities. Determining the fate of viral RNA during wastewater processing is important to informing appropriate 
 risk
 assessments with respect to any potential hazard from SARS-CoV-2 in wastewater.
-![prevalence_heatmap](covid_prevalence_heatmap.jpg)
-*** Heatmap showing viral RNA levels over time at selected sampling sites. This figure was generated for the data paper, 
-to illustrate key features of the data across the Alpha, Delta and Omicron waves.***
+
+![prevalence_heatmap](covid_prevalence_heatmap.jpeg)
+***Heatmap showing viral RNA levels over time at selected sampling sites. This figure was generated for the data paper, to illustrate key features of the data across the Alpha, Delta and Omicron waves.***
 
 * The "live" data from Covid monitoring are available from [SEPA RNA monitoring of SARS-CoV2 
 website](https://informatics.sepa.org.uk/RNAmonitoring/).
