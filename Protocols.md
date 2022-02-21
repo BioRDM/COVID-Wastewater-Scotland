@@ -15,7 +15,7 @@ RT-qPCR is a process whereby RNA is first converted to complementary DNA (cDNA) 
 This procedure outlines the method for amplification and quantification of the RNA extracted from Crude Sewage samples but could equally apply to other RNA extracted from other types of environmental sample.
 
 The complete protocol is available under:
-[link](https://protocols.io/view/rt-qpcr-for-detection-of-sars-cov-2-in-wastewater-bzwap7ae)
+[dx.doi.org/10.17504/protocols.io.bzwap7ae](dx.doi.org/10.17504/protocols.io.bzwap7ae)
 
 ## SARS-Cov2 RNA extraction from wastewater
 

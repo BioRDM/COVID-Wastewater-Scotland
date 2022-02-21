@@ -5,7 +5,7 @@ title: COVID Wastewater Scotland
 
 ## <span style="color: black;"> An overview </span>
 
-![This is an image](covid%20virus%202.jpg)
+![covid_virus](covid%20virus%202.jpg)
 
 <span style="color: black;"> Severe acute respiratory syndrome coronavirus 2 (SARS‑CoV‑2) is the virus that causes the respiratory illness COVID-19, responsible for the ongoing COVID-19 pandemic.
 Studies of infected patients have shown that SARS-CoV-2 RNA can be detected in the faeces of patients for weeks after the onset of clinical signs.
