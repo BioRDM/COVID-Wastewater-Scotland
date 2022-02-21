@@ -5,7 +5,7 @@ title: COVID Wastewater Scotland
 # Methodology
 
 ![detection_workflow](detection_workflow.jpg)
-***Flow chart ilustrating the steps from sample collection to final data.***
+*Flow chart ilustrating the steps from sample collection to final data.*
 
 The wastewater samples were collected by Scottish Water and its operators and SEPA. Samples were collected from sewage 
 influent using either autosamplers over a period of 24 hours or, in some cases, by means of a grab sample via manholes 
