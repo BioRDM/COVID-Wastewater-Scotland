@@ -11,6 +11,9 @@ NegativeandWeakPos = data.frame(group = "NegativeandWeakPos", value = Data3$Mill
 NegativeWeakPosandPosDNQ = data.frame(group = "NegativeWeakPosandPosDNQ", value = Data4$Million.Gene.Copies.Per.Person.per.Day)
 
 plot.data = rbind(Positive,NegativeandWeakPos,NegativeWeakPosandPosDNQ ) # Make data frame for plotting
+quantile(Data2$Million.Gene.Copies.Per.Person.per.Day,na.rm =T) # checking the quantile values for positive data
+        0%        25%        50%        75%       100% 
+    0.1600    19.9725    44.3200    89.0200 23570.7600 
 pdf("Boxplot.pdf",width =10, height = 10) # Save the file
 # Plot the data
 ggplot(na.omit(plot.data), aes(x=group, y=value, fill=group))  + geom_boxplot(notch=FALSE,outlier.colour = "red", outlier.shape = 1) + scale_y_continuous(limits=c(0,700), breaks=seq(0,700,10), expand = c(0, 0)) + theme(plot.title = element_text(hjust = 0.5),
