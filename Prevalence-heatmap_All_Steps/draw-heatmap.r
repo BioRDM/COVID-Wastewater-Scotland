@@ -25,7 +25,7 @@ quantile( Data5$Million.Gene.Copies.Per.Person.per.Day, na.rm=TRUE) # Calculate 
     0.1600    19.9725    44.3200    89.0200 23570.7600 
 
 
-Data = read.table("/home/sbaby/Desktop/Latest_data/Data.csv", header =TRUE, sep = ",")
+Data = read.table("/home/sbaby/Desktop/Latest_data/Data.csv", header =TRUE, sep = ",") # RNAMonitoring_File_Feb_2022.csv is converted to 3 column file: Data.csv as explained in ReadMe
 Data1 = as.data.frame(Data)
  # Extracting the Year month and week information from dates
 date =as.Date(Data1$Date, by="day")
@@ -37,5 +37,27 @@ Data1$Year = year(date)
 
 aggregate(Data1$Million.Gene.Copies.Per.Person.per.Day, by=list(Site=Data1$Site, Year= Data1$Year,Month = Data1$month, Week = Data1$week), FUN=mean, na.rm=TRUE) ->Meanaggregate
 
-write.csv(Meanaggregate,file="/home/sbaby/Desktop/Latest_data/Meanaggregate.csv")
+write.csv(Meanaggregate,file="/home/sbaby/Desktop/Latest_data/Meanaggregate.csv")  # Meanaggregate.csv is processed to Sample.csv as expalined in ReadMe
+
+Data = read.table("/home/sbaby/Desktop/Latest_data/Gaps_Closing1/Sample.csv", header =TRUE, sep = ",", row.names = 1) # Read the Preprocessed file (Normalized data arranged as mean value for each week)
+Data1 = as.matrix(Data)
+Data2 = Data1[,order(colnames(Data1))] # Sort columns 
+#Filtering by row name and columns
+Data2[row.names(Data2) %in% c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Linlithgow","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway"),32:100] -> DF_new
+# Convert the row.names to a column to facilitate the arrange function for custom sort 
+DF_new <- as.data.frame(DF_new)
+rownames_to_column(DF_new, var = "rowname") -> DF
+# Custom sort
+DF %>% arrange(factor(rowname, levels = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway"))) -> DF1
+# Convert it back to the row.names
+column_to_rownames(DF1, var = "rowname") -> DF2
+as.matrix(DF2) -> DF2
+Dates <- c("Dec-2020", "Jan-2021" ,"Feb-2021" ,"Mar-2021" ,"Apr-2021" ,"May-2021", "Jun-2021", "Jul-2021", "Aug-2021", "Sep-2021", "Oct-2021", "Nov-2021", "Dec-2021","Jan-2022", "Feb-2022")
+#Specify the annotation file for the bottom
+ha = HeatmapAnnotation(foo=anno_mark(at = c(1,6,10,14,19,24,29,34,39,44,49,54,59,64,69), labels = Dates,  labels_gp = gpar(fontsize=3, fontface = "bold"),which = "column", side = "bottom"))
+col_fun1 = colorRamp2(c(0,2.276259,89.0200), c("yellow", "orange","blue")) # 89.0200 is the third quantile value from the set of positivevalues for normalized data.Break points are set for the normalized values referring to the N1.Reported.Value range
+
+jpeg(filename= "Covid_Heatmap.jpeg", width=1000, height = 700, units= "px",res= 300) # Save as jpeg with width 1000 pixels, height = 700 pixels, and res = 300 dpi
+Heatmap(DF2, col = col_fun1,row_names_gp = gpar(fontsize = 3, fontfamily = "Helvetica",fontface= "bold") , column_names_rot = 90,column_title = "Covid virus prevelance at different sites along the timeline",column_title_gp = gpar(fontsize = 5,fontface = "bold"),na_col = "white", cluster_rows = FALSE, cluster_columns = FALSE , bottom_annotation = ha, show_column_names = FALSE,border = TRUE,border_gp = gpar(col = "grey"), row_names_side = "left", heatmap_legend_param = list(title="Virus levels",title_gp = gpar(fontsize =3, fontfamily = "Helvetica", fontface = "bold" ), at = c(0,2.276259,89.0200), labels = c("Negative", "Positive", "Third-quartile positive"), labels_gp= gpar(fontsize = 3, fontfamily = "Helvetica")))
+dev.off()
  
