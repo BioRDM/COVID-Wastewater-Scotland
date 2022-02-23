@@ -26,6 +26,12 @@ quantile(Data4$Million.Gene.Copies.Per.Person.per.Day,na.rm =T) # checking the q
  0.00  0.00  1.01  3.14 49.31 
 **[upper whisker end = 7.85[ calculated as (IQR*1.5=4.17 and the last value comes in the range 3.14+ 4.17 = 7.85)] 
  
+Data5<-(filter(Data, Data$N1.Reported.Value>=658 & Data$N1.Reported.Value<1316 )) # Filter for weak positive values
+quantile(Data5$Million.Gene.Copies.Per.Person.per.Day,na.rm =T)
+ 0%  25%  50%  75% 100%
+0.12 0.41 0.56 0.85 7.77  
+**[upper whisker end =1.5 [calculated as IQR *1.5 =.66 and the last value comes in the range .85 + .66 = 1.5 )
+
 pdf("Boxplot.pdf",width =10, height = 10) # Save the file
 # Plot the data
 ggplot(na.omit(plot.data), aes(x=group, y=value, fill=group))  + geom_boxplot(notch=FALSE,outlier.colour = "red", outlier.shape = 1) + scale_y_continuous(limits=c(0,700), breaks=seq(0,700,10), expand = c(0, 0)) + theme(plot.title = element_text(hjust = 0.5),
