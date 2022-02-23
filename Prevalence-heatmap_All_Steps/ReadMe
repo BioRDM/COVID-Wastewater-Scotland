@@ -1,1 +1,2 @@
-
+awk 'BEGIN {FS=",";OFS=","} {print $2,$3,$17}' RNAMonitoring_File_Feb_2022.csv > Data.csv # Extract the Site, Date and Normalizeddata from the prevalence-data-per-site-LScorza.csv
+This Data.csv file is used in the R code
