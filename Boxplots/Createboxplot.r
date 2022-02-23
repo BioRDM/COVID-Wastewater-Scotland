@@ -14,13 +14,18 @@ plot.data = rbind(Positive,NegativeandWeakPos,NegativeWeakPosandPosDNQ ) # Make 
 quantile(Data2$Million.Gene.Copies.Per.Person.per.Day,na.rm =T) # checking the quantile values for positive data
         0%        25%        50%        75%       100% 
     0.1600    19.9725    44.3200    89.0200 23570.7600 
+**[upper whisker end= 192.41[calculated as:  (IQR)*1.5 = 103.3713 and the last value comes in range 89.02(third quartile)+103.3713 = 192.59125]
+ 
 quantile(Data3$Million.Gene.Copies.Per.Person.per.Day,na.rm =T) # checking the quantile value for weak positives and negatives
   0%  25%  50%  75% 100% 
 0.00 0.00 0.00 0.31 7.77 
+**[ upper whisker end =.78[ calculated as (IQR*1.5 =.465 and the last value comes in the range .31(third quartile) +.465 = .78]  
+
 quantile(Data4$Million.Gene.Copies.Per.Person.per.Day,na.rm =T) # checking the quantile value for weak positives, negatives and positive(DNQ)
    0%   25%   50%   75%  100% 
  0.00  0.00  1.01  3.14 49.31 
-
+**[upper whisker end = 7.85[ calculated as (IQR*1.5=4.17 and the last value comes in the range 3.14+ 4.17 = 7.85)] 
+ 
 pdf("Boxplot.pdf",width =10, height = 10) # Save the file
 # Plot the data
 ggplot(na.omit(plot.data), aes(x=group, y=value, fill=group))  + geom_boxplot(notch=FALSE,outlier.colour = "red", outlier.shape = 1) + scale_y_continuous(limits=c(0,700), breaks=seq(0,700,10), expand = c(0, 0)) + theme(plot.title = element_text(hjust = 0.5),
