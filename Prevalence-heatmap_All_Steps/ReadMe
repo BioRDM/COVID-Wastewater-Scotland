@@ -1,5 +1,3 @@
-awk 'BEGIN {FS=",";OFS=","} {print $2,$3,$17}' RNAMonitoring_File_Feb_2022.csv > Data.csv # Extract the Site, Date and Normalizeddata from the RNAMonitoring_File_Feb_2022.csv
-This Data.csv file is used in the R code
 
 For Closing the gaps data in each week is averaged using the Rcode  and then the resultant file is processed as follows
 
