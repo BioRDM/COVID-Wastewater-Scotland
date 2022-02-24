@@ -3,7 +3,7 @@ This Data.csv file is used in the R code
 
 For Closing the gaps data in each week is averaged using the Rcode  and then the resultant file is processed as follows
 
-awk 'BEGIN {FS=",";OFS=","} {print $2,$3"-"$4"-"$5, $6}' Meanaggregate.csv |grep -v "Site" | sort -k1  > Meanaggregate1.csv # Print the Site,Year-Month-Week and averaged normalized data for each week. Sort by column 1 and replace " with null 
+awk 'BEGIN {FS=",";OFS=","} {print $2,$3"-"$4"-"$5, $6}' Meanaggregate.csv |grep -v "Site" | sort -k1  > Meanaggregate1.csv # Print the Site,Year-Month-Week and averaged normalized data for each week. Sort by column 1 
 
 Then Preprocess the file: 
 awk -F, -f Preprocessing.awk Meanaggregate1.csv | sort -k1  > Sample.csv 
