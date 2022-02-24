@@ -56,7 +56,12 @@ Dates <- c("Dec-2020", "Jan-2021" ,"Feb-2021" ,"Mar-2021" ,"Apr-2021" ,"May-2021
 ha = HeatmapAnnotation(foo=anno_mark(at = c(1,6,10,14,19,24,29,34,39,44,49,54,59,64,69), labels = Dates,  labels_gp = gpar(fontsize=3, fontface = "bold"),which = "column", side = "bottom"))
 col_fun1 = colorRamp2(c(0,2.276259,89.0200), c("yellow", "orange","blue")) # 89.0200 is the third quantile value from the set of positivevalues for normalized data.Break points are set for the normalized values referring to the N1.Reported.Value range
 
-jpeg(filename= "Covid_Heatmap.jpeg", width=1000, height = 700, units= "px",res= 300) # Save as jpeg with width 1000 pixels, height = 700 pixels, and res = 300 dpi
+jpeg(filename= "Covid_Heatmap_1.jpeg", width=1000, height = 700, units= "px",res= 300) # Save as jpeg with width 1000 pixels, height = 700 pixels, and res = 300 dpi
 Heatmap(DF2, col = col_fun1,row_names_gp = gpar(fontsize = 3, fontfamily = "Helvetica",fontface= "bold") , column_names_rot = 90,column_title = "Covid virus prevelance at different sites along the timeline",column_title_gp = gpar(fontsize = 5,fontface = "bold"),na_col = "white", cluster_rows = FALSE, cluster_columns = FALSE , bottom_annotation = ha, show_column_names = FALSE,border = TRUE,border_gp = gpar(col = "grey"), row_names_side = "left", heatmap_legend_param = list(title="Virus levels",title_gp = gpar(fontsize =3, fontfamily = "Helvetica", fontface = "bold" ), at = c(0,2.276259,89.0200), labels = c("Negative", "Positive", "Third-quartile positive"), labels_gp= gpar(fontsize = 3, fontfamily = "Helvetica")))
 dev.off()
- 
+
+col_fun1 = colorRamp2(c(0,1.5,89.0200), c("yellow", "orange","blue")) # 89.0200 is the third quantile value from the set of positivevalues for normalized data.Break points are set for the normalized values referring to the N1.Reported.Value range
+
+jpeg(filename= "Covid_Heatmap_2.jpeg", width=1000, height = 700, units= "px",res= 300) # Save as jpeg with width 1000 pixels, height = 700 pixels, and res = 300 dpi
+Heatmap(DF2, col = col_fun1,row_names_gp = gpar(fontsize = 3, fontfamily = "Helvetica",fontface= "bold") , column_names_rot = 90,column_title = "Covid virus prevelance at different sites along the timeline",column_title_gp = gpar(fontsize = 5,fontface = "bold"),na_col = "white", cluster_rows = FALSE, cluster_columns = FALSE , bottom_annotation = ha, show_column_names = FALSE,border = TRUE,border_gp = gpar(col = "grey"), row_names_side = "left", heatmap_legend_param = list(title="Virus levels",title_gp = gpar(fontsize =3, fontfamily = "Helvetica", fontface = "bold" ), at = c(0,1.5,89.0200), labels = c("Negative", "Positive", "Third-quartile positive"), labels_gp= gpar(fontsize = 3, fontfamily = "Helvetica")))
+dev.off() 
