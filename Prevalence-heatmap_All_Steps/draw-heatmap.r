@@ -1,4 +1,4 @@
-# Install the required packages
+#Install the required packages
 install.packages("circlize")
 install.packages("devtools")
 install_github("jokergoo/ComplexHeatmap")
@@ -24,22 +24,21 @@ quantile( Data5$Million.Gene.Copies.Per.Person.per.Day, na.rm=TRUE) # Calculate 
         0%        25%        50%        75%       100% 
     0.1600    19.9725    44.3200    89.0200 23570.7600 
 
+# ************Binning normalized data on a weekly basis***************
 
-Data = read.table("/home/sbaby/Desktop/Latest_data/Data.csv", header =TRUE, sep = ",") # RNAMonitoring_File_Feb_2022.csv is converted to 3 column file: Data.csv as explained in ReadMe
-Data1 = as.data.frame(Data)
- # Extracting the Year month and week information from dates
-date =as.Date(Data1$Date, by="day")
-Data1$week = sprintf("%02d", isoweek(date)) # Format week as 2 digit for sorting
-Data1$month = sprintf("%02d", month(date)) # Format month as 2 digit for sorting
-Data1$Year = year(date)
+# Extracting the Year month and week information from dates
+date =as.Date(Data$Date, by="day")
+Data$week = sprintf("%02d", isoweek(date)) # Format week as 2 digit for sorting
+Data$month = sprintf("%02d", month(date)) # Format month as 2 digit for sorting
+Data$Year = year(date)
 
-# Find average of normalized data for each week , grouped by Site, Month and Week
+# Finding the average of normalized data for each week , grouped by Site, Month and Week
 
-aggregate(Data1$Million.Gene.Copies.Per.Person.per.Day, by=list(Site=Data1$Site, Year= Data1$Year,Month = Data1$month, Week = Data1$week), FUN=mean, na.rm=TRUE) ->Meanaggregate
+aggregate(Data$Million.Gene.Copies.Per.Person.per.Day, by=list(Site=Data$Site, Year= Data$Year,Month = Data$month, Week = Data$week), FUN=mean, na.rm=TRUE) ->Meanaggregate
+write.csv(Meanaggregate,file="/home/sbaby/Desktop/Latest_data/Meanaggregate.csv") 
 
-write.csv(Meanaggregate,file="/home/sbaby/Desktop/Latest_data/Meanaggregate.csv")  # Meanaggregate.csv is processed to Sample.csv as expalined in ReadMe
-
-Data = read.table("/home/sbaby/Desktop/Latest_data/Gaps_Closing1/Sample.csv", header =TRUE, sep = ",", row.names = 1) # Read the Preprocessed file (Normalized data arranged as mean value for each week)
+# Meanaggregate.csv is processed to Sample.csv as expalined in ReadMe
+Data = read.table("/home/sbaby/Desktop/Latest_data/Gaps_Closing1/Sample.csv", header =TRUE, sep = ",", row.names = 1) # Read the Preprocessed file (Normalized data arranged as mean value for each week and converted to widertable format)
 Data1 = as.matrix(Data)
 Data2 = Data1[,order(colnames(Data1))] # Sort columns 
 #Filtering by row name and columns
