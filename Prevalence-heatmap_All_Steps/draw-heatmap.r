@@ -35,10 +35,10 @@ Data$Year = year(date)
 # Finding the average of normalized data for each week , grouped by Site, Month and Week
 
 aggregate(Data$Million.Gene.Copies.Per.Person.per.Day, by=list(Site=Data$Site, Year= Data$Year,Month = Data$month, Week = Data$week), FUN=mean, na.rm=TRUE) ->Meanaggregate
-write.csv(Meanaggregate,file="/home/sbaby/Desktop/Latest_data/Meanaggregate.csv") 
+write.csv(Meanaggregate,file="Meanaggregate.csv",quote = FALSE) 
 
 # Meanaggregate.csv is processed to Sample.csv as expalined in ReadMe
-Data = read.table("/home/sbaby/Desktop/Latest_data/Gaps_Closing1/Sample.csv", header =TRUE, sep = ",", row.names = 1) # Read the Preprocessed file (Normalized data arranged as mean value for each week and converted to widertable format)
+Data = read.table("Sample.csv", header =TRUE, sep = ",", row.names = 1) 
 Data1 = as.matrix(Data)
 Data2 = Data1[,order(colnames(Data1))] # Sort columns 
 #Filtering by row name and columns
