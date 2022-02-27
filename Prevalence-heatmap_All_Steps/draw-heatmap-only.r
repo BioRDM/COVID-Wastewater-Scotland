@@ -26,8 +26,8 @@ Dates <- c("Dec-2020", "Jan-2021" ,"Feb-2021" ,"Mar-2021" ,"Apr-2021" ,"May-2021
 ha = HeatmapAnnotation(foo=anno_mark(at = c(1,6,10,14,19,24,29,34,39,44,49,54,59,64,69), labels = Dates,  labels_gp = gpar(fontsize=3, fontface = "bold"),which = "column", side = "bottom"))
 
 #2.276259
-pos_start = 0.15
-pos_end = 89
+pos_start = 2.9
+pos_end = 88
 fName = paste("prevalence_heatmap_",pos_start,".jpeg", sep = "")
 
 col_fun1 = colorRamp2(c(0,pos_start,pos_end), c("yellow", "orange","blue")) # 89.0200 is the third quantile value from the set of positivevalues for normalized data and 2.276259 is the 2nd minimum value for the positive range.[Break points are set for the normalized values referring to the N1.Reported.Value range] 
@@ -37,8 +37,8 @@ Heatmap(DF2, col = col_fun1, row_names_gp = gpar(fontsize = 3, fontfamily = "Hel
         column_title_gp = gpar(fontsize = 5,fontface = "bold"), na_col = "white", cluster_rows = FALSE, cluster_columns = FALSE , 
         bottom_annotation = ha, show_column_names = FALSE, border = TRUE, border_gp = gpar(col = "grey"), 
         row_names_side = "left", 
-        heatmap_legend_param = list(title="Virus levels [gC/pP]", title_gp = gpar(fontsize =3, fontfamily = "Helvetica", fontface = "bold" ), at = c(0,2.276259,89.0200), 
-                                    labels = c("0", pos_start, pos_end), labels_gp= gpar(fontsize = 3, fontfamily = "Helvetica")))
+        heatmap_legend_param = list(title="Virus levels\n[Mgc/pp]", title_gp = gpar(fontsize =3, fontfamily = "Helvetica", fontface = "bold" ), at = c(0,2.276259,89.0200), 
+                                    labels = c("0", "positive", pos_end), labels_gp= gpar(fontsize = 3, fontfamily = "Helvetica")))
 
 dev.off()
 
