@@ -18,7 +18,7 @@ Data1[Data1$Site %in% c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philip
 
 
 
-# Add a function for decreasing legend 
+# Add a function for reversed legend 
 addLegend_decreasing <- function (map, position = c("topright", "bottomright", "bottomleft","topleft"),
                                   pal, values, na.label = "NA", bins = 7, colors, 
                                   opacity = 0.5, labels = NULL, labFormat = labelFormat(), 
@@ -54,7 +54,7 @@ addLegend_decreasing <- function (map, position = c("topright", "bottomright", "
           stop("The vector of breaks 'bins' must be equally spaced")
       n <- length(cuts)
       r <- range(values, na.rm = TRUE)
-      cuts <- cuts[cuts >= r[1] & cuts <= r[2]]
+      #cuts <- cuts[cuts >= r[1] & cuts <= r[2]]
       n <- length(cuts)
       p <- (cuts - r[1])/(r[2] - r[1])
       extra <- list(p_1 = p[1], p_n = p[n])
@@ -121,7 +121,8 @@ addLegend_decreasing <- function (map, position = c("topright", "bottomright", "
 }
 
 
-map = leaflet(Data1)
+#map = leaflet(Data1)
+map <- leaflet(data = myfile) # Define the  map file and polygon areas from the shape file
 
 # Circle markers only for selected sites 
 labels=c("Negative", "Positive") # Assign labels
@@ -169,7 +170,7 @@ attr(breakPal, "colorType") = "numeric"
 # Circle markers only for all sites  & With opaque text box                         
 Map_Virus<- map %>% addTiles() %>% 
   setView(-3.475300, 55.89687, zoom = 10) %>%
-  #addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica"))) %>% 
+  addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica"))) %>% 
   addLegend_decreasing(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE, bins = c(0,10,20,30,40,50,60,70,80,90)) %>% 
   #addLegend(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1, bins = c(0,10,20,30,40,50,60,70,80,90)) %>% 
   addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~pal1(Data1$Virus.levels),opacity = 1) %>% 
