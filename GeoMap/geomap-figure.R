@@ -1,24 +1,10 @@
-library(rgdal)
+
 library(htmlwidgets)
 library(leaflet)
 
-Localities <- readOGR("localities2016boundaries/Localities2016_MHW.shp") # Read the shape file 
-proj4string(Localities) <- CRS("+init=epsg:27700") # tells it to be UK Grid system
-myfile <- spTransform(Localities, CRS("+init=epsg:4326"))
-myfile@data$area <- sapply(myfile@polygons, function(x) 1000*x@area) # generarate a column area by using function. You can also use Shape_Area attribute in creating addPolygons
-pal <- colorQuantile(palette = "Blues",domain = myfile@data$area) # Select the color for the polygon area
 
-#********************Creating map frpm Virus levells on 4rth week of July 2021 **************************
-  
-Data1 = read.table("MapVirus.csv", header =TRUE, sep = ",") #Read a file with virus levels ,locations and Site name
-Data1 = as.data.frame(Data1)
-
-# Filter the selected sites
-Data1[Data1$Site %in% c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Linlithgow","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway", "Kirkcaldy"),] -> Selected_Sites                                                 
-
-
-
-# Add a function for reversed legend 
+# Add a custom function for reversed legend 
+# it also kips the original bins rather than truncate to the data (otherwise the top one bar was missing)
 addLegend_decreasing <- function (map, position = c("topright", "bottomright", "bottomleft","topleft"),
                                   pal, values, na.label = "NA", bins = 7, colors, 
                                   opacity = 0.5, labels = NULL, labFormat = labelFormat(), 
@@ -54,7 +40,7 @@ addLegend_decreasing <- function (map, position = c("topright", "bottomright", "
           stop("The vector of breaks 'bins' must be equally spaced")
       n <- length(cuts)
       r <- range(values, na.rm = TRUE)
-      #cuts <- cuts[cuts >= r[1] & cuts <= r[2]]
+      #cuts <- cuts[cuts >= r[1] & cuts <= r[2]] # I remved it so the blue at the max is visible
       n <- length(cuts)
       p <- (cuts - r[1])/(r[2] - r[1])
       extra <- list(p_1 = p[1], p_n = p[n])
@@ -120,42 +106,9 @@ addLegend_decreasing <- function (map, position = c("topright", "bottomright", "
   invokeMethod(map, data, "addLegend", legend)
 }
 
-
-map = leaflet(Data1)
-#map <- leaflet(data = myfile) # Define the  map file and polygon areas from the shape file
-
-# Circle markers only for selected sites 
-labels=c("Negative", "Positive") # Assign labels
-pal1 <- colorNumeric(palette = c("yellow","dark orange","blue"),domain = Selected_Sites$Virus.levels)                          
-Map_Virus<- map %>% addTiles() %>% setView(-3.475300, 55.89687, zoom = 10) %>% addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica")))%>% addLegend_decreasing(data= Selected_Sites,"bottomright",pal = pal1,values = Selected_Sites$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE,labFormat = function(type, cuts, p) {paste0(labels)})%>% addCircles(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,weight =20, color = ~pal1(Selected_Sites$Virus.levels),opacity = 1)%>% addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = T,opacity = 1,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                                             
-saveWidget(widget = Map_Virus, file = "Map_Virus-1.html")
-
-
-# Using ColorQuantile function and Circle markers only for all sites
-pal1 <- colorQuantile(palette = c("Dark2"),domain =Data1$Virus.levels,na.color = NA)     
-Map_Virus<- map %>% addTiles() %>% 
-  setView(-3.475300, 55.89687, zoom = 10) %>% 
-  #addPolygons(fillColor = ~pal(area), fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name, labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica"))) %>% 
-  addLegend_decreasing(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels, title = "Virus levels", opacity = 1,decreasing = TRUE) %>% 
-  addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~pal1(Data1$Virus.levels),opacity = 1) %>% 
-  addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = T,opacity = 1,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                             
-saveWidget(widget = Map_Virus, file = "geo-map.html")
-
-
-# Circle markers only for all sites
-pal1 <- colorNumeric(palette = c("yellow","purple","dark orange", "green", "blue"),domain =Data1$Virus.levels,na.color = NA)                         
-Map_Virus<- map %>% addTiles() %>% setView(-3.475300, 55.89687, zoom = 10) %>%
-  #addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica"))) %>% 
-  addLegend_decreasing(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE) %>% 
-  addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~pal1(Data1$Virus.levels),opacity = 1) %>% 
-  addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = T,opacity = 1,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                          
-(widget = Map_Virus, file = "geo-map.html")
-
-orgData = Data1
-Data1$Virus.levels[Data1$Virus.levels > 88] = 88
-#pal1 <- colorNumeric(palette = c("yellow","purple","dark orange", "green", "blue"),domain =Data1$Virus.levels,na.color = NA)                         
-pal1 <- colorNumeric(palette = c("yellow","blue"),domain = 0:90,na.color = "black")                         
-
+# Creates a custom function for palete that has break point (to match heatmap)
+# it should be a factory method that returns a closure but I do not know now how to do it
+# that is good enough
 breakPal = function(val) {
   pal <- colorNumeric(palette = c("orange", "blue"),domain = 0:90,na.color = "black")                         
   
@@ -167,14 +120,49 @@ breakPal = function(val) {
 }
 attr(breakPal, "colorType") = "numeric"
 
-# Circle markers only for all sites  & With opaque text box                         
-Map_Virus<- map %>% addTiles() %>% 
-  setView(-3.475300, 55.89687, zoom = 10) %>%
+
+#********************Creating map frpm Virus levells on 4rth week of July 2021 **************************
+Data1 = read.table("MapVirus.csv", header =TRUE, sep = ",") #Read a file with virus levels ,locations and Site name
+Data1 = as.data.frame(Data1)
+Data1$Virus.levels[Data1$Virus.levels > 88] = 88 # truncate data as in the heatmap
+
+#sites (and data) are split into two groups to manually control the position of the labels
+sitesNames = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
+rightSitesNames = c("Hatton","Stevenston", "Seafield","Philipshill","Dunfermline","Kirkcaldy","Lockerbie","Hamilton","Shieldhall")
+leftSitesNames = unique(sitesNames[! sitesNames %in% rightSitesNames])
+
+# Filter the selected sites
+leftSelected_Sites = Data1[Data1$Site %in% leftSitesNames,]                                                  
+rightSelected_Sites = Data1[Data1$Site %in% rightSitesNames,]                                                  
+
+dotsColor = breakPal
+ 
+
+# For static screenshot Circle markers only for selected sites  & With opaque text box                         
+Map_Virus<- leaflet(Data1) %>% 
+  addTiles() %>% 
+  setView(-3.475300, 55.89687, zoom = 8) %>%
   #addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica"))) %>% 
-  addLegend_decreasing(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE, bins = c(0,10,20,30,40,50,60,70,80,90)) %>% 
-  #addLegend(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1, bins = c(0,10,20,30,40,50,60,70,80,90)) %>% 
-  addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~pal1(Data1$Virus.levels),opacity = 1) %>% 
-  addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = F,opacity = .6,textsize = "25px", direction="left", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                                                   
-saveWidget(widget = Map_Virus, file = "geo-map.html") 
-Data1=orgData
+  addLegend_decreasing(data= Data1,"bottomright",pal = dotsColor, values = Data1$Virus.levels,
+                       title = "Virus levels", opacity = 1,decreasing = TRUE, bins = c(0,10,20,30,40,50,60,70,80,90)) %>% 
+  addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~dotsColor(Data1$Virus.levels),opacity = 1) %>% 
+  addLabelOnlyMarkers(lng = leftSelected_Sites$lon,lat = leftSelected_Sites$lat, label = leftSelected_Sites$Site,
+                      labelOptions = labelOptions(noHide = T, textOnly = F,opacity = .7,textsize = "25px", direction="left", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1))) %>%                                                   
+  addLabelOnlyMarkers(lng = rightSelected_Sites$lon,lat = rightSelected_Sites$lat, label = rightSelected_Sites$Site,
+                      labelOptions = labelOptions(noHide = T, textOnly = F,opacity = .7,textsize = "25px", direction="right", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                                                   
+saveWidget(widget = Map_Virus, file = "geo-map-for-figure.html", ) 
+
+# For interactive map, 
+Map_Virus<- leaflet(Data1) %>% 
+  addTiles() %>% 
+  setView(-3.475300, 55.89687, zoom = 8) %>%
+  #addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica"))) %>% 
+  addLegend_decreasing(data= Data1,"bottomright",pal = dotsColor, values = Data1$Virus.levels,
+                       title = "Virus levels", opacity = 1,decreasing = TRUE, bins = c(0,10,20,30,40,50,60,70,80,90)) %>% 
+  addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~dotsColor(Data1$Virus.levels),opacity = 1) %>% 
+  addLabelOnlyMarkers(lng = leftSelected_Sites$lon,lat = leftSelected_Sites$lat, label = leftSelected_Sites$Site,
+                      labelOptions = labelOptions(noHide = T, textOnly = F,opacity = .7,textsize = "16px", direction="left", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1))) %>%                                                   
+  addLabelOnlyMarkers(lng = rightSelected_Sites$lon,lat = rightSelected_Sites$lat, label = rightSelected_Sites$Site,
+                      labelOptions = labelOptions(noHide = T, textOnly = F,opacity = .7,textsize = "16px", direction="right", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                                                   
+saveWidget(widget = Map_Virus, file = "geo-map-interactive.html", ) 
 
