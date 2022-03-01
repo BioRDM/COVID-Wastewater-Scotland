@@ -1,0 +1,656 @@
+,Localities_names
+1,Aberchirder
+2,Aberdeen
+3,Aberdour
+4,Aberfeldy
+5,Aberfoyle
+6,Aberlady
+7,Aberlour
+8,Abernethy
+9,Aboyne
+10,Addiewell
+11,Airdrie
+12,Airth
+13,Alexandria
+14,Alford
+15,Allanton
+16,Alloa
+17,Almondbank
+18,Alness
+19,Alva
+20,Alyth
+21,Ancrum
+22,Annan
+23,Annbank
+24,Anstruther
+25,Arbroath
+26,Ardersier
+27,Ardrishaig
+28,Ardrossan
+29,Armadale
+30,Ashgill
+31,Auchenblae
+32,Auchinleck
+33,Auchinloch
+34,Auchterarder
+35,Auchtermuchty
+36,Auldearn
+37,Aviemore
+38,Avoch
+39,Avonbridge
+40,Ayr
+41,Ayton
+42,Baile a'Mhanaich (Balivanich)
+43,Balfron
+44,Balintore
+45,Ballachulish
+46,Ballater
+47,Ballingry, Lochore and Crosshill
+48,Balloch
+49,Balloch and Haldane
+50,Balmedie
+51,Balmullo
+52,Banavie and Corpach
+53,Banchory
+54,Banff
+55,Bankfoot
+56,Banknock
+57,Bannockburn
+58,Bargeddie
+59,Barrhead
+60,Bathgate
+61,Bearsden
+62,Beauly
+63,Beith
+64,Bellsbank
+65,Bellshill
+66,Biggar
+67,Bilston
+68,Birkhill and Muirhead
+69,Bishopbriggs
+70,Bishopton
+71,Blackburn (Aberdeenshire)
+72,Blackburn (West Lothian)
+73,Blackford
+74,Blackridge
+75,Blairgowrie
+76,Blairhall
+77,Blantyre
+78,Bo'ness
+79,Boddam
+80,Bonhill
+81,Bonnybridge
+82,Bonnyrigg
+83,Bothwell
+84,Bowling
+85,Bowmore
+86,Braco
+87,Brae
+88,Braidwood
+89,Brechin
+90,Bridge of Allan
+91,Bridge of Earn
+92,Bridge of Weir
+93,Bridgend
+94,Brightons
+95,Broadford
+96,Brodick
+97,Brookfield
+98,Brora
+99,Broxburn
+100,Buchlyvie
+101,Buckhaven
+102,Buckie
+103,Burghead
+104,Burntisland
+105,Burrelton
+106,Busby
+107,Cairneyhill
+108,Calderbank
+109,Caldercruix
+110,California
+111,Callander
+112,Cambuslang
+113,Campbeltown
+114,Caol
+115,Cardenden and Auchterderran
+116,Cardrona
+117,Cardross
+118,Carfin
+119,Cargenbridge
+120,Carluke
+121,Carmunnock
+122,Carnock
+123,Carnoustie
+124,Carnwath
+125,Carron
+126,Carronshore
+127,Carstairs
+128,Carstairs Junction
+129,Castle Douglas
+130,Castletown
+131,Catrine
+132,Ceres
+133,Chapelhall
+134,Chapelton
+135,Chirnside
+136,Chryston
+137,Clackmannan
+138,Clarkston
+139,Cleland
+140,Clydebank
+141,Coalburn
+142,Coalsnaughton
+143,Coaltown of Balgonie
+144,Coaltown of Wemyss
+145,Coatbridge
+146,Cockenzie
+147,Coldingham
+148,Coldstream
+149,Comrie (Fife)
+150,Comrie (Perth and Kinross)
+151,Conon Bridge
+152,Coupar Angus
+153,Cove Bay
+154,Cowdenbeath and Lumphinnans
+155,Cowie
+156,Coylton
+157,Crail
+158,Creetown
+159,Crieff
+160,Crimond
+161,Cromarty
+162,Crook of Devon
+163,Crossford (Fife)
+164,Crossford (South Lanarkshire)
+165,Crossgates
+166,Crosshill
+167,Crosshouse
+168,Croy
+169,Cruden Bay
+170,Cullen
+171,Culloden
+172,Cumbernauld
+173,Cuminestown
+174,Cumnock
+175,Cupar
+176,Dailly
+177,Dalbeattie
+178,Dalgety Bay
+179,Dalkeith
+180,Dalmellington
+181,Dalry
+182,Dalrymple
+183,Danderhall
+184,Darnick
+185,Darvel
+186,Dechmont
+187,Denholm
+188,Denny
+189,Dennyloanhead
+190,Dingwall
+191,Dirleton
+192,Dollar
+193,Dornoch
+194,Douglas
+195,Doune
+196,Dreghorn
+197,Drongan
+198,Drumnadrochit
+199,Drumoak
+200,Drymen
+201,Dufftown
+202,Dullatur
+203,Dumbarton
+204,Dumfries
+205,Dunbar
+206,Dunbeg
+207,Dunblane
+208,Dundee
+209,Dundonald
+210,Dunfermline
+211,Dunipace
+212,Dunkeld and Birnam
+213,Dunlop
+214,Dunning
+215,Dunoon
+216,Duns
+217,Duntocher and Hardgate
+218,Dyce
+219,Eaglesfield
+220,Eaglesham
+221,Earlston
+222,East Calder
+223,East Kilbride
+224,East Linton
+225,East Wemyss
+226,East Whitburn
+227,Eastfield
+228,Eastriggs
+229,Ecclefechan
+230,Edinburgh
+231,Edzell
+232,Elderslie
+233,Elgin
+234,Elie and Earlsferry
+235,Ellon
+236,Elphinstone
+237,Errol
+238,Erskine
+239,Evanton
+240,Eyemouth
+241,Faifley
+242,Fairlie
+243,Falkirk
+244,Falkland
+245,Fallin
+246,Fauldhouse
+247,Fenwick
+248,Ferryden and Inchbraoch
+249,Findhorn
+250,Findochty
+251,Finstown
+252,Fochabers
+253,Forfar
+254,Forgandenny
+255,Forres
+256,Fort Augustus
+257,Fort William
+258,Forth
+259,Fortrose
+260,Fraserburgh
+261,Freuchie
+262,Friockheim
+263,Gairloch
+264,Galashiels
+265,Galston
+266,Gardenstown
+267,Garelochhead
+268,Gargunnock
+269,Garmouth
+270,Gartcosh
+271,Gartloch
+272,Gatehouse of Fleet
+273,Gauldry
+274,Giffnock
+275,Gifford
+276,Girvan
+277,Glasgow
+278,Glassford
+279,Glenboig
+280,Glenfarg
+281,Glenluce
+282,Glenmavis
+283,Glenochil Village
+284,Glenrothes
+285,Golspie
+286,Gorebridge
+287,Gourdon
+288,Gourock
+289,Gowkthrapple
+290,Grangemouth
+291,Grantown-on-Spey
+292,Greengairs
+293,Greenhill
+294,Greenlaw
+295,Greenock
+296,Gretna
+297,Guardbridge
+298,Gullane
+299,Haddington
+300,Haggs and Longcroft
+301,Halkirk
+302,Hallglen
+303,Hamilton
+304,Harthill
+305,Hatton of Cruden
+306,Hawick
+307,Head of Muir
+308,Helensburgh
+309,High Bonnybridge
+310,High Valleyfield, Low Valleyfield and Culross
+311,Hillhead
+312,Hillside
+313,Holytown
+314,Hopeman
+315,Houston
+316,Howwood
+317,Huntly
+318,Hurlford and Crookedholm
+319,Inchinnan
+320,Inchture
+321,Innellan
+322,Innerleithen
+323,Insch
+324,Inverallochy and Cairnbulg
+325,Inveraray
+326,Inverbervie
+327,Invergordon
+328,Invergowrie
+329,Inverkeithing
+330,Inverkip
+331,Inverness
+332,Inverurie
+333,Irvine
+334,Jedburgh
+335,Johnshaven
+336,Johnstone
+337,Keith
+338,Kelso
+339,Kelty
+340,Kemnay
+341,Kennoway
+342,Kilbarchan
+343,Kilbirnie
+344,Kilcreggan
+345,Killearn
+346,Killin
+347,Kilmacolm
+348,Kilmarnock
+349,Kilmaurs
+350,Kilsyth
+351,Kilwinning
+352,Kincardine
+353,Kinghorn
+354,Kinglassie
+355,Kingseat (Aberdeenshire)
+356,Kingseat (Fife)
+357,Kingskettle and Kettlebridge
+358,Kingswells
+359,Kingussie
+360,Kinlochleven
+361,Kinloss
+362,Kinnesswood
+363,Kinross
+364,Kintore
+365,Kippen
+366,Kirkcaldy and Dysart
+367,Kirkconnel
+368,Kirkcudbright
+369,Kirkfieldbank
+370,Kirkhill
+371,Kirkintilloch
+372,Kirkliston
+373,Kirkmuirhill and Blackwood
+374,Kirknewton
+375,Kirkwall
+376,Kirriemuir
+377,Kyle of Lochalsh
+378,Ladybank
+379,Lamlash
+380,Lanark
+381,Langbank
+382,Langholm
+383,Larbert
+384,Largs
+385,Larkhall
+386,Lauder
+387,Laurencekirk
+388,Laurieston
+389,Law
+390,Lennoxtown
+391,Lenzie
+392,Lerwick
+393,Leslie
+394,Lesmahagow
+395,Letham
+396,Leuchars
+397,Leven
+398,Lhanbryde
+399,Liff
+400,Limekilns and Charlestown
+401,Linlithgow
+402,Linwood
+403,Livingston
+404,Loanhead
+405,Loans
+406,Locharbriggs
+407,Lochgelly
+408,Lochgilphead
+409,Lochmaben
+410,Lochwinnoch
+411,Lockerbie
+412,Logan
+413,Longforgan
+414,Longniddry
+415,Longridge
+416,Longside
+417,Lossiemouth
+418,Lower Largo and Lundin Links
+419,Lumphanan
+420,Luncarty
+421,Macduff
+422,Macmerry
+423,Maddiston
+424,Mallaig
+425,Markinch
+426,Maryburgh
+427,Marywell
+428,Mauchline
+429,Maud
+430,Maybole
+431,Mayfield
+432,Melrose
+433,Menstrie
+434,Methil
+435,Methlick
+436,Methven
+437,Mid Calder
+438,Millport
+439,Milltimber
+440,Milnathort
+441,Milngavie
+442,Milton
+443,Milton and Kildary
+444,Milton of Campsie
+445,Milton of Leys
+446,Mintlaw
+447,Moffat
+448,Moniaive
+449,Monifieth
+450,Monkton
+451,Montrose
+452,Moodiesburn
+453,Morningside
+454,Mossblown
+455,Mosstodloch
+456,Motherwell
+457,Muir of Ord
+458,Muirhead
+459,Muirkirk
+460,Murthly
+461,Musselburgh
+462,Muthill
+463,Nairn
+464,Neilston
+465,Netherburn
+466,Netherlee
+467,Nethy Bridge
+468,New Cumnock
+469,New Deer
+470,New Pitsligo
+471,New Stevenston
+472,Newarthill
+473,Newbattle
+474,Newbridge and Ratho Station
+475,Newburgh (Aberdeenshire)
+476,Newburgh (Fife)
+477,Newcastleton
+478,Newmachar
+479,Newmains
+480,Newmarket, Lacasdal and Bruach Mairi (Newmarket, Laxdale and Marybank)
+481,Newmilns
+482,Newport-on-Tay and Wormit
+483,Newton Mearns
+484,Newton Stewart
+485,Newtonhill
+486,Newtonmore
+487,Newtown St Boswells
+488,Newtyle
+489,North Berwick
+490,North Kessock
+491,North Queensferry
+492,Oakley
+493,Oban
+494,Ochiltree
+495,Old Kilpatrick
+496,Oldmeldrum
+497,Ormiston
+498,Overtown
+499,Paisley
+500,Pathhead
+501,Patna
+502,Peebles
+503,Pencaitland
+504,Penicuik
+505,Perth
+506,Peterculter
+507,Peterhead
+508,Pitlochry
+509,Pitmedden
+510,Pittenweem
+511,Plains
+512,Plean
+513,Polbeth
+514,Polmont
+515,Port Bannatyne
+516,Port Ellen
+517,Port Glasgow
+518,Portgordon
+519,Portknockie
+520,Portlethen
+521,Portpatrick
+522,Portree
+523,Portsoy
+524,Potterton
+525,Prestonpans
+526,Prestwick
+527,Quarrier's Village
+528,Quarter
+529,Queenzieburn
+530,Ratho
+531,Redding
+532,Reddingmuirhead
+533,Renfrew
+534,Renton
+535,Rhu
+536,Rigside
+537,Rosehearty
+538,Rosemarkie
+539,Rosewell
+540,Roslin
+541,Rosneath
+542,Rosyth
+543,Rothes
+544,Rothesay
+545,Rothienorman
+546,Rumford
+547,Rutherglen
+548,Saline
+549,Salsburgh
+550,Saltcoats
+551,Sandbank
+552,Sandhaven
+553,Sanndabhaig (Sandwick)
+554,Sanquhar
+555,Sauchie
+556,Scalloway
+557,Scone
+558,Seafield
+559,Selkirk
+560,Shieldhill
+561,Shotts
+562,Skelmorlie
+563,Slamannan
+564,Smithton
+565,South Queensferry
+566,Spean Bridge
+567,Springfield
+568,Springside
+569,St Andrews
+570,St Boswells
+571,St Combs
+572,St Cyrus
+573,St Fergus
+574,St Madoes and Glencarse
+575,St Monans
+576,Stamperland
+577,Stanley
+578,Stenhousemuir
+579,Steornabhagh (Stornoway)
+580,Stepps
+581,Stevenston
+582,Stewarton
+583,Stirling
+584,Stonehaven
+585,Stonehouse
+586,Stoneyburn
+587,Stow
+588,Stranraer
+589,Strathaven
+590,Strathblane
+591,Strathkinness
+592,Strathmiglo
+593,Strathpeffer
+594,Strichen
+595,Stromness
+596,Stuartfield
+597,Symington (South Ayrshire)
+598,Symington (South Lanarkshire)
+599,Tain
+600,Tarbert
+601,Tarbolton
+602,Tarland
+603,Tarves
+604,Tayport
+605,Thankerton
+606,Thornhill (Dumfries and Galloway)
+607,Thornhill (Stirling)
+608,Thornliebank
+609,Thornton
+610,Thorntonhall
+611,Thurso
+612,Tighnabruaich
+613,Tillicoultry
+614,Tobermory
+615,Torphichen
+616,Torphins
+617,Torrance
+618,Torryburn and Newmills
+619,Townhill
+620,Tranent
+621,Troon
+622,Tullibody
+623,Turriff
+624,Twechar
+625,Tweedbank
+626,Uddingston
+627,Ullapool
+628,Uplawmoor
+629,Viewpark
+630,Walkerburn
+631,Wallacestone
+632,Wallyford
+633,Waterfoot
+634,Wattston
+635,Wellbank
+636,Wemyss Bay
+637,West Barns
+638,West Calder
+639,West Kilbride
+640,West Linton
+641,Westhill (Aberdeenshire)
+642,Westhill (Highland)
+643,Westquarter
+644,Whitburn
+645,Whitecraig
+646,Whitecross
+647,Whitehills
+648,Whithorn
+649,Whiting Bay
+650,Wick
+651,Wigtown
+652,Winchburgh
+653,Windygates
+654,Wishaw
+655,Yetholm
