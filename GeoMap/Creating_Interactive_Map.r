@@ -153,3 +153,9 @@ saveWidget(widget = Map_Virus, file = "/home/sbaby/Desktop/Map_Virus-6.html")
 # Using ColorQuantile function and Circle markers only for all sites and opaque text boxes                          
 Map_Virus<- map %>% addTiles() %>% setView(-3.475300, 55.89687, zoom = 10) %>% addPolygons(fillColor = ~pal(area),fillOpacity = .8,color = "#C0C0C0",weight = 1,label = myfile@data$name,labelOptions = labelOptions(noHide = F, textOnly = TRUE, style= list("font-family" = "Helvetica")))%>% addLegend_decreasing(data= Data1,"bottomright",pal = pal1,values = Data1$Virus.levels,title = "Virus levels", opacity = 1,decreasing = TRUE)%>% addCircles(lng = Data1$lon,lat = Data1$lat, label = Data1$Site,weight =20, color = ~pal1(Data1$Virus.levels),opacity = 1)%>% addLabelOnlyMarkers(lng = Selected_Sites$lon,lat = Selected_Sites$lat, label = Selected_Sites$Site,labelOptions = labelOptions(noHide = T, textOnly = F,opacity = .6,textsize = "19px", style = list("font-weight" = "bold","font-family" = "Helvetica",opacity = 1)))                            
 saveWidget(widget = Map_Virus, file = "/home/sbaby/Desktop/Map_Virus-7.html")
+
+#**********Save the Localities[For reference only]************
+Localities_names <- myfile@data$name
+Localities_names <- as.data.frame(Localities_names)
+write.csv(Localities_names,file="Localities_names.csv",quote = FALSE) 
+                        
