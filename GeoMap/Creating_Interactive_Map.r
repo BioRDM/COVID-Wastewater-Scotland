@@ -6,7 +6,7 @@ proj4string(Localities) <- CRS("+init=epsg:27700") # tells it to be UK Grid syst
 myfile <- spTransform(Localities, CRS("+init=epsg:4326"))
 myfile@data$area <- sapply(myfile@polygons, function(x) 1000*x@area) # generarate a column area by using function. You can also use Shape_Area attribute in creating addPolygons
 pal <- colorQuantile(palette = "Blues",domain = myfile@data$area) # Select the color for the polygon area
-map <- leaflet(data = myfile) # Define the polygon areas from the shape file
+map <- leaflet(data = myfile) # Define the  map file and polygon areas from the shape file
 
 ********************Creating map frpm Virus levells on 4rth week of July 2021 **************************
                            
