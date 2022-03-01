@@ -1,3 +1,5 @@
+install.packages("sgo")
+install.packages("lubridate")
 library(lubridate)
 Data = read.table("2022_02_14-RNA_Monitoring_Project_HB_Added.csv", header =TRUE, sep = ",")
 as.data.frame(Data) -> Data
@@ -5,3 +7,12 @@ colnames(Data) <- c("Health_Board","Site","Date_collected","Date_analysed", "SW_
 Data$Date_collected<- dmy(Data$Date_collected) #Change the date format to YYYY-MM-DD
 Data$Date_analysed<- dmy(Data$Date_analysed)   #Change the date format to YYYY-MM-DD
 write.csv(Data,file="data_renamed.csv",quote = FALSE)
+
+library(sgo)
+Data1 = read.table("Sites_coordinates_full.csv", header =TRUE, sep = ",")
+locs <- sgo_points(Data1, coords=c("Longitude_dd", "Latitude_dd"), epsg=27700)
+Data_sgo_4326 <- sgo_bng_lonlat(locs, to=4326)
+Data_4326 <- as.data.frame(Data_sgo_4326)
+colnames(Data_4326) = c("Longitude_dd", "Latitude_dd", "Health_Board","Site")
+write.csv(Data_4326,file="sampling_sites.csv")
+full_join(Data, Data_4326, by = "Site") -> Df_full
