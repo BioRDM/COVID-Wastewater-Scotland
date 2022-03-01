@@ -27,4 +27,17 @@ As an analytical control, samples are spiked with a known quantity of non-target
 The complete protocol is available under:
 [dx.doi.org/10.17504/protocols.io.bzv5p686](https://dx.doi.org/10.17504/protocols.io.bzv5p686)
 
+## Data normalisation of RT-qPCR data
+
+After obtaining the raw measurements as gene copies per litre using RT-qPCR, a normalisation process is required 
+prior to reporting the data as RNA copies per person. 
+This is because the concentration of viral RNA in wastewater is affected by both the population of the catchment 
+area at each waterworks, as well as the amount of flow into the works. For example, an area with heavy rainfall 
+will have high volumes of fluid flow, which will dilute RNA values. 
+
+Therefore, parameters such as the flow volume of wastewater and population size are used to overcome this bias. 
+
+The complete protocol is available under:
+[dx.doi.org/10.17504/protocols.io.b4eqqtdw](https://dx.doi.org/10.17504/protocols.io.b4eqqtdw)
+
 {% include bottomnavbar.html %}
