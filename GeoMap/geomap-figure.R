@@ -124,7 +124,8 @@ attr(breakPal, "colorType") = "numeric"
 #********************Creating map frpm Virus levells on 4rth week of July 2021 **************************
 Data1 = read.table("MapVirus.csv", header =TRUE, sep = ",") #Read a file with virus levels ,locations and Site name
 Data1 = as.data.frame(Data1)
-Data1$Virus.levels[Data1$Virus.levels > 88] = 88 # truncate data as in the heatmap
+Data1$Virus.levels[Data1$Virus.levels > 88] = 88 # truncate data to 88 as in the heatmap top breakpoint
+                                                 # it is need as otherwise the palete converts them to NA
 
 #sites (and data) are split into two groups to manually control the position of the labels
 sitesNames = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
