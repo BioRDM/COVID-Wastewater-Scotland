@@ -2,7 +2,7 @@
 
 The data set consisted of three columns: Site, Date, and Million Gene Copies Per Person per Day (Normalized data).  The weeks in which the dates are falling are extracted. Data is binned by finding mean aggregate with respect to site, year, month and week. The data from the same site and falling into same year, month, and week (For example, you can have two Datas from 2nd Feb 2022 and 3rd Feb 2022 which falls in same week) are averaged.   
 
-The dates are then arranged as YYYY-MM-WW (Year- Month-Week) and the data file is converted to a wider table format having sites as row names, dates as columns and the binned data values as data points. 
+The dates are then arranged as YYYY-MM-WW (Year-Month-Week) and the data file is converted to a wider table format having sites as row names, dates as columns and the binned data values as data points. 
 
 The data is then converted into matrix format and rows are filtered for preferred sites and custom sorted according to the health boards. The column names are sorted in ascending order and filtered from Dec2020 to Jan2022. 
 
