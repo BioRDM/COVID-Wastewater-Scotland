@@ -7,4 +7,4 @@ awk 'BEGIN {FS=","; OFS=",";} {print $1,$2}' 2022_02_14-RNA_Monitoring_Project_H
 cat site-location-coordinates-LScorza.csv Sites_Missing_Coordinates.csv | grep -v "Site" | sort -t, -k2 > Sites_coordinates.csv # merge it with the existing coordinate file
 
 # Fill out the missing longitude and latitude values
-awk 'BEGIN {FS=","; OFS=",";} {if($4 != "" ) { myvar=$3; myvar1=$4;print $1,$2,$3,$4}else { print $1,$2,myvar,myvar1}}' Sites_coordinates.csv|  sed 1i"Health_Board,Site,Longitude_dd, Latitude_dd" >  Sites_coordinates_full.csv
+awk 'BEGIN {FS=","; OFS=",";} {if($4 != "" ) { myvar=$3; myvar1=$4;print $1,$2,$3,$4}else { print $1,$2,myvar,myvar1}}' Sites_coordinates.csv|  sed 1i"Health_Board,Site,Latitude_dd, Longitude_dd" >  Sites_coordinates_full.csv
