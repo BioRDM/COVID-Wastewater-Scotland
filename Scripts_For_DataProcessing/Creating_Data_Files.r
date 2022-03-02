@@ -58,8 +58,8 @@ aggregate(Data5$N1_Reported_value.gc_per_L, by=list(Site=Data5$Site, Year= Data5
 aggregate(Data5$Million_gene_copies_per_person_per_day, by=list(Site=Data5$Site, Year= Data5$Year,Month = Data5$month, Week = Data5$week), FUN=mean, na.rm=TRUE) ->Meanaggregatenormalized
 write.csv(MeanaggregateReported,file="MeanaggregateReported.csv",quote = FALSE) 
 write.csv(Meanaggregatenormalized,file="Meanaggregatenormalized.csv",quote = FALSE) 
-Data6 = read.table("Sample3.csv", header =TRUE, sep = ",", row.names = 1) # Refer to ReadMe file
-Data7 = read.table("Sample4.csv", header =TRUE, sep = ",", row.names = 1)
+Data6 = read.table("Sample3.csv", header =TRUE, sep = ",", row.names = 1, check.names = F) # Refer to ReadMe file
+Data7 = read.table("Sample4.csv", header =TRUE, sep = ",", row.names = 1, check.names = F)
 Data6 = as.matrix(Data6)
 Data7 = as.matrix(Data7)
 Data6 = Data6[,order(colnames(Data6))] # Sorting by column names
