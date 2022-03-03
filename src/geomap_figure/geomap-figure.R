@@ -4,6 +4,8 @@
 #
 # Creates map with geographic locations of sampling sites. 
 # It uses virus levels on a selected date to mark the sites.
+# Only selected sites have permanent labels.
+# It also removes the subsites, the sites with '-' in the name 
 #
 # *************************************************************************************
 
@@ -13,9 +15,9 @@ library(leaflet)
 
 data = read.table("../../data/weekly_norm_prevalence_timeseries.csv", header =TRUE, sep = ",", row.names = 1) 
 
-# Creating map frpm Virus levells on 4rth week of July 2021
-start_date_pattern = "X2021.07.+"
-week_nr = 4
+# Creating map frpm Virus levells on 4rth week of July 2021 (2021.07.29)
+#R converts 2020-49 to column X2020.49
+start_date_pattern = "X2021.29"
 
 #sites (and data) are split into two groups to manually control the position of the labels
 #only the sitesNames are permanently labelled
@@ -145,8 +147,11 @@ attr(breakPal, "colorType") = "numeric"
 
 start_date_cols = names(data)
 start_date_cols = start_date_cols[grepl(start_date_pattern, start_date_cols)]
-data_selected = select(data, Site, Longitude_dd, Latitude_dd, start_date_cols[week_nr])
-data_selected = rename(data_selected, Value = start_date_cols[week_nr])
+data_selected = select(data, Site, Longitude_dd, Latitude_dd, start_date_cols[1])
+data_selected = rename(data_selected, Value = start_date_cols[1])
+
+# remove the specific manhold locations (the sites with - ).
+data_selected = filter(data_selected, !grepl(".+-.+", data_selected$Site))
 
 # truncate data to 88 as in the heatmap top breakpoint
 # it is need as otherwise the palete converts them to NA

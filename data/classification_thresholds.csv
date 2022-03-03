@@ -1,0 +1,4 @@
+Analysis_lab	Limit_of_detection	Limit_of_quantification			Nagative	0
+SEPA - Low Volume	6640	9427			Week positive	>0 & < LOD
+ANY OTHER	1316	11368			Postive DNQ	>=LOD & < LOQ
+					Positve	>= LOQ

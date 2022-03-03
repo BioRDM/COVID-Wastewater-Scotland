@@ -20,12 +20,13 @@ pos_end = 88
 data = read.table("../../data/weekly_norm_prevalence_timeseries.csv", header =TRUE, sep = ",", row.names = 1) 
 
 # remove sites information
-data = subset(data,select = -c(Health_Board, Longitude_dd, Latitude_dd))
+data = subset(data,select = -c(Health_Board, Longitude_dd, Latitude_dd, Population, Population_band))
 
 data = data[,order(colnames(data))] # Sort columns, the format is YYYY.MM.WW ww is week number 
 
 # cut to the range of dates of interests
-start_date_pattern = "X2020.12.+"
+# week with 1st December 2020; R converts 2020-49 to column X2020.49
+start_date_pattern = "X2020.49" 
 start_date_cols = names(data)
 start_date_cols = start_date_cols[grepl(start_date_pattern, start_date_cols)]
 
