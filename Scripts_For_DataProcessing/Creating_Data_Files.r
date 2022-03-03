@@ -31,14 +31,13 @@ select(DF2, Health_Board,Site,Latitude_dd,Longitude_dd,Population,Date_collected
 write.csv(data_full,file="data_full.csv",quote = FALSE)
 
 # Making Prevelance time series and normalized prevelance time series data files
- Data2 = read.table("Sample1.csv", header =TRUE, sep = ",", row.names = 1,check.names = F) # Refer to ReadMe file
- Data3 = read.table("Sample2.csv", header =TRUE, sep = ",", row.names = 1,check.names = F)
- Data2 = as.matrix(Data2)
- Data3 = as.matrix(Data3)
- Data2 = Data2[,order(colnames(Data2))] # Sorting by column names
- Data3 = Data3[,order(colnames(Data3))]
+ Data2 = read.table("Sample1.csv", header =TRUE, sep = ",", row.names = 1,check.names = F) # Refer to ReadMe file for details generation of Sample1.csv
+ Data3 = read.table("Sample2.csv", header =TRUE, sep = ",", row.names = 1,check.names = F) # Refer to ReadMe file for details generation of Sample2.csv
  Data2 <- as.data.frame(Data2)
  Data3 <- as.data.frame(Data3)
+ Data2 = Data2[,order(colnames(Data2))] # Sorting by column names
+ Data3 = Data3[,order(colnames(Data3))] 
+ 
 rownames_to_column(Data2, var = "Site") -> Data2
 rownames_to_column(Data3, var = "Site") -> Data3
 full_join(select(DF1, Health_Board.x, Site, Latitude_dd,Longitude_dd,Population), Data2, by = "Site") -> DF3
@@ -63,14 +62,13 @@ aggregate(Data5$Million_gene_copies_per_person_per_day, by=list(Site=Data5$Site,
 write.csv(MeanaggregateReported,file="MeanaggregateReported.csv",quote = FALSE) 
 write.csv(Meanaggregatenormalized,file="Meanaggregatenormalized.csv",quote = FALSE) 
 
-Data6 = read.table("Sample3.csv", header =TRUE, sep = ",", row.names = 1, check.names = F) # Refer to ReadMe file
-Data7 = read.table("Sample4.csv", header =TRUE, sep = ",", row.names = 1, check.names = F)
-Data6 = as.matrix(Data6)
-Data7 = as.matrix(Data7)
-Data6 = Data6[,order(colnames(Data6))] # Sorting by column names
-Data7 = Data7[,order(colnames(Data7))]
+Data6 = read.table("Sample3.csv", header =TRUE, sep = ",", row.names = 1, check.names = F) # Refer to ReadMe file for details generation of Sample3.csv
+Data7 = read.table("Sample4.csv", header =TRUE, sep = ",", row.names = 1, check.names = F) # Refer to ReadMe file for details generation of Sample4.csv
 Data6 <- as.data.frame(Data6)
 Data7 <- as.data.frame(Data7)
+Data6 = Data6[,order(colnames(Data6))] # Sorting by column names
+Data7 = Data7[,order(colnames(Data7))]
+
 rownames_to_column(Data6, var = "Site") -> Data6
 rownames_to_column(Data7, var = "Site") -> Data7
 full_join(select(DF1, Health_Board.x, Site, Latitude_dd,Longitude_dd,Population), Data6, by = "Site") -> DF5
