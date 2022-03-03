@@ -2,12 +2,12 @@
 awk 'BEGIN {FS=",";OFS=","} {print $3,$8,$12}' data_full.csv | grep -v "Site" | awk -F, -f foo.awk | sort -t, -k1 > Sample1.csv
 awk 'BEGIN {FS=",";OFS=","} {print $3,$8,$22}' data_full.csv | grep -v "Site" | awk -F, -f foo.awk | sort -t, -k1 > Sample2.csv
 
-awk 'BEGIN {FS=",";OFS=","} {print $2,$3"-"$4"-"$5, $6}' MeanaggregateReported.csv|grep -v "Site" | sort -k1  > MeanaggregateReported_1.csv # Print the Site,Year-Month-Week and averaged normalized data for each week. Sort by column 1 
+awk 'BEGIN {FS=",";OFS=","} {print $2,$3"-"$4,$5}' MeanaggregateReported.csv|grep -v "Site" | sort -k1  > MeanaggregateReported_1.csv # Print the Site,Year-Month-Week and averaged normalized data for each week. Sort by column 1 
 
 Then Preprocess the file: 
 awk -F, -f Preprocessing.awk MeanaggregateReported_1.csv | sort -k1  > Sample3.csv 
 
-awk 'BEGIN {FS=",";OFS=","} {print $2,$3"-"$4"-"$5, $6}' Meanaggregatenormalized.csv|grep -v "Site" | sort -k1  > Meanaggregatenormalized_1.csv # Print the Site,Year-Month-Week and averaged normalized data for each week. Sort by column 1 
+awk 'BEGIN {FS=",";OFS=","} {print $2,$3"-"$4,$5}' Meanaggregatenormalized.csv|grep -v "Site" | sort -k1  > Meanaggregatenormalized_1.csv # Print the Site,Year-Month-Week and averaged normalized data for each week. Sort by column 1 
 
 Then Preprocess the file: 
 awk -F, -f Preprocessing.awk Meanaggregatenormalized_1.csv| sort -k1  > Sample4.csv 
