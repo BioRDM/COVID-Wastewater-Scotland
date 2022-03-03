@@ -73,8 +73,10 @@ Data6 <- as.data.frame(Data6)
 Data7 <- as.data.frame(Data7)
 rownames_to_column(Data6, var = "Site") -> Data6
 rownames_to_column(Data7, var = "Site") -> Data7
-inner_join(select(Data_4326, Health_Board, Site, Longitude_dd, Latitude_dd), Data6, by = "Site") -> DF3
-inner_join(select(Data_4326, Health_Board, Site, Longitude_dd, Latitude_dd), Data7, by = "Site") -> DF4
-write.csv(DF3,file="weekly_prevalence_timeseries.csv",quote = FALSE)
-write.csv(DF4,file="weekly_norm_prevalence_timeseries.csv",quote = FALSE)
+full_join(select(DF1, Health_Board.x, Site, Latitude_dd,Longitude_dd,Population), Data6, by = "Site") -> DF5
+colnames(DF5)[1] <- 'Health_Board'
+full_join(select(DF1, Health_Board.x, Site, Latitude_dd,Longitude_dd,Population), Data7, by = "Site") -> DF6
+colnames(DF6)[1] <- 'Health_Board'
+write.csv(DF5,file="weekly_prevalence_timeseries.csv",quote = FALSE)
+write.csv(DF6,file="weekly_norm_prevalence_timeseries.csv",quote = FALSE)
 
