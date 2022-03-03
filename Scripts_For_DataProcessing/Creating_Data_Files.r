@@ -31,8 +31,8 @@ select(DF2, Health_Board,Site,Latitude_dd,Longitude_dd,Population,Date_collected
 write.csv(data_full,file="data_full.csv",quote = FALSE)
 
 # Making Prevelance time series and normalized prevelance time series data files
- Data2 = read.table("Sample1.csv", header =TRUE, sep = ",", row.names = 1) # Refer to ReadMe file
- Data3 = read.table("Sample2.csv", header =TRUE, sep = ",", row.names = 1)
+ Data2 = read.table("Sample1.csv", header =TRUE, sep = ",", row.names = 1,check.names = F) # Refer to ReadMe file
+ Data3 = read.table("Sample2.csv", header =TRUE, sep = ",", row.names = 1,check.names = F)
  Data2 = as.matrix(Data2)
  Data3 = as.matrix(Data3)
  Data2 = Data2[,order(colnames(Data2))] # Sorting by column names
@@ -41,10 +41,12 @@ write.csv(data_full,file="data_full.csv",quote = FALSE)
  Data3 <- as.data.frame(Data3)
 rownames_to_column(Data2, var = "Site") -> Data2
 rownames_to_column(Data3, var = "Site") -> Data3
-inner_join(select(Data_4326, Health_Board, Site, Longitude_dd, Latitude_dd), Data2, by = "Site") -> DF1
-inner_join(select(Data_4326, Health_Board, Site, Longitude_dd, Latitude_dd), Data3, by = "Site") -> DF2
-write.csv(DF1,file="prevalence_timeseries.csv",quote = FALSE)
-write.csv(DF2,file="norm_prevalence_timeseries.csv",quote = FALSE)
+full_join(select(DF1, Health_Board.x, Site, Latitude_dd,Longitude_dd,Population), Data2, by = "Site") -> DF3
+colnames(DF3)[1] <- 'Health_Board'
+full_join(select(DF1, Health_Board.x, Site, Latitude_dd,Longitude_dd,Population), Data3, by = "Site") -> DF4
+colnames(DF4)[1] <- 'Health_Board'
+write.csv(DF3,file="prevalence_timeseries.csv",quote = FALSE)
+write.csv(DF4,file="norm_prevalence_timeseries.csv",quote = FALSE)
 
 # Making Weekly Prevelance time series and Weekly normalized prevelance time series data files
 Data5 = read.table("data_full.csv", header =TRUE, sep = ",")
@@ -60,6 +62,7 @@ aggregate(Data5$N1_Reported_value.gc_per_L, by=list(Site=Data5$Site, Year= Data5
 aggregate(Data5$Million_gene_copies_per_person_per_day, by=list(Site=Data5$Site, Year= Data5$Year,Month = Data5$month, Week = Data5$week), FUN=mean, na.rm=TRUE) ->Meanaggregatenormalized
 write.csv(MeanaggregateReported,file="MeanaggregateReported.csv",quote = FALSE) 
 write.csv(Meanaggregatenormalized,file="Meanaggregatenormalized.csv",quote = FALSE) 
+
 Data6 = read.table("Sample3.csv", header =TRUE, sep = ",", row.names = 1, check.names = F) # Refer to ReadMe file
 Data7 = read.table("Sample4.csv", header =TRUE, sep = ",", row.names = 1, check.names = F)
 Data6 = as.matrix(Data6)
