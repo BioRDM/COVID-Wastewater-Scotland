@@ -16,16 +16,15 @@ library("lubridate")
 library("dplyr")
 
 #Finding the breakpoints for positive, 3rd quartile value and the median
-Data = read.table("RNAMonitoring_File_Feb_2022.csv", header =TRUE, sep = ",")
+Data = read.table("data_full.csv", header =TRUE, sep = ",")
 as.data.frame(Data) -> Data
-Data5<-( filter(Data, Data$N1.Reported.Value > 11386)) # Filter the values which are greater than 11386(LOQ)
+Data5 <-( filter(Data, Data$N1_Reported_value.gc_per_L > 11386)) # Filter the values which are greater than 11386(LOQ)
 
-quantile( Data5$Million.Gene.Copies.Per.Person.per.Day, na.rm=TRUE) # Calculate the quantile values
+quantile( Data5$Million_gene_copies_per_person_per_day, na.rm=TRUE) # Calculate the quantile values
         0%        25%        50%        75%       100% 
     0.1600    19.9725    44.3200    89.0200 23570.7600 
-
-Data6<-(filter(Data, Data$N1.Reported.Value>=658 & Data$N1.Reported.Value<1316 )) # Filter for weak positive values
-quantile(Data6$Million.Gene.Copies.Per.Person.per.Day,na.rm =T) # Quantile for weak positives
+Data6<-(filter(Data, Data$N1_Reported_value.gc_per_L>=658 & Data$N1_Reported_value.gc_per_L<1316 )) # Filter for weak positive values
+quantile(Data6$Million_gene_copies_per_person_per_day,na.rm =T) # Quantile for weak positives
  0%  25%  50%  75% 100%
 0.12 0.41 0.56 0.85 7.77  
 **[upper whisker end =1.5 [calculated as IQR *1.5 =.66 and the last value comes in the range .85 + .66 = 1.5 )
@@ -34,22 +33,22 @@ quantile(Data6$Million.Gene.Copies.Per.Person.per.Day,na.rm =T) # Quantile for w
 # ************Binning normalized data on a weekly basis***************
 
 # Extracting the Year month and week information from dates
-date =as.Date(Data$Date, by="day")
+date =as.Date(Data$Date_collected, by="day")
 Data$week = sprintf("%02d", isoweek(date)) # Format week as 2 digit for sorting
 Data$month = sprintf("%02d", month(date)) # Format month as 2 digit for sorting
 Data$Year = year(date)
-
+                           
 # Finding the average of normalized data for each week , grouped by Site, Month and Week
 
-aggregate(Data$Million.Gene.Copies.Per.Person.per.Day, by=list(Site=Data$Site, Year= Data$Year,Month = Data$month, Week = Data$week), FUN=mean, na.rm=TRUE) ->Meanaggregate
-write.csv(Meanaggregate,file="Meanaggregate.csv",quote = FALSE) 
+aggregate(Data$Million_gene_copies_per_person_per_day, by=list(Site=Data$Site, Year= Data$Year,Month = Data$month, Week = Data$week), FUN=mean, na.rm=TRUE) ->Meanaggregate
+write.csv(Meanaggregate,file="Meanaggregate.csv",quote = FALSE)
 
 # Meanaggregate.csv is processed to Sample.csv as expalined in ReadMe
 Data = read.table("Sample.csv", header =TRUE, sep = ",", row.names = 1) 
 Data1 = as.matrix(Data)
 Data2 = Data1[,order(colnames(Data1))] # Sort columns 
 #Filtering by row name and columns
-Data2[row.names(Data2) %in% c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Linlithgow","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway"),32:100] -> DF_new
+Data2[row.names(Data2) %in% c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Linlithgow","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway"),32:101] -> DF_new
 # Convert the row.names to a column to facilitate the arrange function for custom sort 
 DF_new <- as.data.frame(DF_new)
 rownames_to_column(DF_new, var = "rowname") -> DF
