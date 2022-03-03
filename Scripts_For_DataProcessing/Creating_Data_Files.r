@@ -23,9 +23,11 @@ write.csv(Data_4326,file="sampling_sites.csv")
 
 
 # Making Full data file
-full_join(Data, Data_4326, by = "Site") -> Df
-select(Df, Health_Board.x,Site,Longitude_dd,Latitude_dd,Date_collected,Date_analysed, SW_sample_number,N1_description,"N1_Reported_value-gc_per_L","N1_Repl_1-gc_per_L","N1_Repl_2-gc_per_L","N1_Repl_3-gc_per_L","Calculated_mean","Standard_Deviation","Flow-L_per_day","Ammonia-mg_per_L","pH_value","Modelled_flow-L_per_day","Million_gene_copies_per_person_per_day","Analysis_lab") -> data_full
-colnames(data_full)[1] <- 'Health_Board'
+Pop_data = read.table("Sites_Population.csv", header =TRUE, sep = ",")
+Pop_data <- as.data.frame(Pop_data)
+full_join(Pop_data, Data_4326, by = "Site") -> DF1
+full_join(select(DF1, Health_Board.x, Site, Longitude_dd, Latitude_dd,Population), Data, by = "Site") -> DF2
+select(DF2, Health_Board,Site,Latitude_dd,Longitude_dd,Population,Date_collected,Date_analysed, SW_sample_number,N1_description,"N1_Reported_value-gc_per_L","N1_Repl_1-gc_per_L","N1_Repl_2-gc_per_L","N1_Repl_3-gc_per_L","Calculated_mean","Standard_Deviation","Flow-L_per_day","Ammonia-mg_per_L","pH_value","Modelled_flow-L_per_day","Million_gene_copies_per_person_per_day","Analysis_lab") -> data_full
 write.csv(data_full,file="data_full.csv",quote = FALSE)
 
 # Making Prevelance time series and normalized prevelance time series data files
