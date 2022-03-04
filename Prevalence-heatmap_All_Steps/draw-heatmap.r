@@ -35,12 +35,11 @@ quantile(Data6$Million_gene_copies_per_person_per_day,na.rm =T) # Quantile for w
 # Extracting the Year month and week information from dates
 date =as.Date(Data$Date_collected, by="day")
 Data$week = sprintf("%02d", isoweek(date)) # Format week as 2 digit for sorting
-Data$month = sprintf("%02d", month(date)) # Format month as 2 digit for sorting
 Data$Year = year(date)
                            
 # Finding the average of normalized data for each week , grouped by Site, Month and Week
 
-aggregate(Data$Million_gene_copies_per_person_per_day, by=list(Site=Data$Site, Year= Data$Year,Month = Data$month, Week = Data$week), FUN=mean, na.rm=TRUE) ->Meanaggregate
+aggregate(Data$Million_gene_copies_per_person_per_day, by=list(Site=Data$Site, Year= Data$Year,Week = Data$week), FUN=mean, na.rm=TRUE) ->Meanaggregate
 write.csv(Meanaggregate,file="Meanaggregate.csv",quote = FALSE)
 
 # Meanaggregate.csv is processed to Sample.csv as expalined in ReadMe
