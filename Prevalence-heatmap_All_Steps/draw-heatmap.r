@@ -43,7 +43,7 @@ aggregate(Data$Million_gene_copies_per_person_per_day, by=list(Site=Data$Site, Y
 write.csv(Meanaggregate,file="Meanaggregate.csv",quote = FALSE)
 
 # Meanaggregate.csv is processed to Sample.csv as expalined in ReadMe
-Data = read.table("Sample.csv", header =TRUE, sep = ",", row.names = 1) 
+Data = read.table("Sample.csv", header =TRUE, sep = ",", row.names = 1,check.names=F) 
 Data1 = as.matrix(Data)
 Data2 = Data1[,order(colnames(Data1))] # Sort columns 
 #Filtering by row name and columns
