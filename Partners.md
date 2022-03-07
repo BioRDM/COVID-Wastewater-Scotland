@@ -22,7 +22,7 @@ On request from Scottish Water, the Centre of Expertise for Water (CREW) funded 
 
 The Scottish Environment Protection Agency (SEPA)  began exploratory work to pinpoint fragments of coronavirus’ ribonucleic acid (RNA) in local waste water samples in May 2020. They worked with the backing of Scottish Government and Public Health Scotland (PHS), alongside Scottish Water, CREW (Centre of expertise for Waters) and academic partners from the University of Edinburgh’s Roslin Institute and Heriot Watt University.
 
-Sampling has been ongoing with more and more sites being added to the monitoring network over time. They have been sharing data with Public Health Scotland, Scottish Government, the Office for National Statistics and the Joint Biosecurity Centre  A group at Biomathematics and Statistics Scotland (BioSS) uses SEPA data to regularly inform the Scottish Government and feeds into a number of regular reports.
+Sampling has been ongoing with more and more sites being added to the monitoring network over time. They have been sharing data with Public Health Scotland, Scottish Government, the Office for National Statistics and the UK Health Security Agency. A group at Biomathematics and Statistics Scotland (BioSS) uses SEPA data to regularly inform the Scottish Government and feeds into a number of regular reports.
 
 For more information on SEPA coronavirus monitoring in wastewater, [click here](https://informatics.sepa.org.uk/RNAmonitoring/)
 
