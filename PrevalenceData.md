@@ -4,7 +4,7 @@ title: COVID Wastewater Scotland
 {% include navbar.html %} 
 
 # SARS-CoV-2 Prevalence in Wastewater
-ARS-CoV-2 is a novel coronavirus of animal origin that causes severe respiratory disease in humans (COVID19). During the 
+SARS-CoV-2 is a novel coronavirus of animal origin that causes severe respiratory disease in humans (COVID19). During the 
 early stages of the COVID19 pandemic, studies of infected patients have shown that SARS-CoV-2 RNA can be detected in the 
 faeces of patients for weeks after the onset of clinical signs. There is no data with respect to faecal shedding prior to 
 the onset of clinical signs, however modelling data suggests that faecal shedding at the start of an outbreak may be 
