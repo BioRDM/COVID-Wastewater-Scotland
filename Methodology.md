@@ -8,15 +8,15 @@ title: COVID Wastewater Scotland
 *Flow chart ilustrating the steps from sample collection to final data.*
 
 The wastewater samples were collected by Scottish Water and its operators and SEPA. Samples were collected from sewage 
-influent using either autosamplers over a period of 24 hours or, in some cases, by means of a grab sample via manholes 
-(Wade et al. 2022). The frequency of sample collection was variable, but typically samples were collected on a weekly 
+influent using either autosamplers over a period of 24 hours or, in some cases, by means of a grab sample via manholes. 
+The frequency of sample collection was variable, but typically samples were collected on a weekly 
 basis, once or twice a week. During outbreaks, for example, sample collection was more frequent in some of the health 
-board areas. The samples were then transferred to SEPA laboratories where they were stored, processed and analysed.  
-(https://informatics.sepa.org.uk/RNAmonitoring).  In general, it took one to two days from sample collection to data 
-analysis and another four days for reporting the data on SEPA’s public dashboard. 
+board areas. The samples were then transferred to SEPA laboratories where they were stored, processed and analysed. 
+In general, it took one to two days from sample collection to data 
+analysis and another two days for reporting the data on SEPA’s public dashboard. 
 
 The detailed methodology, from wastewater viral RNA isolation to SARS-CoV2 detection using RT-qPCR and data analysis, is 
-described in the [protocols](./Protocols). 
+described on protocols.io (see Protocols).
 
 A brief description of the methodology for quantification of SARS-CoV-2 in wastewater is presented here as follows.  
 
@@ -50,10 +50,9 @@ affect the incoming flow and therefore the viral concentration coming from house
 can also produce biases. A certain number of positive individuals in a small catchment area can produce higher values of 
 viral gene copies compared with the same number of positive individuals in a larger catchment area. 
 
-A better 
-representation of the spread of the virus within the population can be derived from normalised values that use the site 
+A better representation of the spread of the virus within the population can be derived from normalised values that use the site 
 population and the incoming wastewater flow to determine the million gene copies per person per day. The detailed 
-normalisation protocol is provided in [Protocols](./Protocols). In short, to produce a daily value of million gene copies per 
+normalisation protocol is provided in the Protocols section. In short, to produce a daily value of million gene copies per 
 person, the raw gene copies per litre value is multiplied by the daily flow total and divided by the population served at 
 each site. The flow for a specific site (waterworks location) is either measured directly or estimated using an ammonia data.
 
