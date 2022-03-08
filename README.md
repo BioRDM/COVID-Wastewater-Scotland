@@ -24,7 +24,6 @@ This dataset has been described in a data paper [XXX](XXX)
 │   │   ├── YYYY-MM-DD-Sites_population.csv
 │   ├── SARS-Cov2_RNA_monitoring_ww_scotland.csv
 │   ├── SARS-Cov2_RNA_monitoring_ww_scotland_full.csv
-│   ├── SARS-Cov2_RNA_monitoring_ww_scotland.csv
 │   ├── prevalence_timeseries.csv
 │   ├── norm_prevalence_timeseries.csv
 │   ├── norm_prevalence_timeseries.csv
@@ -138,6 +137,12 @@ Generally they should not be used, as the files contain the curated data that fo
 
 **src/data_tranformations** contains scripts that were used to performa automatic data curation and gneration of the secondary data files which are included in the data folder.
 
+## How to cite
+Livia C. T. Scorza, Graeme J. Cameron, Roisin Murray-Williams, David Findlay, Julie Bolland, 
+Brindusa Cerghizan, Kirsty Campbell, David Thomson, Alexander Corbishley, David Gally, Stephen Fitzgerald,
+Alison Low, Sean McAteer, Adrian M. I. Roberts, Zhou Fang, Claus-Dieter Mayer, Anastasia Frantsuzova,
+Sumy V. Baby, Tomasz Zieliński, Andrew J. Millar
+"SARS-CoV-2 RNA levels in Scotland’s wastewater"
 
 
 ----------------------
