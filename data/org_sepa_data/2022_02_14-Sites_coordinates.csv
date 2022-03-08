@@ -1,0 +1,125 @@
+Health Area,Site Name,Lat,Long
+Ayrshire and Arran,Cumnock,620407.31,255829.21
+Ayrshire and Arran,Muirkirk,626364.31,267698.51
+Ayrshire and Arran,New Cumnock,613986.27,262184.25
+Ayrshire and Arran,Fairlie,655930.39,220705.78
+Ayrshire and Arran,Largs,662381.87,219430.84
+Ayrshire and Arran,Meadowhead,635857.51,233866.84
+Ayrshire and Arran,Stevenston,640301.09,227592.79
+Ayrshire and Arran,Girvan,599905.59,219022.3
+Ayrshire and Arran,Maybole,608781.56,231029.9
+Borders,Coldstream,641218.79,385836.16
+Borders,Duns,653181.5,379735.63
+Borders,Eyemouth,663201.69,395083.68
+Borders,Galashiels,635089.79,351250.59
+Borders,Hawick,615508.45,351230.11
+Borders,Jedburgh,622520.15,365789.85
+Borders,Kelso,634661.65,373596.28
+Borders,Newtown St Boswell,631801.41,358154.06
+Borders,Peebles,639936.98,326987.09
+Borders,Selkirk,629776.12,347445.71
+Dumfries and Galloway,Annan,565082.2,319335.01
+Dumfries and Galloway,Dalbeattie,560142.41,283342.68
+Dumfries and Galloway,Dalscone,578278.33,298184.55
+Dumfries and Galloway,Langholm,583961.37,336758.42
+Dumfries and Galloway,Loch Ryan,562944.65,202802.18
+Dumfries and Galloway,Lockerbie,581440.48,312570.85
+Dumfries and Galloway,Sanquhar,609092,278212
+Dumfries and Galloway,Troqueer,574547,297143
+Fife,Bowhouse,709215.95,327530.08
+Fife,Cupar,714842.38,338785.31
+Fife,Dunfermline,681717.88,312197.51
+Fife,Guardbridge,719798.9,345117.98
+Fife,Ironmill Bay,684294.12,306063.65
+Fife,Kincardine,687105.43,293029.97
+Fife,Kirkcaldy,692185.85,328723.76
+Fife,Levenmouth,700446.4,337412.03
+Fife,Newburgh,718754,324348
+Fife,Newport & Tayport,729045.69,343676.77
+Fife,Springfield,711636.87,334855.07
+Fife,St Andrews,715505.19,353285.2
+Forth Valley,Alloa,691819.05,288662.05
+Forth Valley,Alva,696609.21,287349
+Forth Valley,Tillicoultry,696514.8,291662.15
+Forth Valley,Boness,681289.03,302201.66
+Forth Valley,Bonnybridge,681047.7,283578.98
+Forth Valley,Denny,682958.5,281963.91
+Forth Valley,Falkirk,682201.61,290310.16
+Forth Valley,Kinneil,681112.93,296105.97
+Forth Valley,Dunblane,700646.08,278166
+Forth Valley,Stirling,693499,280754.03
+Grampian,Nigg,804588.37,396377.52
+Grampian,Persley,809779.65,390619.3
+Grampian,Banchory,795926.41,371081.39
+Grampian,Banff,864832.99,371662.01
+Grampian,Ellon,830487.53,396640.16
+Grampian,Fraserburgh,866870.62,397341.11
+Grampian,Huntly,840324.35,353519.69
+Grampian,Inverurie,820328.35,378121.53
+Grampian,Peterhead,844165.18,412671.18
+Grampian,Turriff,850300.69,371576.38
+Grampian,Buckie,865635.13,343811.11
+Grampian,Forres,859558.38,303855.39
+Grampian,Lossiemouth,868684.92,325102.47
+Greater Glasgow and Clyde,Neilston,657833.9,247882.36
+Greater Glasgow and Clyde,Uplawmoor,655184.93,243121.37
+Greater Glasgow and Clyde,Daldowie,661969.82,266902.3
+Greater Glasgow and Clyde,Dalmarnock,662690,261110
+Greater Glasgow and Clyde,Shieldhall,665879.92,253347.05
+Greater Glasgow and Clyde,Inverclyde,675251.29,220298.38
+Greater Glasgow and Clyde,Erskine,669098.8,249357.57
+Greater Glasgow and Clyde,Paisley,665531,248542
+Greater Glasgow and Clyde,Ardoch,675768.21,237371.53
+Greater Glasgow and Clyde,Dalmuir,671045,247655
+Highland,Helensburgh,679869.16,232053.66
+Highland,Allanfearn,847455.37,271126.37
+Highland,Alness,869016.43,267475.62
+Highland,Aviemore,814675.98,290340.59
+Highland,Fort William,775066.03,210876.73
+Highland,Grantown on Spey,826923.88,302942.25
+Highland,Nairn,857365.9,289632.15
+Highland,Thurso,969517.72,313136.01
+Highland,Wick,950960.53,338211.02
+Lanarkshire,Carbarns,653910.71,277334.34
+Lanarkshire,Dunnswood,677102.93,278164.96
+Lanarkshire,Harthill,664774.7,290756.33
+Lanarkshire,Shotts,659440.47,286599.89
+Lanarkshire,Swinstie,657616.19,280623.66
+Lanarkshire,Allers,656127.64,266191.99
+Lanarkshire,Biggar,636919.75,304867.21
+Lanarkshire,Blackwood,643141.95,280520.37
+Lanarkshire,Bothwellbank,657959.4,269750.8
+Lanarkshire,Hamilton,657549.12,271186.31
+Lanarkshire,Lanark,643686.6,287222.43
+Lanarkshire,Lesmahagow,640784.62,281570.16
+Lanarkshire,Mauldslie,650189.54,280882.73
+Lanarkshire,Philipshill,656040.81,260279.76
+Lanarkshire,Skellyton,651935.01,277098.25
+Lanarkshire,Stonehouse,647110.52,276362.72
+Lanarkshire,Strathaven,644319.96,270636.69
+Lothian,Newbridge,673117.06,312595.69
+Lothian,Seafield,675949,328607
+Lothian,Dunbar,677787.86,364380.56
+Lothian,Haddington,674425.95,353183.22
+Lothian,Penicuik,660898.93,324660.97
+Lothian,Armadale,669471.96,293764.62
+Lothian,Bathgate,670300.13,296137.62
+Lothian,Blackburn,665406.76,300394.98
+Lothian,Blackridge,667762.84,291029.45
+Lothian,East Calder,668066.66,307843.08
+Lothian,Fauldhouse,660273.61,294009.85
+Lothian,Linlithgow,677855.51,298687.99
+Lothian,Whitburn,665449.9,294862.68
+Lothian,Winchburgh,674530.5,309216.45
+Orkney,Kirkwall,1013746.69,347529.04
+Shetland,Lerwick,1144757.48,446873.31
+Tayside,Forfar,750321.05,344243.27
+Tayside,Hatton,737332.41,360330.41
+Tayside,Montrose,760295.16,372378.47
+Tayside,Blairgowrie,744537.49,319372.61
+Tayside,Perth,722090.53,314663.46
+Western Isles,Stornoway,930771.02,144486.28
+(Empty),Auchinairn,,
+(Empty),Newtown,,
+(Empty),St Andrews ,,
+(Empty),Steveston,,
