@@ -19,13 +19,19 @@ This dataset has been described in a data paper [XXX](XXX)
 │
 ├── data/
 │   ├── org_sepa_data/
-│   │   ├── prevalence.csv
+│   │   ├── YYYY-MM-DD-RNA_Monitoring_Project.csv
+│   │   ├── YYYY-MM-DD-Sites_coordinates.csv
+│   │   ├── YYYY-MM-DD-Sites_population.csv
 │   ├── SARS-Cov2_RNA_monitoring_ww_scotland.csv
 │   ├── SARS-Cov2_RNA_monitoring_ww_scotland_full.csv
+│   ├── SARS-Cov2_RNA_monitoring_ww_scotland.csv
 │   ├── prevalence_timeseries.csv
+│   ├── norm_prevalence_timeseries.csv
 │   ├── norm_prevalence_timeseries.csv
 │   ├── weekly_prevalence_timeseries.csv
 │   ├── weekly_norm_prevalence_timeseries.csv
+│   ├── sampling_sites.csv
+│   ├── classification_thresholds.csv
 ├── src/
 │   ├── heatmap_figure/
 │   ├── geomap_figure/
@@ -56,8 +62,82 @@ A description of each column within is provided below:
 |pH_value| the pH of the sample, when available. 
 |Modelled_flow-L_per_day| the modelled flow in litre per day produced according to the methodology described in the normalisation process. This was particularly used when flow measurements were not available for a specific site and date. 
 |Million_gene_copies_per_person_per_day| the normalized gene copies values that account for differences in the flow and populations size. To produce these values, the raw gc/L measurements were multiplied by the daily flow total (or modelled flow), and divided by the population served at each site, to produce a daily value of RNA copies per person. The detailed methodology is described in the on protocols.io [dx.doi.org/10.17504/protocols.io.b4eqqtdw](https://dx.doi.org/10.17504/protocols.io.b4eqqtdw). 
-|Analysis_lab| the laboratory in which the samples were analysed. In most cases the samples were analysed by SEPA, but in some instances, samples were analysed by the The Roslin Institute, University of Edinburgh. The “SEPA-Low Volume” is an identification for a change in laboratory process that occurred in a period of time. This description means that in that particular analysis the volume was reduced, which reflected in changes in the LoD and LoQ values. 
-|
+|Analysis_lab| the laboratory in which the samples were analysed. In most cases the samples were analysed by SEPA, but in some instances, samples were analysed by the The Roslin Institute, University of Edinburgh. The “SEPA-Low Volume” is an identification for a change in laboratory process that occurred in a period of time. This description means that in that particular analysis the volume was reduced, which reflected in changes in the LoD and LoQ values. |
+
+
+**SARS-Cov2_RNA_monitoring_ww_scotland_full.csv** - it contrains the ***de-normalised*** data with the additional
+information about the collection sites inserted, like their geographic locations and population in the capture area.
+The file contains the same columns as SARS-Cov2_RNA_monitoring_ww_scotland.csv plus:
+
+| Column | Description | Format|
+|---|---|---|
+| |The same columns as in SARS-Cov2_RNA_monitoring_ww_scotland.csv| |
+|	Latitude_dd | geographic position of the sample collection sites (north/south of the equator) in decimal degrees.| |
+|	Longitude_dd | geographic position of the sample collection site (east/west of the meridian) in decimal degrees.| |
+|Population | number of people in the sewage catchment upstream of the sampling site. |
+|Population_band | size of the population in one of the following bands| 0-2K, 2K-4K, 4K-10K, 10K-100K, 100K+.|
+
+
+**prevalence_timeseries.csv** - contains data in the traditional timeseries format, i.e., each row corresponds to one sample and collection site, 
+the first few columns provide information about the site, 
+and the subsequent columns store SARS-CoV-2 virus levels measurements for each particular sampling date. 
+For example, the column “2020-05-28” contains gene copies per litre from sample collection on 2020-05-28. 
+NA means that a sample was not collected for that site at that date or that the analysis failed.
+
+| Column | Description | Format|
+|---|---|---|
+|Health_Board | name of the NHS Scotland health board for that particular site and sample || 
+|Site| name of the site where the sample was collected, which corresponds to the name of the wastewater treatment centre|| 
+|	Latitude_dd | geographic position of the sample collection sites (north/south of the equator) in decimal degrees.| |
+|	Longitude_dd | geographic position of the sample collection site (east/west of the meridian) in decimal degrees.| |
+|Population | number of people in the sewage catchment upstream of the sampling site. |
+|Population_band | size of the population in one of the following bands| 0-2K, 2K-4K, 4K-10K, 10K-100K, 100K+.|
+|YYYY-MM-DD| virus level in the gc/L value on the particular data. NA denotes both technical failures for the sample or more commonly that the sample was not aquired on the particular data for that site | |
+
+**norm_prevalence_timeseries.csv** is equivalent to the “prevalence_timeseries.csv” but the “date” columns contain the normalised virus levels in million gene copiers per person per day.
+
+**weekly_prevalence_timeseries.csv** contains weekly averaged data of virus levels in the timeseries format, i.e.,
+each row corresponds to one sample and collection site, 
+the first few columns provide information about the site, 
+and the subsequent columns store averaged SARS-CoV-2 virus levels recorded for a given week. 
+For example, 2022-6 contains averaged gene copies per litre from samples collected on the week starting at 2022-02-7 
+(sixth week of the year, 2nd week of February). 
+NA means that no samples were collected in that week for a site or that all the analysis of that week failed.
+
+| Column | Description | Format|
+|---|---|---|
+|Health_Board | name of the NHS Scotland health board for that particular site and sample || 
+|Site| name of the site where the sample was collected, which corresponds to the name of the wastewater treatment centre|| 
+|	Latitude_dd | geographic position of the sample collection sites (north/south of the equator) in decimal degrees.| |
+|	Longitude_dd | geographic position of the sample collection site (east/west of the meridian) in decimal degrees.| |
+|Population | number of people in the sewage catchment upstream of the sampling site. |
+|Population_band | size of the population in one of the following bands| 0-2K, 2K-4K, 4K-10K, 10K-100K, 100K+.|
+|YYYY-WW| averaged weekly virus level in the gc/L value on that particular week of the year, the column name is year with a week number in that year. NA denotes both technical failures for the sample or more commonly that the sample was not aquired on the particular data for that site | |
+
+**weekly_norm_prevalence_timeseries.csv** is equivalent to the “weekly_ prevalence_timeseries.csv” but the “week” columns (YYYY_WW) contain the averaged normalized virus levels in million gene copies per person per day for that week.
+
+**smapling_sites.csv** contains information about the sampling locations like their geocoordinates or populations size.
+
+| Column | Description | Format|
+|---|---|---|
+|Site| name of the site where the sample was collected, which corresponds to the name of the wastewater treatment centre|| 
+|Health_Board | name of the NHS Scotland health board for that particular site and sample || 
+|	Latitude_dd | geographic position of the sample collection sites (north/south of the equator) in decimal degrees.| |
+|	Longitude_dd | geographic position of the sample collection site (east/west of the meridian) in decimal degrees.| |
+|Population | number of people in the sewage catchment upstream of the sampling site. |
+|Population_band | size of the population in one of the following bands| 0-2K, 2K-4K, 4K-10K, 10K-100K, 100K+.|
+
+**classification_thresholds.csv** - information about the limits of detection and limits of quantification that were used to classify the samples as negative, weak positive, positive DNQ and positive.
+
+**data/org_sepa_data/** is a folder that contains the data files in the original format after downloading from the SEPA dashboard.
+Generally they should not be used, as the files contain the curated data that follows the best practices.
+
+**src/heatmap_figure** contains the R script that can be used to generated heatmap figure from the weekly data.
+
+**src/geomap_figure** contains the R script that generates the interactive map with the sites locations
+
+**src/data_tranformations** contains scripts that were used to performa automatic data curation and gneration of the secondary data files which are included in the data folder.
+
 
 
 ----------------------
