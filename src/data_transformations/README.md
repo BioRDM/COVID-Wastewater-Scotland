@@ -2,8 +2,8 @@
 Scripts used to perform data curation steps and generate secondary output data files.
 The original SEPA data downloaded from their dashboard do not adhere completely to the best FAIR practices.
 
-The generated secondary files are saved into ```out``` folder.  
-The intermediate files into ```intermediate```
+The generated secondary files are saved into `out` folder.  
+The intermediate files into `intermediate`
 
 ## Usage
 R and bash shell need to be available from the command line.
@@ -23,15 +23,17 @@ Renaming of columns, dates transformations and adding HB inforamtion is done by 
 ```
 SUMY ...
 $ first_comand_or_script ../../data/org_sepa_data/2022_02_14-RNA_Monitoring_Project.csv
-$ followign_commands
+$ next_commands
 ``` 
 
 3. Secondary data
-We generate the set of files than 
+We generate the set of files that: 
 - joins the sites information with virus level data
 - reorganize data tables into timeseries format
 - converts into weekly data
 
+It assumes that the first two operations were successfull and the required
+input files are in the `out` folder.
 ```
 CALL ....
 ```
