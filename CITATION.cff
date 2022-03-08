@@ -1,0 +1,9 @@
+cff-version: 1.1.0
+message: "If you use this dataset, please cite it as below."
+authors:
+  - family-names: Scorza
+    given-names: Livia
+    orcid: 0000-0002-0145-3592
+title: SARS-CoV-2 RNA levels in Scotland’s wastewater
+version: RC-1.1
+date-released: 2022-03-08
