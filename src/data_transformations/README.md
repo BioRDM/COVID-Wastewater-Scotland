@@ -14,14 +14,16 @@ and population size is available in a separete file.
 
 In order to create `sampling_sites.csv` containing sites coordinates in GPS DD unit and joined population call
 ```
-SUMY WRITES WHAT TO DO FOR EXAMPLE IF IT IS ONE COMMAND OR FILE THAT TAKES BOTH files inputs
-$ a_script ../../data/org_sepa_data/2022_02_14-Sites_coordinates.csv ../../data/org_sepa_data/2022_02_14-Sites_population.csv
+$ Rscript Generate_Sampling_Sites.R
 ```
 
 2. Curation of data
 Renaming of columns, dates transformations and adding HB inforamtion is done by follwing commands
 ```
-SUMY ...
+# Shell scripts to change the mispelled site names and to add the missing Healthboard information
+$sed 's/Invurie/Inverurie/g' ../../data/org_sepa_data/2022_02_14-RNA_Monitoring_Project.csv | sed 's/Langhlm/Langholm/g' | sed 's/Philiphill/Philipshill/g' | sed 's/Sheildhall/Shieldhall/g' | sed 's/Stevenson/Stevenston/g' | sed 's/hatton - Fintry West/Hatton - Fintry West/g' | grep -v "Site" | sort -t, -k2 > intermediate/2022_02_14-RNA_Monitoring_Project_1.csv
+
+$awk 'BEGIN {FS=","; OFS=",";} {if($1 != "(Empty)" ) { myvar=$1; print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18}else { print myvar,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18}}' intermediate/2022_02_14-RNA_Monitoring_Project_1.csv | sed 1i"Health_Board,Site,Date_collected,Date_analysed, SW_sample_number,N1_description, N1_Reported_value-gc_per_L,N1_Repl_1-gc_per_L,N1_Repl_2-gc_per_L,N1_Repl_3-gc_per_L,Calculated_mean,Standard_Deviation,Flow-L_per_day,Ammonia-mg_per_L,pH_value,Modelled_flow-L_per_day,Million_gene_copies_per_person_per_day,Analysis_lab" > intermediate/2022_02_14-RNA_Monitoring_Project_HB_Added.csv 
 $ first_comand_or_script ../../data/org_sepa_data/2022_02_14-RNA_Monitoring_Project.csv
 $ next_commands
 ``` 
