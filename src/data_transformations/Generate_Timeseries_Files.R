@@ -1,3 +1,12 @@
+# -------------------------------------------------------------------------------------
+#
+# Authors: Sumy V. Baby
+#
+# Script that generates timeseries files for both daily and weekly measurements.
+# Output files contain detailed sites inforamtions like the locations and population.
+#
+# --------------------------------------------------------------------------------------
+
 # Install packages and load necessary libraries. Please put it as comments unless running for the first time
 #install.packages("tidyr")
 #install.packages("lubridate")

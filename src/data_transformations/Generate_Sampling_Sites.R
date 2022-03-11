@@ -1,3 +1,12 @@
+# -------------------------------------------------------------------------------------
+#
+# Authors: Sumy V. Baby
+#
+# Scripts that converts geographic locations into GPS DD unit and merges
+# sites description with population data
+#
+# --------------------------------------------------------------------------------------
+
 # Install packages. Please put it as comments unless you are running for the first time 
 #install.packages("sgo")
 #install.packages("lubridate")

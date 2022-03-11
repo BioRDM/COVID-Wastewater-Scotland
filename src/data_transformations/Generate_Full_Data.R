@@ -1,3 +1,12 @@
+# -------------------------------------------------------------------------------------
+#
+# Authors: Sumy V. Baby
+#
+# Scripts that adds detailed sites information into the data entries
+#
+# --------------------------------------------------------------------------------------
+
+
 # Install packages and load necessary libraries. Please put it as comments unless running for the first time
 #install.packages("lubridate")
 #install.packages("tidyverse")

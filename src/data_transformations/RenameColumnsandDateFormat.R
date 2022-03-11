@@ -1,3 +1,11 @@
+# -------------------------------------------------------------------------------------
+#
+# Authors: Sumy V. Baby
+#
+# Script that renames columns to follow best practices conventions and changes dates into ISO format
+#
+# --------------------------------------------------------------------------------------
+
 # Install packages and load necessary libraries. Please put in comments unless running for the intial time
 #install.packages("lubridate")
 #install.packages("tidyverse")

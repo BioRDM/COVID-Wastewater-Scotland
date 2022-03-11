@@ -2,7 +2,7 @@
 #
 # Authors: Sumy V. Baby
 #
-# Shell scripts for processing the datafiles
+# Shell scripts for converting data into timeseries like format
 #
 # --------------------------------------------------------------------------------------
 
