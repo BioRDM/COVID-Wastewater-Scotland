@@ -11,7 +11,7 @@
 
 library(htmlwidgets)
 library(leaflet)
-
+library(dplyr)
 
 data = read.table("../../data/weekly_norm_prevalence_timeseries.csv", header =TRUE, sep = ",", row.names = 1) 
 
@@ -133,7 +133,7 @@ addLegend_decreasing <- function (map, position = c("topright", "bottomright", "
 # it should be a factory method that returns a closure but I do not know now how to do it
 # that is good enough
 breakPal = function(val) {
-  pal <- colorNumeric(palette = c("orange", "blue"),domain = 0:90,na.color = "black")                         
+  pal <- colorNumeric(palette = c("orange", "blue"),domain = 0:90,na.color = "grey")                         
   
   res <- vector(mode="character", length=length(val))
   
