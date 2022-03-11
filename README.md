@@ -135,7 +135,7 @@ Generally they should not be used, as the files contain the curated data that fo
 
 **src/geomap_figure** contains the R script that generates the interactive map with the sites locations
 
-**src/data_tranformations** contains scripts that were used to performa automatic data curation and gneration of the secondary data files which are included in the data folder.
+**src/data_tranformations** contains scripts that were used to perform automatic data curation and gneration of the secondary data files which are included in the data folder.
 
 ## How to cite
 Livia C. T. Scorza, Graeme J. Cameron, Roisin Murray-Williams, David Findlay, Julie Bolland, 
