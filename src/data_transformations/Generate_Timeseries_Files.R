@@ -1,12 +1,12 @@
 # Install packages and load necessary libraries. Please put it as comments unless running for the first time
-install.packages("tidyr")
-install.packages("lubridate")
-install.packages("tidyverse")
+#install.packages("tidyr")
+#install.packages("lubridate")
+#install.packages("tidyverse")
 
 # Load libraries
-library(lubridate)
-library(tidyverse)
-library(tidyr)
+library("lubridate")
+library("tidyverse")
+library("tidyr")
 
 #*********** Making Prevelance time series and normalized prevelance time series data files**********
 
@@ -56,8 +56,9 @@ full_join(select(Data1, Health_Board, Site, Latitude_dd,Longitude_dd,Population,
 write.csv(DF6,file="out/weekly_prevalence_timeseries.csv",quote = FALSE)
 write.csv(DF7,file="out/weekly_norm_prevalence_timeseries.csv",quote = FALSE)
 
-select(DF7,Site,"2021-29") -> VirusLevel #Extract Virus levels for 3rd week of July
+#Extract Virus levels for 3rd week of July
+select(DF7,Site,"2021-29") -> VirusLevel 
 full_join(select(Data1,Site, Latitude_dd,Longitude_dd),VirusLevel, by = "Site") -> DF8
 colnames(DF8)[4]<- 'VirusLevels'
-write.csv(DF8,file="out/Viruslevels.csv",quote = FALSE)
+write.csv(DF8,file="out/sites-virus-levels-on-2021-07.csv",quote = FALSE)
 

@@ -1,8 +1,9 @@
 # Install packages and load necessary libraries. Please put it as comments unless running for the first time
-install.packages("lubridate")
-install.packages("tidyverse")
+#install.packages("lubridate")
+#install.packages("tidyverse")
+
 # Load the libraries
-library(lubridate)
+library("lubridate")
 library("tidyverse")
 Data = read.table("out/SARS-Cov2_RNA_monitoring_ww_scotland_renamed.csv", header =TRUE, sep = ",",check.names = F)
 as.data.frame(Data) -> Data

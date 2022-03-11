@@ -1,11 +1,11 @@
 # Install packages. Please put it as comments unless you are running for the first time 
-install.packages("sgo")
-install.packages("lubridate")
-install.packages("tidyverse")
+#install.packages("sgo")
+#install.packages("lubridate")
+#install.packages("tidyverse")
 
 # Loading neccesary libraries
-library(lubridate)
-library(sgo)
+library("lubridate")
+library("sgo")
 library("tidyverse")
 
 # Converting Geo-Coordinates and making sampling_sites file
