@@ -1,3 +1,4 @@
+# Awk script to convert the first column values of a csv file in to rownames, second column values to column names and 3rd column as the data points
 {
     ks[$1 $2] = $3; # save the third column using the first and second as index
     k1[$1]++;       # save the first column
