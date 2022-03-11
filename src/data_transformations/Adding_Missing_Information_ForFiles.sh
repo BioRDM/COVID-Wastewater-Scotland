@@ -6,6 +6,9 @@
 #
 # --------------------------------------------------------------------------------------
 
+# Make the directories to populate the files
+mkdir out
+mkdir intermediate
 # Change the mispelled site names. 
 sed 's/Invurie/Inverurie/g' ../../data/org_sepa_data/2022_02_14-RNA_Monitoring_Project.csv | sed 's/Langhlm/Langholm/g' | sed 's/Philiphill/Philipshill/g' | sed 's/Sheildhall/Shieldhall/g' | sed 's/Stevenson/Stevenston/g' | sed 's/hatton - Fintry West/Hatton - Fintry West/g' | grep -v "Site" | sort -t, -k2 > intermediate/2022_02_14-RNA_Monitoring_Project_1.csv
 
