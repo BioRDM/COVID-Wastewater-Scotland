@@ -6,22 +6,21 @@ The generated secondary files are saved into `out` folder.
 The intermediate files into `intermediate`
 
 ## Usage
-R and bash shell need to be available from the command line.
-
+R and shell needs to be available from the command line.
 All the commands should be run in the following order
 
 1. Curation of data
 Renaming of columns, dates transformations ,adding HB information,adding site and population is done by follwing commands.
 
 ```
-# Change the file to excecutable mode
-$ chmod u+x Adding_Missing_Information_ForFiles.sh
+# Change the file to user excecutable mode
+ chmod u+x Adding_Missing_Information_ForFiles.sh
 # Run the shell script
-$ sh Adding_Missing_Information_ForFiles.sh
+ sh Adding_Missing_Information_ForFiles.sh
 ```
 ```
 # Renaming of columns and date transformations
-$ Rscript RenameColumnsandDateFormat.R    
+ Rscript RenameColumnsandDateFormat.R    
 ```
 
 2. Sampling sites
@@ -29,7 +28,7 @@ The original data contains geo coordinates in British National Grid units and po
 In order to create `sampling_sites.csv` containing sites coordinates in GPS DD unit and joined population call
 
 ```
-$ Rscript Generate_Sampling_Sites.R
+ Rscript Generate_Sampling_Sites.R
 ```
 
 3. Secondary data
@@ -43,16 +42,16 @@ input files are in the `out` folder.
 
 ```
 # Generate full data
-$ Rscript Generate_Full_Data.R
+ Rscript Generate_Full_Data.R
 ```
 ```
 # Data Processing
-$ chmod u+x Data_Processing.sh
+ chmod u+x Data_Processing.sh
 # Run the shell script
-$ sh Data_Processing.sh
+ sh Data_Processing.sh
 ```
 ```
 # Generate Timeseries data and Virus level data for July 3rd week which is used to generate Geomap points 
-$ Rscript Generate_Timeseries_Files.R
+ Rscript Generate_Timeseries_Files.R
 ```
 
