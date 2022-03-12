@@ -24,13 +24,7 @@
 
     "title": "SARS-CoV-2 RNA levels in Scotland's wastewater",
 
-    "related_identifiers": [
-      {
-        "scheme": "doi", 
-        "identifier": "10.5281/zenodo.6339631", 
-        "relation": "isVersionOf"
-      }
-	],
+
 
     "keywords": [      
 		"SARS-CoV-2", 
