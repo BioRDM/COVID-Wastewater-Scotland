@@ -1,7 +1,7 @@
 {
    "version": "V1.2", 
    "publication_date": "2022-03-12", 
-   "access_right": "open" 
+   "access_right": "open",
    
     "creators": [
       {
@@ -47,7 +47,7 @@
 
     "description": "<p>Nationwide, wastewater-based monitoring was newly established in Scotland to track the levels of SARS-CoV-2 viral RNA shed into the sewage network, during the COVID-19 pandemic. We present a curated, reference data set produced by this national programme, from May 2020 to February 2022.</p>\n\n<p>Viral levels were analysed by RT-qPCR assays of the N1 gene, on RNA extracted from wastewater sampled at 122 locations. Locations were sampled up to four times per week, typically once or twice per week, and in response to local needs.</p>\n\n<p>These wastewater data are contributing to estimates of disease prevalence and the viral reproduction number (R) in Scotland and in the UK.</p>\n\n<p>We report sampling site locations with geographical coordinates, the total population in the catchment for each site, and the information necessary for data normalisation, such as the incoming wastewater flow values and ammonia concentration, when these were available. The methodology for viral quantification and data analysis is briefly described, with links to detailed protocols online. Check the README for details and the project <a href=\"https://biordm.github.io/COVID-Wastewater-Scotland/\">COVID-WW Website</a></p>", 
 	
-    "notes": "This work was funded by Scotland's Centre of Expertise for Waters (CREW; Grant CD2019_06 Tracking SARS-CoV-2 via municipal wastewater) and by Scottish Environment Protection Agency (SEPA).", 
+    "notes": "This work was funded by Scotland's Centre of Expertise for Waters (CREW; Grant CD2019_06 Tracking SARS-CoV-2 via municipal wastewater) and by Scottish Environment Protection Agency (SEPA)." 
 	
 
 	
