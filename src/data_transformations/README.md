@@ -12,7 +12,7 @@ R and shell needs to be available from the command line
 All the commands should be run in the following order
 
 1. Curation of data
-Renaming of columns, dates transformations ,adding HB information,adding site and population is done by follwing commands.
+Renaming of columns, dates transformations ,adding HB information,adding site and population is done by following commands.
 
 ```
 # Change the file to user excecutable mode if needed
