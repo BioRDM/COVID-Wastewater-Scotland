@@ -21,7 +21,7 @@ assessments with respect to any potential hazard from SARS-CoV-2 in wastewater.
 * The "live" data from Covid monitoring are available from [SEPA RNA monitoring of SARS-CoV2 
 website](https://informatics.sepa.org.uk/RNAmonitoring/).
 
-* The dataset from COVID monitoring up to 2022-02-14 is published as a data paper: [LINK]()
+* The dataset from COVID monitoring up to 2022-02-14 is published as a data paper: [LINK]() and a Zenodo deposit [https://doi.org/10.5281/zenodo.6339631](https://doi.org/10.5281/zenodo.6339631)
 
 * The complete data set in various formats is also available at GitHub: 
 [COVID-Wastewater-Scotland](https://github.com/BioRDM/COVID-Wastewater-Scotland)
