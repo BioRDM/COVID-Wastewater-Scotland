@@ -15,7 +15,7 @@ We are going to fix some of the typical problems with real data.
 
 This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in waste water around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
 
-Firstly, read our renamed data. Some of the  column names of renamed_data contains  character "-" . The check.names= F option in read.csv function will read the file as it is. Unless given, R will convert hyphen as dot.
+Firstly, read our raw data. 
 
 ## Inspecting DATA
 
@@ -59,7 +59,7 @@ sites
 
 We could count the measurements for each site and find those which have less then 5, those are probably misspelled as each site was monitored more than few times.
 
-# Counting the measurements for each sites
+## Counting the measurements for each sites
 
 We will first use the 'aggregate' function in base R to count the occurrence of each site
 
@@ -87,12 +87,12 @@ The data is grouped by Site and summarized based on count of each distinct Site 
 
 In the above we use the pipe to send the renamed data set first through group_by() function, to get Sites grouped by name , and then through summarize() to count the number of occurrences of each Site. When the data frame is being passed to the group_by() and summarize() functions through a pipe, we don’t need to include it as an argument to these functions anymore.
 
-# Filter out the wrong sites
+## Filter out the wrong sites
 
 Next step is to filter out the wrong sites. Using filter function in dplyr
 
 ```{r}
-library (dplyr)
+
 filter(site_count, Count <5)
 
 ```
@@ -107,7 +107,7 @@ filter(site_count, Count <5,Site != "Nigg - Aberdeen RI", Site != "Philipshill -
 ```
 We finally go a list of sites which needs to be replaced with the correct names. Now next step is to replace the misspelled names with the corrected ones
 
-# Replace the wrong sites
+## Replace the wrong sites
 ## Use recode function to replace the misspelled names
 
  Let's try with "recode" function in "dplyr" library
@@ -132,7 +132,7 @@ wrong_sites
 So we have got now 162 sites which are corrected and good to go forward!
 
 
-# The factors variables
+## The factors variables
 
 Now lets check whether N1_description column  doesn't have any misspelled values and check the levels to find any misspelled description. We can convert the N1.Description column as factor. 
 
@@ -158,7 +158,7 @@ levels(as.factor(curated_data$N1_description))
 ```
 We can see only 5 levels which are right. So the Description have been corrected to right ones and we are good to go
 
-# Dates
+## Dates
 ## Change the date format to iso
 
 We will now convert the dates in to iso format.
@@ -194,7 +194,7 @@ Lets do that by using Base R
 curated_data["Date_collected"][curated_data["Date_collected"] == "1899-12-31" ] <- "2022-02-09"
 ```
 
-# Number
+## Number
 
 Now we can check for the summary of  data value column to find if any values are negative. The column names containing character "-" should be given in double quotes. Other wise R can't read that.
 ```{r}
@@ -203,7 +203,7 @@ summary(select(curated_data,"N1_Reported_value-gc_per_L","N1_Repl_1-gc_per_L" ,"
 ```
 We can see that summary statistics of all the data columns are positive
 
-# Adding missing Health Board information
+## Adding missing Health Board information
 
 Let's sort the curated data by Site names and print out the distinct Health board and Site combinations
 
@@ -246,12 +246,11 @@ group_by(Site,Date_collected) %>%
 summarize("Count" = n()) %>% filter(Count > 1)    
 ```
 
-# Finding In complete information in the Site Coordinate file 
+# Finding Incomplete information in the Site Coordinate file 
 
 Next,  we will read our site coordinates data and check the number of Sites in it. 
 
 ```{r}
-library(dplyr)
 site_data <- read.csv("../../data/raw_data/Sites_coordinates.csv")
 head (site_data)
 nrow(site_data)
@@ -312,7 +311,6 @@ We need to do three things for curation of the coordinate file.
 We will read the Sites_population.csv file 
 
 ```{r}
-library(dplyr)
 population_data <- read.csv("../../data/raw_data/Sites_population.csv")
 ```
 
