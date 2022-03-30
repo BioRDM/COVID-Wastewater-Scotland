@@ -1,0 +1,438 @@
+---
+title: "Data wrangling with R - P2 Data Curation"
+author: "Sumy V Baby, Tomasz Zielinski"
+date: "2022-03-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We continue our work with the data, now we will focus on actual data entries.
+
+We are going to fix some of the typical problems with real data.
+
+This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in waste water around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
+
+Firstly, read our renamed data. Some of the  column names of renamed_data contains  character "-" . The check.names= F option in read.csv function will read the file as it is. Unless given, R will convert hyphen as dot.
+
+## Inspecting DATA
+
+```{r}
+library(dplyr)
+library(lubridate)
+raw_data<- read.csv("../../data/raw_data/COVID_RNA_Monitoring.csv")
+glimpse(raw_data)
+
+```
+We used a different command `glimpse` to see all the columns (variables) and first data in each column.
+
+Site stores information about where the samples were taken. As it is entered manually it is possible that it contains some misspelled locations.
+
+## Renaming of the columns
+
+We can first rename the columns
+
+```{r}
+dictionary <- data.frame(
+  old_name = c('HBNAME','Site','Date','Date.Analysed','SW.Sample.Number','N1.Description','N1.Reported.Value','N1.Sample.1','N1.Sample.2','N1.Sample.3','Calculated.Mean','Standard.Deviation','Flow..l.day.','Ammonia..mg.l.','pH.Value','Modelled.Flow..l.day.','Million.Gene.Copies.Per.Person.per.Day','Analysis.Lab','X.Row.Count.'),
+
+  new_name = c("Health_Board","Site","Date_collected","Date_analysed", "SW_sample_number","N1_description", "N1_Reported_value-gc_per_L","N1_Repl_1-gc_per_L","N1_Repl_2-gc_per_L","N1_Repl_3-gc_per_L","Calculated_mean","Standard_Deviation","Flow-L_per_day","Ammonia-mg_per_L","pH_value","Modelled_flow-L_per_day","Million_gene_copies_per_person_per_day","Analysis_lab","Row_Count")
+)
+renamed_data <- raw_data
+names(renamed_data)[match(dictionary$old_name, names(renamed_data))] <- dictionary$new_name
+head(renamed_data[1:5])
+```
+
+## Chasing misspelled text
+
+We can get all the unique values for the `Site` variable and sort them. That way we can inspect the values and try to find close by duplicates.
+
+
+```{r}
+sites = renamed_data$Site
+sites = sort(unique(sites))
+sites
+
+```
+
+We could count the measurements for each site and find those which have less then 5, those are probably misspelled as each site was monitored more than few times.
+
+# Counting the measurements for each sites
+
+We will first use the 'aggregate' function in base R to count the occurrence of each site
+
+```{r}
+site_count <- aggregate(renamed_data$Site, by=list(renamed_data$Site), FUN=length) 
+head(site_count)
+```
+
+As we can see aggregate function calculates the count of each Site in the renamed_data. 'FUN=length' is used to calculate the count. 
+
+We can see that there are 12, sites which are misspelled.
+
+Out of which 8 are with close but not identical names : "Carbarn","hatton - Fintry West","Invurie","Langhlm","Philiphill","Sheildhall","Stevenson", "Stevenson - Stevenston West" . Four of them differs by having a space after the name: "Allanfearn ","Fort William ","Galashiels ", "Perth " 
+
+We can also use another method for aggregation of counts ie. group_by function from the library "dplyr"
+
+```{r}
+site_count <- renamed_data %>% 
+group_by(Site) %>% 
+summarize("Count" = n())  
+head(site_count)
+```
+
+The data is grouped by Site and summarized based on count of each distinct Site using pipe operator (%>%) in dplyr package. Pipes let you take the output of one function and send it directly to the next, which is useful when you need to many things to the same data set. Pipes in R look like %>% and are made available via the magrittr package installed as part of dplyr.
+
+In the above we use the pipe to send the renamed data set first through group_by() function, to get Sites grouped by name , and then through summarize() to count the number of occurrences of each Site. When the data frame is being passed to the group_by() and summarize() functions through a pipe, we don’t need to include it as an argument to these functions anymore.
+
+# Filter out the wrong sites
+
+Next step is to filter out the wrong sites. Using filter function in dplyr
+
+```{r}
+library (dplyr)
+filter(site_count, Count <5)
+
+```
+We can see from above the list of sites which are having counts less than 5. These are the sites which are suspected to be wrong. But we need to always check with the data file whether there is an issue with the site names. Upon close inspection we can spot that "Nigg - Aberdeen RI" and "Philipshill - Hairmyres Hospital" are genuine sites. So we need to avoid them from filtering out. 
+
+All other sites can be easily determined as misspelled. For example "Allanfearn " with space at the end should be actually be "Allanfearn" and "Carbarn" should be actually included with "Carbarns".
+
+Let's do the filtering again keeping the genuine sites.
+
+```{r}
+filter(site_count, Count <5,Site != "Nigg - Aberdeen RI", Site != "Philipshill - Hairmyres Hospital")
+```
+We finally go a list of sites which needs to be replaced with the correct names. Now next step is to replace the misspelled names with the corrected ones
+
+# Replace the wrong sites
+## Use recode function to replace the misspelled names
+
+ Let's try with "recode" function in "dplyr" library
+
+```{r}
+curated_data <- renamed_data
+curated_data$Site <-
+  recode(curated_data$Site, "Allanfearn "= "Allanfearn", "Carbarn"="Carbarns" ,"Fort William "="Fort William","Galashiels "="Galashiels","hatton - Fintry West" = "Hatton - Fintry West", "Invurie"="Inverurie", "Langhlm"="Langholm","Perth "="Perth","Philiphill"="Philipshill","Sheildhall"="Shieldhall","Stevenson"="Stevenston","Stevenson - Stevenston West"="Stevenston - Stevenston West")
+```
+Let's now find out the wrong sites if any exists 
+
+```{r}
+site_count <- curated_data %>% 
+group_by(Site) %>% 
+summarize("Count" = n())  
+site_count
+filter(site_count, Count <5 , Site != "Nigg - Aberdeen RI", Site != "Philipshill - Hairmyres Hospital" )-> wrong_sites
+wrong_sites
+
+```
+
+So we have got now 162 sites which are corrected and good to go forward!
+
+
+# The factors variables
+
+Now lets check whether N1_description column  doesn't have any misspelled values and check the levels to find any misspelled description. We can convert the N1.Description column as factor. 
+
+Factors are variables that have only limited set of options. In our case N1_description is such a variable, as it describes the virus levels as Negative, Weak Positive, Positive, Positive(DNQ).
+
+Using base R first we can determine the factor levels
+
+```{r}
+levels(as.factor(curated_data$N1_description))
+
+```
+As we can clearly see from the above printed result, "neg","negative" and "Possitive" are the misspelled description. We can use the recode function again to replace all these.
+
+```{r}
+curated_data$N1_description <-recode(curated_data$N1_description,"negative" = "Negative", "neg" = "Negative", "Possitive"="Positive") 
+```
+
+Now lets check again whether it is changed
+
+```{r}
+levels(as.factor(curated_data$N1_description))
+
+```
+We can see only 5 levels which are right. So the Description have been corrected to right ones and we are good to go
+
+# Dates
+## Change the date format to iso
+
+We will now convert the dates in to iso format.
+
+Firstly, Lets check the current date format of our curated_data file 
+
+```{r}
+glimpse(curated_data$Date_collected)
+```
+We can see that the date format is DD/MM/YYYY. So we can use dmy function from lubridate package to convert the dates to YYYY-MM-DD format. In other words dmy is a lubridate's parse function which converts the dates arranged in DD/MM/YYYY format to iso format.
+
+```{r}
+
+curated_data$Date_analysed<- dmy(curated_data$Date_analysed) #Change the date format to YYYY-MM-DD
+curated_data$Date_collected<- dmy(curated_data$Date_collected) #Change the date format to YYYY-MM-DD
+glimpse(curated_data)
+```
+Note: We can see some warnings because the Date_analysed column contains null values. Those warnings can be ignored.
+
+## Correct any wrong date value
+
+Let's now look at the date ranges by sorting the data according to the ascending order of Date_collected
+```{r}
+glimpse(curated_data[order(curated_data$Date_collected),]$Date_collected)
+glimpse(curated_data[order(curated_data$Date_analysed),]$Date_analysed)
+```
+Clearly COVID-19 did not exists in "1899-12-31" so we need to fix the date in the Date_collected column.
+Upon verification with the SEPA data, it was figured out that the wrong date needs to replaced with correct date as  "2022-02-09"
+
+Lets do that by using Base R
+
+```{r}
+curated_data["Date_collected"][curated_data["Date_collected"] == "1899-12-31" ] <- "2022-02-09"
+```
+
+# Number
+
+Now we can check for the summary of  data value column to find if any values are negative. The column names containing character "-" should be given in double quotes. Other wise R can't read that.
+```{r}
+
+summary(select(curated_data,"N1_Reported_value-gc_per_L","N1_Repl_1-gc_per_L" ,"N1_Repl_2-gc_per_L","N1_Repl_3-gc_per_L" ,Calculated_mean,Standard_Deviation,"Flow-L_per_day","Ammonia-mg_per_L", pH_value ,"Modelled_flow-L_per_day" , Million_gene_copies_per_person_per_day))
+```
+We can see that summary statistics of all the data columns are positive
+
+# Adding missing Health Board information
+
+Let's sort the curated data by Site names and print out the distinct Health board and Site combinations
+
+```{r}
+
+curated_data <- curated_data[order(curated_data$Site),]
+glimpse(unique(select(curated_data,Health_Board,Site)))
+```
+Here we can clearly see that many sites are having missing Health board information. For example the site: "Allers - St Leonards" is having Health board entered as "(Empty)" but the actual Health board is "Lanakshire" the same one as for "Allers". As the Sites are sorted alphabetically , now we can write a code to fill in the missing Health board information corresponding to each site.
+
+```{r}
+for (i in 1:nrow(curated_data)) {ifelse (curated_data$Health_Board[i] != "(Empty)", x <- curated_data$Health_Board[i],curated_data$Health_Board[i]<-x)}
+```
+
+For each row, if the value of the Health board is there it is kept as such but if it is missing, it is populated from preceding non empty health board information. 
+
+The for statement is for looping through each row(there are 10316 rows here). While looping through each row, if the value of the health board is not "(Empty)", the value is stored in to a variable x and whenever the Health board value is "(Empty)" the value stored in the variable is used to replace it. 
+
+Lets try to print again the unique Health board and Site combination to know whether the problem is fixed
+
+```{r}
+glimpse(unique(select(curated_data,Health_Board,Site)))
+```
+Here we can see that the missing health boards have been filled
+
+## Finding out the repeating dates for each site
+
+Let's select 3 columns ie. site, Date_collected and N1_Reported_value-gc_per_L from the curated_data for the N1_Reported values
+
+```{r}
+select_curated_data<-curated_data[,c(2,3,7)]
+head(select_curated_data)
+```
+
+Lets use "group_by" function from "dplyr" library. We will group the select_curated_data by Site and Date_collected and take the summary of counts. Then filter the counts which are greater than one to determine which Date_collected values are repeated for each Site.
+
+```{r}
+select_curated_data %>% 
+group_by(Site,Date_collected) %>% 
+summarize("Count" = n()) %>% filter(Count > 1)    
+```
+
+# Finding In complete information in the Site Coordinate file 
+
+Next,  we will read our site coordinates data and check the number of Sites in it. 
+
+```{r}
+library(dplyr)
+site_data <- read.csv("../../data/raw_data/Sites_coordinates.csv")
+head (site_data)
+nrow(site_data)
+```
+Now we can read the curated data file and check how it looks.
+
+```{r}
+head(curated_data)
+```
+We see the curated data file has several records for each Health_Board and Site combination. We need to determine how many distinct Sites exists.
+We can use "unique" function from R base for this. We can select only two columns Health_Board and Site and then determine the unique combinations. 
+For selecting the Site and Health_Board we can select the first and second column.
+
+```{r}
+site_unique<-unique(select(curated_data,Health_Board,Site))
+head(site_unique)
+nrow(site_unique)
+```
+Clearly we can see the mismatch in number of sites in both files. The Sites_coordinates.csv file which we have is not complete. So we need to add the missing sites. Lets find now which all sites are missing from the Sites_coordinates.csv file.
+
+We need to firstly change the column names in to standard format. Let's use a dictionary for this.
+
+```{r}
+dictionary <- data.frame(
+  old_name = c("Health.Area","Site.Name","Lat","Long"),
+  new_name = c("Health_Board","Site","Latitude","Longitude")
+)
+renamed_site_data <- site_data
+names(renamed_site_data)[match(dictionary$old_name, names(renamed_site_data))] <- dictionary$new_name
+head(renamed_site_data)
+```
+Now we can inspect which sites are missing from the two files. Lets use "anti_join" function from "dplyr" library.  The "anti_join" function prints out the missing records in first file compared to second one.
+
+```{r}
+anti_join(renamed_site_data,site_unique, by = "Site")
+sites_extra <- anti_join(site_unique,renamed_site_data, by = "Site")
+sites_extra
+```
+The first table shows the list of sites which are present in the Sites_coordinates.csv file but absent in the curated data site lists. These are clearly misspelled sites and needs to be removed. All these site have the Health_Board as "(Empty)".
+
+The second table shows the sites in curated data but not in Site coordinates file. So we can see that these are the sites that needs to be added to the coordinates file.
+
+Let's now inspect more the second list ie. the sites that are in the curated data but not in the Sites_coordinates.csv file
+
+```{r}
+
+glimpse(grep("-", unlist(sites_extra$Site), value = TRUE))
+glimpse(grep("-", unlist(sites_extra$Site), value = TRUE,invert = T))
+```
+We need to do three things for curation of the coordinate file.
+
+1. Remove the misspelled sites (having Health_Board = "(Empty)") from renamed_site_data (Renamed Sites_coordinates.csv)
+2. Add the missing coordinate information for "Oban" and "Dunoon"
+3. Add the missing coordinate details for missing sites with "-"
+
+## Finding out missing information in the Population Data
+
+We will read the Sites_population.csv file 
+
+```{r}
+library(dplyr)
+population_data <- read.csv("../../data/raw_data/Sites_population.csv")
+```
+
+Now we will read the curated_data.csv file and look for the distinct Health_Board and Site combination in data using "unique" function
+
+```{r}
+site_unique<-unique(select(curated_data,Health_Board,Site))
+head(site_unique)
+```
+We can select 5 columns of the population data that is Health.Area, Site.Name,Population.Band,Population. The ":" is used to denote a range of columns. For example in the below code we will select the columns from 1 to 2, then leave the third column and select columns 4 to 5.
+
+```{r}
+population_data<-population_data[,c(1:2,4:5)]
+head(population_data)
+```
+
+As we can see the column names needs to be changed. Now we can rename the columns using dictionary
+
+```{r}
+
+dictionary <- data.frame(
+  old_name = c("Health.Area","Site.Name","Population.Band","Population"),
+  new_name = c("Health_Board","Site","Population_Band","Population")
+)
+renamed_population_data <- population_data
+names(renamed_population_data)[match(dictionary$old_name, names(renamed_population_data))] <- dictionary$new_name
+head(renamed_population_data)
+```
+We will first use the 'aggregate' function in base R to count the occurrence of each site
+
+```{r}
+site_count <- aggregate(renamed_population_data$Site, by=list(renamed_population_data$Site), FUN=length) 
+head(site_count)
+```
+Now we can filter the sites which are repeating less than 5 times
+
+```{r}
+
+filter(site_count, x <5)
+
+```
+
+We got a list of sites which needs to be replaced with the correct names. Now the next step is to replace the misspelled names with the corrected ones.
+
+Now we can replace these misspelled sites with the correct names with "recode" function in "dplyr" library.
+
+```{r}
+curated_population_data <- renamed_population_data
+curated_population_data$Site <- recode(curated_population_data$Site,  "Invurie"="Inverurie", "Sheildhall"="Shieldhall","Stevenson"="Stevenston")
+```
+
+Now to make it simpler we will select the unique rows from the curated population data. We can order the data set by Site and check the resultant table
+
+```{r}
+curated_population_data <- unique(curated_population_data)
+curated_population_data<- curated_population_data[order(curated_population_data$Site),]
+head(curated_population_data )
+```
+In the table we can see there are two records of Allanfearn. One shows Health_Board as "Highland" and other has HB as well as population information as "(Empty)". This is a data entry error which needs to be rectified. Now let's take the aggregate of the data by Site and find out how many sites are like this.
+
+```{r}
+site_count <- aggregate(curated_population_data$Site, by=list(curated_population_data$Site), FUN=length) 
+filter(site_count, x >1)
+```
+
+We can see clearly there are 9 sites which have this issue. The extra records with Health_Board entry as "(Empty)" needs to be removed.
+In order to make sure we don't miss out any sites, let's take a look at all the all the sites for which population value is empty. The "subset" function from R base can be used here.  
+
+```{r}
+subset(curated_population_data, curated_population_data$Population == "(Empty)")
+```
+Here we can see some extra sites: "Dunoon", "Haddington","Jedburgh","Oban" for which population information is missing. As these are independent sites, the population information needs to be entered. So let's first enter the population information for these sites which are missing. 
+
+The which() function in R returns the position or the index of the value which satisfies the given condition. We can use it for entering the records of missing population sites.
+
+```{r}
+curated_population_data[which(curated_population_data$Site == "Dunoon"), ] <-c("Highland","Dunoon","4k - 10k",7830)
+curated_population_data[which(curated_population_data$Site == "Haddington"), ] <- c("Lothian","Haddington","4k - 10k",9130 ) 
+curated_population_data[which(curated_population_data$Site == "Jedburgh"), ] <-c("Borders","Jedburgh","2k - 4k",3910)
+curated_population_data[which(curated_population_data$Site == "Oban"), ] <- c("Highland","Oban","4k - 10k",8490 ) 
+```
+
+Now we have entered the missing population information , we have again have a look at the data. We will take the subset of the data where Population is "(Empty)".
+
+```{r}
+subset(curated_population_data, curated_population_data$Population == "(Empty)")
+```
+
+Now we have only 9 rows which are there because of duplication of sites. Lets remove those
+
+```{r}
+curated_population_data <- subset(curated_population_data, curated_population_data$Population != "(Empty)")
+head(curated_population_data)
+```
+
+# Filling out Population information for site with "-" (dependant sites)
+Let's merge the unique sites_unique with curated_population_data. The all=TRUE option in merge function is for including all the records from both the dataframes
+
+```{r}
+Population_data<-merge(site_unique,curated_population_data[,c(2:4)], by = 'Site',all=TRUE)
+head(Population_data)
+```
+
+We can arrange the sites in alphabetic order and then fill out fill out the missing population.
+A for loop is used to iterate through each row and when the value of Population_Band in each row is not equal to "NA", the value is stored in a variable "y". When the value of Population_Band becomes "NA" the stored value in variable y is used to fill the missing Population_Band. Same logic is applied for filling out the missing Population values too.  
+
+```{r}
+Population_data<- Population_data[order(Population_data$Site),]
+for (i in 1:nrow(Population_data)) {ifelse (is.na(Population_data$Population_Band[i]),Population_data$Population_Band[i]<-x, x <- Population_data$Population_Band[i])}
+for (i in 1:nrow(Population_data)) {ifelse (is.na(Population_data$Population[i]),Population_data$Population[i]<-y, y <- Population_data$Population[i])}
+head(Population_data)
+```
+The file is looking fine. Let's rearrange the columns so that Health board is arranged as first column. It can be done simply by selecting the columns or using the "select" function.
+
+```{r}
+Population_data <- Population_data[,c(2,1,3,4)]
+#Population_data <- select(Population_data,Health_Board,Site,Population_Band,Population)
+head(Population_data)
+```
+
+------------
+*The misspelled sites were: "Allanfearn ","Fort William ","Galashiels ","Perth " (all of these having an extra space at the end),
+"Carbarn","hatton - Fintry West","Invurie","Langhlm","Philiphill","Sheildhall","Stevenson", "Stevenson - Stevenston West" 
