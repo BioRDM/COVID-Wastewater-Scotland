@@ -44,4 +44,6 @@ NGS (Next Generation Sequencing)
 In parallel to using qPCR and digital PCR, the team have developed NGS methods for analysing SARS-CoV-2 variants in wastewater. The advantages of this approach are that it is unnecessary to make a priori assumptions about the presence of mutations and that new variants can be identified in samples de novo. Little material is required for characterising the spectrum of variants. However, there are also disadvantages. The laboratory methods are challenging and time consuming. It takes at least 4 days for results to be generated from a wastewater sample, and then the information needs to be analysed by a bioinformatics team. However, the information provided is extremely rich and can be analysed in multiple different ways.
 Since optimising the NGS methodology, the research team has analysed over 2000 wastewater samples from across Scotland and with the support of Biomathematics & Statistics Scotland (BioSS) this information has been used to monitor the spread of the omicron variant in some of the  wastewater treatment works. 
 
+![image](https://user-images.githubusercontent.com/29427778/160816030-8c869aee-9bc7-4112-aac6-3bdbf6891bdf.png)
 
+Source: Coronavirus (Covid-19): modelling the epidemic in Scotland (Issue No. 92)
