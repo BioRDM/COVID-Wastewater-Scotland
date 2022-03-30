@@ -21,8 +21,6 @@ is supported by a £1.8M UKRI grant. TestEd both screens for SARS2 but has also 
 beta, gamma and delta variants.
 
 
-{% include footer.html %} 
-
 # Summary of methodology development
 
 This project used three approaches for detection of variants, RT-qPCR, droplet digital PCR (ddPCR) and next generation sequencing (NGS). 
@@ -47,3 +45,5 @@ Since optimising the NGS methodology, the research team has analysed over 2000 w
 ![image](https://user-images.githubusercontent.com/29427778/160816030-8c869aee-9bc7-4112-aac6-3bdbf6891bdf.png)
 
 Source: Coronavirus (Covid-19): modelling the epidemic in Scotland (Issue No. 92)
+
+{% include footer.html %} 
