@@ -27,10 +27,10 @@ cat intermediate/2022_02_14-Sites_Coordinates_Modified.csv intermediate/Sites_Mi
 awk 'BEGIN {FS=","; OFS=",";} {if($4 != "" ) { myvar=$3; myvar1=$4;print $1,$2,$3,$4}else { print $1,$2,myvar,myvar1}}' intermediate/Sites_Coordinates.csv|  sed 1i"Health_Board,Site,Latitude_dd, Longitude_dd" >  intermediate/Sites_Coordinates_Full.csv
 
 # Change the mispelled site names in the population file and add the missing Healthboard information
-sed 's/Invurie/Inverurie/g' ../../data/org_sepa_data/2022_02_14-Sites_population.csv| sed 's/Langhlm/Langholm/g' | sed 's/Philiphill/Philipshill/g' | sed 's/Sheildhall/Shieldhall/g' | sed 's/Stevenson/Stevenston/g' | sed 's/hatton - Fintry West/Hatton - Fintry West/g' |  grep -v "Site" | sort -t, -k2   > intermediate/2022_02_14-Sites_population_1.csv
+sed 's/Invurie/Inverurie/g' ../../data/org_sepa_data/2022_02_14-Sites_population.csv| sed 's/Langhlm/Langholm/g' | sed 's/Philiphill/Philipshill/g' | sed 's/Sheildhall/Shieldhall/g' | sed 's/Stevenson/Stevenston/g' | sed 's/hatton - Fintry West/Hatton - Fintry West/g' |awk 'BEGIN {FS=","; OFS=",";} {print $1,$2,$4,$5}' |grep -v "(Empty)" |sed 1i"Highland,Dunoon,4k - 10k,7830\nLothian,Haddington,4k - 10k,9130\nBorders,Jedburgh,2k - 4k,3910\nHighland,Oban,4k - 10k,8490" | grep -v "Site" | sort -t, -k2   > intermediate/2022_02_14-Sites_population_1.csv
 
 # Create the unique list with healthboard added for each site
-awk 'BEGIN {FS=","; OFS=",";} {if($1 != "(Empty)" ) { myvar=$1; myvar1=$4;myvar2=$5;print $1,$2,$4,$5}else { print myvar,$2,myvar1,myvar2}}' intermediate/2022_02_14-Sites_population_1.csv |  sort -t, -k1| uniq  > intermediate/Population.csv 
+awk 'BEGIN {FS=","; OFS=",";} {if($1 != "(Empty)" ) { myvar=$1; myvar1=$3;myvar2=$4;print $1,$2,$3,$4}else { print myvar,$2,myvar1,myvar2}}' intermediate/2022_02_14-Sites_population_1.csv |  sort -t, -k1| uniq  > intermediate/Population.csv 
 
 # Merge it with the existing coordinate file
 cat intermediate/Population.csv intermediate/Sites_Missing_Coordinates.csv | grep -v "Site" | sort -t, -k2 >  intermediate/Population_full.csv  

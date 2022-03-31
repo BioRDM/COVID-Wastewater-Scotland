@@ -28,6 +28,6 @@ Pop_data <- as.data.frame(Pop_data)
 full_join(Pop_data, Data_4326, by = "Site") -> DF
 select(DF,Site,Health_Board.x,Latitude_dd,Longitude_dd,Population,Population_band) -> DF1
 colnames(DF1)[2] <- 'Health_Board'
-write.csv(DF1,file="out/sampling_sites.csv",quote =F)
+write.csv(DF1,file="out/sampling_sites.csv",quote =F,row.names = FALSE)
 
 

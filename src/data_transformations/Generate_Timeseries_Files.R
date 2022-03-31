@@ -31,8 +31,8 @@ rownames_to_column(Data2, var = "Site") -> Data2
 rownames_to_column(Data3, var = "Site") -> Data3
 full_join(select(Data1, Health_Board, Site, Latitude_dd,Longitude_dd,Population,Population_band),Data2, by = "Site") -> DF3
 full_join(select(Data1, Health_Board, Site, Latitude_dd,Longitude_dd,Population,Population_band),Data3, by = "Site") -> DF4
-write.csv(DF3,file="out/prevalence_timeseries.csv",quote = FALSE)
-write.csv(DF4,file="out/norm_prevalence_timeseries.csv",quote = FALSE)
+write.csv(DF3,file="out/prevalence_timeseries.csv",quote = FALSE,row.names = FALSE)
+write.csv(DF4,file="out/norm_prevalence_timeseries.csv",quote = FALSE,row.names = FALSE)
 
 #*********** Making Weekly Prevelance time series and Weekly normalized prevelance time series data files**********
 
@@ -62,12 +62,12 @@ rownames_to_column(Data6, var = "Site") -> Data6
 rownames_to_column(Data7, var = "Site") -> Data7
 full_join(select(Data1, Health_Board, Site, Latitude_dd,Longitude_dd,Population,Population_band),Data6, by = "Site") -> DF6
 full_join(select(Data1, Health_Board, Site, Latitude_dd,Longitude_dd,Population,Population_band),Data7, by = "Site") -> DF7
-write.csv(DF6,file="out/weekly_prevalence_timeseries.csv",quote = FALSE)
-write.csv(DF7,file="out/weekly_norm_prevalence_timeseries.csv",quote = FALSE)
+write.csv(DF6,file="out/weekly_prevalence_timeseries.csv",quote = FALSE,row.names = FALSE)
+write.csv(DF7,file="out/weekly_norm_prevalence_timeseries.csv",quote = FALSE,row.names = FALSE)
 
 #Extract Virus levels for 3rd week of July
 select(DF7,Site,"2021-29") -> VirusLevel 
 full_join(select(Data1,Site, Latitude_dd,Longitude_dd),VirusLevel, by = "Site") -> DF8
 colnames(DF8)[4]<- 'VirusLevels'
-write.csv(DF8,file="out/sites-virus-levels-on-2021-07.csv",quote = FALSE)
+write.csv(DF8,file="out/sites-virus-levels-on-2021-07.csv",quote = FALSE,row.names = FALSE)
 
