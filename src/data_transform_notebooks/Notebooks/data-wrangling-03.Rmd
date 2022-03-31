@@ -1,0 +1,167 @@
+---
+title: "Data wrangling with R - P2 Data Curation"
+author: "Sumy V Baby, Tomasz Zielinski"
+date: "2022-03-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We continue our work with the data, now we will focus on the site coordinate file.
+
+We are going to fix some of the typical problems with real data.
+
+This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in waste water around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
+
+Firstly,  we will read our site coordinates data and check the number of Sites in it. 
+
+
+```{r}
+library(dplyr)
+site_data <- read.csv("../raw_data/Sites_coordinates.csv")
+head (site_data)
+```
+Since each row corresponds to a site. We can do a count of rows for this using the R base function "nrow"
+
+```{r}
+nrow(site_data)
+```
+
+Now we can read the curated data file and check how it looks. As some of the column names contain "-" character, check.names = F option can be included while reading the file. Unless we include this option the hyphen is converted in to a dot character in column names.
+
+```{r}
+curated_data <- read.csv("../data/curated_data.csv",check.names = F)
+head(curated_data)
+```
+We see the curated data file has several records for each Health_Board and Site combination. We need to determine how many distinct Sites exists.
+We can use "unique" function from R base for this. We can select only two columns Health_Board and Site and then determine the unique combinations. 
+For selecting the Site and Health_Board we can select the first and second column.
+
+```{r}
+site_unique<-unique(curated_data[,1:2])
+head(site_unique)
+```
+The same thing can also be accomplished by using "select" function in the library "dplyr".  The "select" function takes the data frame and column names to be selected as arguments.
+
+```{r}
+site_unique<-unique(select(curated_data,Health_Board,Site))
+head(site_unique)
+```
+
+Okay. Now we can determine the number of sites in the curated data file by counting the rows
+
+```{r}
+nrow(site_unique)
+```
+Clearly we can see the mismatch in number of sites in both files. The Sites_coordinates.csv file which we have is not complete. So we need to add the missing sites. Lets find now which all sites are missing from the Sites_coordinates.csv file.
+
+Lets have a look again in to the Sites_coordinates.csv file
+
+```{r}
+head(site_data)
+```
+
+We need to firstly change the column names in to standard format. Let's use a dictionary for this.
+
+```{r}
+dictionary <- data.frame(
+  old_name = c("Health.Area","Site.Name","Lat","Long"),
+  new_name = c("Health_Board","Site","Latitude","Longitude")
+)
+renamed_site_data <- site_data
+names(renamed_site_data)[match(dictionary$old_name, names(renamed_site_data))] <- dictionary$new_name
+head(renamed_site_data)
+```
+
+Now we can inspect which sites are missing from the two files. Lets use "anti_join" function from "dplyr" library.  The "anti_join" function prints out the missing records in first file compared to second one.
+
+```{r}
+anti_join(renamed_site_data,site_unique, by = "Site")
+sites_extra <- anti_join(site_unique,renamed_site_data, by = "Site")
+sites_extra
+```
+
+The first table shows the list of sites which are present in the Sites_coordinates.csv file but absent in the curated data site lists. These are clearly misspelled sites and needs to be removed. All these site have the Health_Board as "(Empty)".
+
+The second table shows the sites in curated data but not in Site coordinates file. So we can see that these are the sites that needs to be added to the coordinates file.
+
+Let's now inspect more the second list ie. the sites that are in the curated data but not in the Sites_coordinates.csv file
+
+```{r}
+
+glimpse(grep("-", unlist(sites_extra$Site), value = TRUE))
+glimpse(grep("-", unlist(sites_extra$Site), value = TRUE,invert = T))
+```
+
+The grep function in R with the option "value=TRUE" returns all the sites which has "-" in it. The second grep function here with "invert =T" added returns the sites without any "-" symbol in it
+
+The first list shows the sites which defines some sub-regions of already available sites in the Sites_coordinates.csvS file. For example, Allers is a site present in the coordinate file. So we can figure out that the same Latitude and longitude values can be used for these subregions.
+The sites "Oban" and "Dunoon" are not part of any other main site. So the coordinate information needs to be added.
+
+We need to do three things for curation of the coordinate file.
+
+1. Remove the misspelled sites (having Health_Board = "(Empty)") from renamed_site_data (Renamed Sites_coordinates.csv)
+2. Add the missing coordinate information for "Oban" and "Dunoon"
+3. Add the missing coordinate details for missing sites with "-"
+
+ First we are removing the sites which are misspelled in the coordinate file 
+ We can use "subset" function from R base to make a subset of data where Health_Board not equal to "(Empty)" for removing misspelled sites
+ 
+
+```{r}
+renamed_site_data <- subset(renamed_site_data, renamed_site_data$Health_Board != "(Empty)")
+head(renamed_site_data)
+```
+
+We removed the misspelled sites from Sites_coordinates.csv file . Now we can merge them to the sites in the curated data file. 
+Merge function adds all the sites which are missing in the coordinate file. 
+
+```{r}
+sites_merged <- merge(site_unique,renamed_site_data, by = 'Site', all=TRUE )
+head(sites_merged)
+```
+We can see there are two Health_Boards here. Health_Board.x contains all filled values because it is from curated data set. So we need only that from site_unique. In order to avoid Health_Board column from rename_site_data we can select specific columns. 
+It can be done by simply selecting columns or using "select" function from "dplyr" library (commented). The option all=TRUE in merge function is for including all sites from both the data sets which other wise it will print only the matching records.
+
+```{r}
+sites_merged <- merge(site_unique,renamed_site_data[,2:4], by = 'Site',all=TRUE)
+#sites_merged <- merge(site_unique,select(renamed_site_data,Site,Latitude_dd,Longitude_dd), by = 'Site', all=TRUE)
+head(sites_merged)
+```
+
+Now we need to add the coordinates for "Oban" and "Dunoon". 
+
+```{r}
+sites_merged[which(sites_merged$Site == "Oban"), ] <-c("Oban","Highland",730176.21,185987.87)
+sites_merged[which(sites_merged$Site == "Dunoon"), ] <- c("Dunoon","Highland",676972.15,217390.1) 
+
+```
+We will now add the missing coordinate information for all the other sites. The data frame is sorted based on Site names in ascending order so that for example "Allers - St Leonards" will come after "Allers" which has the same coordinates. 
+
+A for loop is used to iterate through each row and when the value of Latitude in each row is not equal to "NA", the value is stored in a variable "y". When the value of Latitude becomes "NA" the stored value in variable y is used to fill the missing Latitude. Same logic is applied for filling out the missing longitude values too.   
+
+```{r}
+sites_merged<- sites_merged[order(sites_merged$Site),]
+for (i in 1:nrow(sites_merged)) {ifelse (is.na(sites_merged$Latitude[i]),sites_merged$Latitude[i]<-y, y <- sites_merged$Latitude[i])}
+for (i in 1:nrow(sites_merged)) {ifelse (is.na(sites_merged$Longitude[i]),sites_merged$Longitude[i]<-x, x <- sites_merged$Longitude[i])}
+head(sites_merged)
+```
+
+The file is looking fine. Let's rearrange the columns so that Health board is arranged as first column. Again we can arrange by column number or use "select" function to rearrange the columns
+```{r}
+sites_merged <- sites_merged[,c(2,1,3,4)]
+#sites_merged <- select(sites_merged,Health_Board,Site,Latitude,Longitude)
+head(sites_merged)
+```
+Let's save our curated site coordinate data into a file.
+
+```{r}
+if (!file.exists('../data')) {
+  dir.create(file.path('..', 'data'))  
+}
+
+fName = '../data/curated_site_coordinate_data.csv'
+write.csv(sites_merged, fName, row.names = FALSE)
+```

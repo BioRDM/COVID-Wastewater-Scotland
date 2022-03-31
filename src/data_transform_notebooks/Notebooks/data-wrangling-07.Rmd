@@ -1,0 +1,134 @@
+---
+title: "Data wrangling with R - P2 prevalence time series file generation"
+author: "Sumy V Baby, Tomasz Zielinski"
+date: "2022-03-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We continue our work with the data, now we will focus on prevalence time series and normalized prevalence file generation
+
+This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in waste water around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
+
+
+## Reading the data files after loading necessary libraries
+
+We need to read the curated_data.csv and sampling_sites.csv files first
+
+```{r}
+library("lubridate")
+library("tidyverse")
+library("tidyr")
+library("dplyr")
+
+curated_data<- read.csv("../data/curated_data.csv", check.names = F)
+sampling_sites<- read.csv("../out/sampling_sites.csv")
+head(curated_data)
+head(sampling_sites)
+```
+
+Let's select 3 columns ie. site, Date_collected and N1_Reported_value-gc_per_L from the curated_data for the N1_Reported values
+
+```{r}
+select_curated_data<-curated_data[,c(2,3,7)]
+head(select_curated_data)
+```
+Let's select 3 columns ie. site, Date_collected and Million_gene_copies_per_person_per_day from the curated_data for the Normalized values
+
+```{r}
+select_norm_curated_data<-curated_data[,c(2,3,17)]
+head(select_norm_curated_data)
+```
+
+We need to now convert the both the data frames in to a wider table format.
+
+We can use "pivot_wider" function from "tidyr" library to accomplish this. Please note that the "names_from" : is  an argument describing which column (or columns) to get the name of the output column. The "values_from"  is an argument describing which column (or columns) to get the cell values from. For the N1reported values (un normalized data) the names_from is chosen from,"Date_collected" column and "values_from" is taken from the "N1_Reported_value-gc_per_L". For the normalized values the names_from is chosen from,"Date_collected" column and "values_from" is taken from the "Million_gene_copies_per_person_per_day"
+
+```{r}
+curated_data_wider <- pivot_wider(select_curated_data, names_from = "Date_collected", values_from = "N1_Reported_value-gc_per_L" )
+curated_norm_data_wider<- pivot_wider(select_norm_curated_data, names_from = "Date_collected", values_from = "Million_gene_copies_per_person_per_day" )
+head(curated_data_wider)
+head(curated_norm_data_wider)
+```
+We notice that that it creates some warnings because for some sites the Date_collected values are duplicated. So we need to check the data more closely. Lets use "group_by" function from "dplyr" library. We will group the select_curated_data by Site and Date_collected and take the summary of counts. Then filter the counts which are greater than one to determine which Date_collected values are repeated for each Site.
+
+```{r}
+select_curated_data %>% 
+group_by(Site,Date_collected) %>% 
+summarize("Count" = n()) %>% filter(Count > 1)    
+```
+
+We can see clearly that for many sites the same two readings are taken on one date. This creates problem while creating the wider table as the dates are not unique for each Site. So the values these dates needs to be averaged before converting to a wider format so that we don't loose any data. Let's do the aggregate of the data by Site and Date_collected.
+
+Please note that column name N1_Reported_value-gc_per_L is always put in double inverted commas because it contains "-" character.
+
+```{r}
+Meanaggregate <- aggregate(select_curated_data$"N1_Reported_value-gc_per_L", by=list(Site=select_curated_data$Site, Date= select_curated_data$Date_collected), FUN=mean, na.rm=TRUE)
+Meanaggregate_norm <- aggregate(select_norm_curated_data$Million_gene_copies_per_person_per_day, by=list(Site=select_norm_curated_data$Site, Date= select_norm_curated_data$Date_collected), FUN=mean, na.rm=TRUE)
+head(Meanaggregate)
+head(Meanaggregate_norm)
+```
+Now, Let's convert the aggregated data in to wider table using "pivot_wider" from "tidyr" library. The "names_from" are selected from "Dates" column and "values_from" from x (mean aggregate) column. 
+
+```{r}
+curated_data_wide <- pivot_wider(Meanaggregate, names_from = "Date", values_from = x )
+curated_norm_data_wide<- pivot_wider(Meanaggregate_norm, names_from = "Date", values_from = x)
+head(curated_data_wide)
+head(curated_norm_data_wide)
+```
+
+Lets now convert the column "Site" to rowname inorder to sort by the Date columns
+
+```{r}
+curated_data_wide<-column_to_rownames(curated_data_wide, var = "Site") 
+curated_data_wide<-curated_data_wide[,order(colnames(curated_data_wide))]
+curated_norm_data_wide<-column_to_rownames(curated_norm_data_wide, var = "Site") 
+curated_norm_data_wide<-curated_norm_data_wide[,order(colnames(curated_norm_data_wide))]
+head(curated_data_wide)
+head(curated_norm_data_wide)
+```
+
+We have ordered the files by column names. For using merge function we need to convert back rownames to column
+
+```{r}
+curated_data_wide<-rownames_to_column(curated_data_wide, var = "Site") 
+curated_norm_data_wide<-rownames_to_column(curated_norm_data_wide, var = "Site") 
+```
+
+Now let's merge it with the sampling site data. Let's generate the Prevalence_time_series by merging sampling_sites with curated_data_wide and Prevalence_norm_time_series by merging sampling_sites with curated_norm_data_wide
+
+```{r}
+Prevalence_time_series<-merge(sampling_sites,curated_data_wide, by = "Site")
+Prevalence_norm_time_series <- merge(sampling_sites,curated_norm_data_wide, by = "Site")
+#Prevalance_time_series<-full_join(select(sampling_sites,Health_Board,Site,Latitude_dd,Longitude_dd,Population,Population_Band),curated_data_wider, by = "Site")
+#Prevalance_norm_time_series<-full_join(select(sampling_sites,Health_Board,Site,Latitude_dd,Longitude_dd,Population,Population_Band),curated_norm_data_wider, by = "Site")
+head(Prevalence_time_series)
+head(Prevalence_norm_time_series)
+```
+We can see that the Site column is coming first. We need"Health_Board" column as first. We know the number of columns are 438 by using "ncol" function in Rbase. We can then rearrange the columns.
+
+```{r}
+ncol(Prevalence_time_series)
+ncol(Prevalence_norm_time_series)
+
+Prevalence_time_series<-Prevalence_time_series[,c(2,1,3:438)]
+Prevalence_norm_time_series <- Prevalence_norm_time_series[,c(2,1,3:438)] 
+head(Prevalence_time_series)
+head(Prevalence_norm_time_series)
+```
+
+
+```{r}
+if (!file.exists('../out')) {
+  dir.create(file.path('..', 'out'))  
+}
+
+fName1 = '../out/prevalence_timeseries.csv'
+fName2 = '../out/normprevalence_timeseries.csv'
+write.csv(Prevalence_time_series, fName1, row.names = FALSE)
+write.csv(Prevalence_norm_time_series, fName2, row.names = FALSE)
+```
+
