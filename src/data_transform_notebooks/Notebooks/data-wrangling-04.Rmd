@@ -1,0 +1,170 @@
+---
+title: "Data wrangling with R - P2 Data Curation"
+author: "Sumy V Baby, Tomasz Zielinski"
+date: "2022-03-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We continue our work with the data, now we will focus on the Population data file.
+
+We are going to fix some of the typical problems with real data.
+
+This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in waste water around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
+
+We will read the Sites_population.csv file 
+
+```{r}
+library(dplyr)
+population_data <- read.csv("../raw_data/Sites_population.csv")
+```
+
+Now we will read the curated_data.csv file and look for the distinct Health_Board and Site combination in data using "unique" function
+
+```{r}
+curated_data <- read.csv("../data/curated_data.csv")
+site_unique<-unique(select(curated_data,Health_Board,Site))
+head(site_unique)
+```
+
+
+Now let's have a look at the population data. It has many repeating records for each site and date combination.
+
+```{r}
+head(population_data)
+```
+We can select 5 columns of the population data that is Health.Area, Site.Name,Population.Band,Population. The ":" is used to denote a range of columns. For example in the below code we will select the columns from 1 to 2, then leave the third column and select columns 4 to 5.
+
+```{r}
+population_data<-population_data[,c(1:2,4:5)]
+head(population_data)
+```
+
+As we can see the column names needs to be changed. Now we can rename the columns using dictionary
+
+```{r}
+
+dictionary <- data.frame(
+  old_name = c("Health.Area","Site.Name","Population.Band","Population"),
+  new_name = c("Health_Board","Site","Population_Band","Population")
+)
+renamed_population_data <- population_data
+names(renamed_population_data)[match(dictionary$old_name, names(renamed_population_data))] <- dictionary$new_name
+head(renamed_population_data)
+```
+
+We will first use the 'aggregate' function in base R to count the occurrence of each site
+
+```{r}
+site_count <- aggregate(renamed_population_data$Site, by=list(renamed_population_data$Site), FUN=length) 
+head(site_count)
+```
+
+Now we can filter the sites which are repeating less than 5 times
+
+```{r}
+
+filter(site_count, x <5)
+
+```
+We got a list of sites which needs to be replaced with the correct names. Now the next step is to replace the misspelled names with the corrected ones.
+
+Now we can replace these misspelled sites with the correct names with "recode" function in "dplyr" library.
+
+```{r}
+curated_population_data <- renamed_population_data
+curated_population_data$Site <- recode(curated_population_data$Site,  "Invurie"="Inverurie", "Sheildhall"="Shieldhall","Stevenson"="Stevenston")
+```
+
+Now to make it simpler we will select the unique rows from the curated population data. We can order the data set by Site and check the resultant table
+
+```{r}
+curated_population_data <- unique(curated_population_data)
+curated_population_data<- curated_population_data[order(curated_population_data$Site),]
+head(curated_population_data )
+```
+
+In the table we can see there are two records of Allanfearn. One shows Health_Board as "Highland" and other has HB as well as population information as "(Empty)". This is a data entry error which needs to be rectified. Now let's take the aggregate of the data by Site and find out how many sites are like this.
+
+```{r}
+site_count <- aggregate(curated_population_data$Site, by=list(curated_population_data$Site), FUN=length) 
+filter(site_count, x >1)
+```
+
+We can see clearly there are 9 sites which have this issue. The extra records with Health_Board entry as "(Empty)" needs to be removed.
+In order to make sure we don't miss out any sites, let's take a look at all the all the sites for which population value is empty. The "subset" function from R bse can be used here.  
+
+```{r}
+subset(curated_population_data, curated_population_data$Population == "(Empty)")
+```
+
+Here we can see some extra sites: "Dunoon", "Haddington","Jedburgh","Oban" for which population information is missing. As these are independent sites, the population information needs to be entered. So let's first enter the population information for these sites which are missing. 
+
+The which() function in R returns the position or the index of the value which satisfies the given condition. We can use it for entering the records of missing population sites.
+
+```{r}
+curated_population_data[which(curated_population_data$Site == "Dunoon"), ] <-c("Highland","Dunoon","4k - 10k",7830)
+curated_population_data[which(curated_population_data$Site == "Haddington"), ] <- c("Lothian","Haddington","4k - 10k",9130 ) 
+curated_population_data[which(curated_population_data$Site == "Jedburgh"), ] <-c("Borders","Jedburgh","2k - 4k",3910)
+curated_population_data[which(curated_population_data$Site == "Oban"), ] <- c("Highland","Oban","4k - 10k",8490 ) 
+```
+
+Now we have entered the missing population information , we have again have a look at the data. We will take the subset of the data where Population is "(Empty)".
+
+```{r}
+subset(curated_population_data, curated_population_data$Population == "(Empty)")
+```
+
+Now we have only 9 rows which are there because of duplication of sites. Lets remove those
+
+```{r}
+curated_population_data <- subset(curated_population_data, curated_population_data$Population != "(Empty)")
+head(curated_population_data)
+```
+
+Let's merge the unique sites_unique with curated_population_data. The all=TRUE option in merge function is for including all the records from both the dataframes
+
+```{r}
+Population_data<-merge(site_unique,curated_population_data, by = 'Site',all=TRUE)
+head(Population_data)
+```
+
+Let's avoid the Health_board.y that is from curated_population_data by selecting specific columns. It can be also done using "select" function.  
+
+```{r}
+Population_data<-merge(site_unique,curated_population_data[,c(2:4)], by = 'Site',all=TRUE)
+# Population_data<-merge(site_unique,select(curated_population_data,Site,Population_Band,Population), by = 'Site',all=TRUE)
+head(Population_data)
+```
+
+We can arrange the sites in alphabetic order and then fill out fill out the missing population.
+A for loop is used to iterate through each row and when the value of Population_Band in each row is not equal to "NA", the value is stored in a variable "y". When the value of Population_Band becomes "NA" the stored value in variable y is used to fill the missing Population_Band. Same logic is applied for filling out the missing Population values too.  
+
+```{r}
+Population_data<- Population_data[order(Population_data$Site),]
+for (i in 1:nrow(Population_data)) {ifelse (is.na(Population_data$Population_Band[i]),Population_data$Population_Band[i]<-x, x <- Population_data$Population_Band[i])}
+for (i in 1:nrow(Population_data)) {ifelse (is.na(Population_data$Population[i]),Population_data$Population[i]<-y, y <- Population_data$Population[i])}
+head(Population_data)
+```
+
+The file is looking fine. Let's rearrange the columns so that Health board is arranged as first column. It can be done simply by selecting the columns or using the "select" function.
+
+```{r}
+Population_data <- Population_data[,c(2,1,3,4)]
+#Population_data <- select(Population_data,Health_Board,Site,Population_Band,Population)
+head(Population_data)
+```
+
+Let's save our curated site coordinate data into a file.
+
+```{r}
+if (!file.exists('../data')) {
+  dir.create(file.path('..', 'data'))  
+}
+
+fName = '../data/curated_population_data.csv'
+write.csv(Population_data, fName, row.names = FALSE)
+```

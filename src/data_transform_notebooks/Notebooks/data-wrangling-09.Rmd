@@ -1,0 +1,55 @@
+---
+title: "Data wrangling with R - P2 HeatMap Generation-Determining breakpoints "
+author: "Sumy V Baby, Tomasz Zielinski"
+date: "2022-03-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+This code calculate break points to be used in the heatmap color scale. Although the raw gene copies per L data has clear technical thresholds for positive data,normalization creates overlap between "Weak positive", "Positive DNQ" and "Positives". The results in each group have long tails so min/max was not an option. For that reason 3rdquartiles are used to mark start of the positive data and to truncate the color scale for better visibility
+
+
+This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in waste water around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
+
+
+## Reading the data files after loading necessary libraries
+
+We need to read the data_full.csv first
+
+```{r}
+library("tidyverse")
+
+allData <- read.csv("../out/data_full.csv", check.names = F)
+
+```
+We can take filter out the positive normalized values and non-positive normalized values for determining the breakpoints.
+
+The "filter" function from "tidyverse" library filters "allData" dataframe for "Positive"  N1_description values. Then the  corresponding values for column 
+"Million_gene_copies_per_person_per_day" are assigned to "allPositive".
+
+Similarly "filter" function is used to filter "allData" dataframe for all non positive N1_description values. Then the  corresponding values for column 
+"Million_gene_copies_per_person_per_day" are assigned to "nonPositive".
+
+```{r}
+allPositive <- filter(allData, allData$N1_description == "Positive")$Million_gene_copies_per_person_per_day
+nonPositive <- filter(allData, allData$N1_description %in% c("Weak Positive","Positive (DNQ)","Negative"))$Million_gene_copies_per_person_per_day
+```
+
+Let's now take 75th percentile value for the positive and non-positive normalized data
+
+```{r}
+
+pos_start = round(quantile(nonPositive, 0.75, na.rm=TRUE), digits = 1)
+pos_end = round(quantile(allPositive, 0.75, na.rm=TRUE), digits = 1)
+
+print(pos_start)
+print(pos_end)
+
+```
+
+
+
+```
+

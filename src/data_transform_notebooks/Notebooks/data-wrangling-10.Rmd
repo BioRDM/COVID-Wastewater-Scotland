@@ -1,0 +1,261 @@
+---
+title: "Data wrangling with R - P2 Heatmap Generation"
+author: "Sumy V Baby, Tomasz Zielinski"
+date: "2022-03-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Creates heatmap with virus levels. It assumes weekly data as the input.
+It contains hardcoded scale for better visibility as the data have long tails in values
+
+We continue our work with the data, now we will focus on generation of heatmap from the data_full.csv
+
+This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in waste water around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
+
+
+## Reading the data files after loading necessary libraries
+ 
+Let's first load the necessary libraries and read the file data_full.csv file. As we know that the data_full.csv contains column names having "-", the option "check.names = F" is used to read it as it is. Otherwise the the hyphen is converted in to dot symbol while reading the file. Please note that the library "tidyverse" already have "dplyr" and "tidyr" packages included. So it's not necessary to load these seperately.
+
+```{r}
+library("tidyverse")
+library("ComplexHeatmap")
+library("circlize")
+library("tidyr")
+library("lubridate")
+library("dplyr")
+
+
+allData <- read.csv("../out/data_full.csv", check.names = F)
+#calculated in scale-breakpoints.R
+pos_start = 2.9
+pos_end = 88
+```
+
+First we need to convert the "Date_collected" column in allData in to date format and extract the week and year information from that. The "as.Date" function from "lubridate" package can be used for this. 
+We will then extract week from the date and populate in to a column "Week" in allData.The "sprintf" prints the week in 2 digit format. For eg. 1 is entered as 01. The "isoweek" is a function which converts date in to corresponding week. We have to also extract the Year from the date and populate it in to a column "Year" in the allData data frame   
+
+```{r}
+date =as.Date(allData$Date_collected, by="day")
+allData$Week = sprintf("%02d", isoweek(date)) # Format week as 2 digit for sorting
+allData$Month = sprintf("%02d", month(date)) # Format week as 2 digit for sorting
+allData$Year = year(date)
+glimpse(allData)
+```
+
+As we can see two additional columns have been added as "Week" and "Year". Now let's use "group_by" function from "dplyr" library to group by columns: Site, Week and Year and add one more column "mean_size" containing mean of "Million_gene_copies_per_person_per_day". The data is grouped by Site, Week and Year and summarized based on mean of normalized data using pipe operator (%>%) in "dplyr" package.
+Pipes let you take the output of one function and send it directly to the next, which is useful when you need to many things to the same data set. Pipes in R look like %>% and are made available via the "magrittr" package installed as part of "dplyr".
+
+In the below code we use the pipe to send the allData set first through group_by() function, to get Site, Week and year grouped, and then through mutate() to add a new column "mean_size" containing mean of normalized data grouped by Site, Week and Year. The mutate() function adds new variables and preserves existing ones. So we are using mutate() instead of summarize() so that we can easily get which month each week falls (to be used in annotation) 
+When the data frame is being passed to the group_by() and mutate() functions through a pipe, we don’t need to include it as an argument to these functions anymore.
+
+
+```{r}
+Meanaggregate<-allData %>% group_by(Site, Week,Year) %>% mutate(mean_size = mean(Million_gene_copies_per_person_per_day, na.rm = TRUE)) 
+head(Meanaggregate)
+```
+
+Now let's use the "select" function from "dplyr" library to select Site, Month,Year, and mean_size from Meanaggregate and "unique" function to find the distinct rows.You can also do the selection using column numbers.
+
+
+```{r}
+Meanaggregate <- unique(select(Meanaggregate,Site,Month,Week,Year,mean_size)) 
+head(Meanaggregate)
+```
+
+Let's sort the data frame Meanaggregate by ascending order of the months
+
+```{r}
+Meanaggregate<-Meanaggregate[order(Meanaggregate$Month),] #Sort by month
+head(Meanaggregate)
+```
+
+We know that a week can be shared between two months. So it is necessary to set the month pointing to each week to starting month of that week for easier annotation.
+The Meanaggregate data frame is grouped by Week and Year. The "mutate" function is used to change the Month to starting month of a week. 
+
+After that we will select Site,Year,Month,Week and mean_size columns and take the unique rows to avoid same rows with duplicated months
+
+```{r}
+
+Meanaggregate<-Meanaggregate %>% group_by(Week,Year) %>% mutate(Month, Month=first(Month))
+Meanaggregate<-unique(Meanaggregate) 
+Meanaggregate<-as.data.frame(Meanaggregate) 
+head(Meanaggregate)
+
+```
+
+We will now add "Year-Month-Week" column to the Meanaggregate data frame. The "paste()" function is used to paste Year , Month, and Week together by using seperator "-". Then the values are populated to the column "Year-Month-Week". We will then use the "select()" function to select columns Site, "Year-Moth-Week", and mean-size
+
+```{r}
+Meanaggregate$"Year-Month-Week" <- paste(Meanaggregate$Year,Meanaggregate$Month,Meanaggregate$Week,sep = "-")
+Meanaggregate <- select(Meanaggregate, Site,"Year-Month-Week",mean_size)
+```
+
+Now we can convert the data to a wider format having column names from "Year-Month-Week" and values from the column mean_size
+
+```{r}
+
+Meanaggregate.wide <- pivot_wider(Meanaggregate, names_from = "Year-Month-Week", values_from = mean_size)
+
+```
+
+Let's convert the column "Site" to rownames for sorting and Sort the data ascending order based on the Column "Site"
+
+```{r}
+Meanaggregate.wide <- column_to_rownames(Meanaggregate.wide, var = "Site") 
+Meanaggregate.wide <- Meanaggregate.wide[,order(colnames(Meanaggregate.wide))] # Sort ascending by column names
+glimpse(Meanaggregate.wide)
+```
+Now we will assign the column names of Meanaggregate.wide to Colnames. The "separate" function splits the "Colnames" to 3 columns at separator "-"
+```{r}
+Colnames <- colnames(Meanaggregate.wide)
+Colnames <- as.data.frame(Colnames) 
+Colnames1<-separate(data = Colnames, col = Colnames,into = c("Year","Month","Week"),sep="-")
+head(Colnames1)
+```
+We can convert the Second column(Month) to month abbrevation and paste it to the first column(Year) using "paste" function. Then we will take the unique dates for the annotation.
+
+```{r}
+
+Dates_Range <- paste(month.abb[as.integer(Colnames1$Month)],as.integer(Colnames1$Year),sep =  "-") -> Dates_Range # get the range of dates
+Dates<-unique(Dates_Range) 
+Dates
+```
+Now Let's find out the annotation for the full Dates range. To start with let's use a function called "rle". The "rle()" returns an object of class "rle" which is a list with components as lengths and values
+
+```{r}
+rle(Dates_Range)
+```
+We can clearly see from the above result that "May-2020" is repeating only one time, "Jun-2020" five times,"Jul-2020" four times and so on. 
+Now we can take the lengths from the object of class "rle".
+
+```{r}
+rle(Dates_Range)$lengths
+```
+As you can see it prints out only lengths of the repeating dates
+Now we can try to print the cumulative sum of these lengths. We can use a function "cumsum" to get the cumulative sums of lengths
+
+```{r}
+cumsum(rle(Dates_Range)$lengths)
+```
+When we look at the cumulative sums we get to know that "May-2020" repeats once and the "June-2020" starts from the second position repeats five times and ends at position 6. "July-2020" starts then from position 7. So we need to add 1 to this to get the correct positions
+
+```{r}
+cumsum(rle(Dates_Range)$lengths)+1
+```
+Okay, We are missing the position 1 here so we can add that.
+
+```{r}
+c(1,cumsum(rle(Dates_Range)$lengths)+1)
+```
+Now we got the correct positions . But we can see an extra position 91 is being added. So we need to remove that
+
+```{r}
+
+anno <- c(1, head(cumsum(rle(Dates_Range)$lengths)+1, -1)) 
+anno
+
+```
+Now we got the correct annotation for the dates
+
+Let's find the date range for the selected Dates that is from Dec-2020 to Feb-2022. The "which" function can be used to generate the index range.It shows some warnings because, as you can see the "Dec-2020" is repeating 4 times. But the first position is taken.
+
+```{r}
+DR = as.data.frame(Dates_Range)
+selected_dates_range = DR[c(which(DR$Dates_Range=="Dec-2020")):(which(DR$Dates_Range=="Feb-2022")),] # extract the selected dates range
+selected_dates_range
+selected_dates<-unique(selected_dates_range)
+selected_dates
+```
+We can find the annotation for selected Date range
+
+```{r}
+c(1, head(cumsum(rle(selected_dates_range)$lengths)+1, -1)) -> anno1 # find the annotation for selected date range
+anno1
+```
+
+We need to extract the Data of interest from "Dec-2020" to "Feb-2022". We can set the start date as = "2020-12-50"(first week in 2020 which starts with December). The  "grepl" function is used to match the start date with column names. When it is "TRUE" , the subset of data stating from "Dec-2020" to "Feb-2020" is stored in to start_date_cols. We can then select the Site and columns from start_date_cols in to data_selected.
+
+```{r}
+start_date_pattern = "2020-12-50"  # Week 50 is starting in moth December
+Meanaggregate.wide= as.data.frame(Meanaggregate.wide)
+Meanaggregate.wide <- rownames_to_column(Meanaggregate.wide, var = "Site") 
+start_date_cols = names(Meanaggregate.wide)
+start_date_cols = start_date_cols[grepl(start_date_pattern, start_date_cols)]
+data_selected = select(Meanaggregate.wide, Site | start_date_cols[1]:last_col())
+
+```
+
+Now we can select the sites which we are interested in.
+
+```{r}
+selected_sites = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Linlithgow","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
+data_selected = filter(data_selected, data_selected$Site %in% selected_sites)
+```
+
+We need to now do a custom ordering based on Health board. The custom ordering can be done using function "arrange" from library "dplyr"
+
+```{r}
+ordered_sites = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
+data_selected = arrange(data_selected, factor(Site, levels = ordered_sites))
+data_selected<-column_to_rownames(data_selected, var = "Site") 
+Meanaggregate.wide<-column_to_rownames(Meanaggregate.wide, var = "Site")
+```
+
+We need to convert the data frames as matrix for passing in to the Heatmap function
+
+```{r}
+data_selected = as.matrix(data_selected)
+data_full <- as.matrix(Meanaggregate.wide)
+```
+
+Specify the bottom annotation for Heatmap.
+
+```{r}
+ha = HeatmapAnnotation(foo=anno_mark(at = anno, labels = Dates,  labels_gp = gpar(fontsize=3, fontface = "bold"),which = "column", side = "bottom"))
+ha1 = HeatmapAnnotation(foo=anno_mark(at = anno1, labels = selected_dates,  labels_gp = gpar(fontsize=3, fontface = "bold"),which = "column", side = "bottom"))
+```
+
+We need to use circlize::colorRamp2() function to generate the color mapping function in Heatmap(). The two arguments for colorRamp2() is a vector of break values and a vector of corresponding colors. colorRamp2() linearly interpolates colors in every interval through LAB color space.
+
+```{r}
+col_fun1 = colorRamp2(c(0,pos_start,pos_end), c("yellow", "orange","blue")) 
+```
+
+We will now generate the Heatmap for the normalized Virus levels binned on weekly basis. The function "Heatmap" is from the library ""ComplexHeatmap". Reference: https://jokergoo.github.io/ComplexHeatmap-reference/book/
+
+```{r}
+fName = "../out/figure_prevalence_heatmap.jpeg"
+jpeg(filename= fName, width=1000, height = 700, units= "px",res= 300) # Save as jpeg with width 1000 pixels, height = 700 pixels, and res = 300 dpi
+hm = Heatmap(data_selected, col = col_fun1, row_names_gp = gpar(fontsize = 3, fontfamily = "Helvetica",fontface= "bold") , 
+        column_names_rot = 90, 
+        #column_title = "Covid virus prevelance at different sites along the timeline",
+        #column_title_gp = gpar(fontsize = 5,fontface = "bold"), 
+        na_col = "white", cluster_rows = FALSE, cluster_columns = FALSE , 
+        bottom_annotation = ha1, show_column_names = FALSE, border = TRUE, border_gp = gpar(col = "grey"), 
+        row_names_side = "left", 
+        heatmap_legend_param = list(title="Virus levels\n[Mgc/(person*day)]", title_gp = gpar(fontsize =3, fontfamily = "Helvetica", fontface = "bold" ), at = c(0,pos_start,pos_end), 
+                                    labels = c(0, "positive", pos_end), labels_gp= gpar(fontsize = 3, fontfamily = "Helvetica")))
+
+draw(hm)
+dev.off()
+```
+Let's now generate the heatmap for full data
+
+```{r}
+fName = "../out/figure_prevalence_heatmap_all.jpeg"
+col_fun1 = colorRamp2(c(0,pos_start,pos_end), c("yellow", "orange","blue")) 
+jpeg(filename= fName, width=1000, height = 2500, units= "px",res= 300) # Save as jpeg with width 1000 pixels, height = 700 pixels, and res = 300 dpi
+hm = Heatmap(data_full, col = col_fun1, row_names_gp = gpar(fontsize = 3, fontfamily = "Helvetica",fontface= "bold") , 
+        column_names_rot = 90, 
+        na_col = "white", cluster_rows = FALSE, cluster_columns = FALSE , 
+        bottom_annotation = ha, show_column_names = FALSE, border = TRUE, border_gp = gpar(col = "grey"), 
+        row_names_side = "left", row_order = sort(rownames(data_full)),heatmap_legend_param = list(title="Virus levels\n[Mgc/(person*day)]", title_gp = gpar(fontsize =3, fontfamily = "Helvetica", fontface = "bold" ), at = c(0,pos_start,pos_end),labels = c(0, "positive", pos_end), labels_gp= gpar(fontsize = 3, fontfamily = "Helvetica")))
+draw(hm)
+dev.off()
+```
+

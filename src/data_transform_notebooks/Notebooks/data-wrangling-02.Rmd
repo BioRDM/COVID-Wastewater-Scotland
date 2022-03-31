@@ -1,0 +1,253 @@
+---
+title: "Data wrangling with R - P2 Data Curation"
+author: "Sumy V Baby, Tomasz Zielinski"
+date: "2022-03-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We continue our work with the data, now we will focus on actual data entries.
+
+We are going to fix some of the typical problems with real data.
+
+This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in waste water around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
+
+Firstly, read our renamed data. Some of the  column names of renamed_data contains  character "-" . The check.names= F option in read.csv function will read the file as it is. Unless given, R will convert hyphen as dot.
+
+## Inspecting DATA
+
+```{r}
+library(dplyr)
+library(lubridate)
+renamed_data<- read.csv("../data/renamed_data.csv",check.names = F)
+glimpse(renamed_data)
+
+```
+We used a different command `glimpse` to see all the columns (variables) and first data in each column.
+
+Site stores information about where the samples were taken. As it is entered manually it is possible that it contains some misspelled locations.
+
+## Chasing misspelled text
+
+We can get all the unique values for the `Site` variable and sort them. That way we can inspect the values and try to find close by duplicates.
+
+
+```{r}
+sites = renamed_data$Site
+sites = sort(unique(sites))
+sites
+
+```
+There are **7**, sites with close but not identical names.  
+One differs by having a space after the name.
+
+Can you spot them?*
+
+It would be better to identify them automatically.
+We could count the measurements for each site and find those which have less then 5, those are probably misspelled as each site was monitored more than few times.
+
+# Counting the measurements for each sites
+
+We will first use the 'aggregate' function in base R to count the occurrence of each site
+
+```{r}
+site_count <- aggregate(renamed_data$Site, by=list(renamed_data$Site), FUN=length) 
+head(site_count)
+```
+As we can see aggregate function calculates the count of each Site in the renamed_data. 'FUN=length' is used to calculate the count. 
+
+We can see that there are 12, sites which are misspelled.
+
+Out of which 8 are with close but not identical names : "Carbarn","hatton - Fintry West","Invurie","Langhlm","Philiphill","Sheildhall","Stevenson", "Stevenson - Stevenston West" . Four of them differs by having a space after the name: "Allanfearn ","Fort William ","Galashiels ", "Perth " 
+
+We can also use another method for aggregation of counts ie. group_by function from the library "dplyr"
+
+```{r}
+site_count <- renamed_data %>% 
+group_by(Site) %>% 
+summarize("Count" = n())  
+head(site_count)
+```
+The data is grouped by Site and summarized based on count of each distinct Site using pipe operator (%>%) in dplyr package. Pipes let you take the output of one function and send it directly to the next, which is useful when you need to many things to the same data set. Pipes in R look like %>% and are made available via the magrittr package installed as part of dplyr.
+
+In the above we use the pipe to send the renamed data set first through group_by() function, to get Sites grouped by name , and then through summarize() to count the number of occurrences of each Site. When the data frame is being passed to the group_by() and summarize() functions through a pipe, we don’t need to include it as an argument to these functions anymore.
+
+# Filter out the wrong sites
+
+Next step is to filter out the wrong sites. Using filter function in dplyr
+
+```{r}
+library (dplyr)
+filter(site_count, Count <5)
+
+```
+We can see from above the list of sites which are having counts less than 5. These are the sites which are suspected to be wrong. But we need to always check with the data file whether there is an issue with the site names. Upon close inspection we can spot that "Nigg - Aberdeen RI" and "Philipshill - Hairmyres Hospital" are genuine sites. So we need to avoid them from filtering out. 
+
+All other sites can be easily determined as misspelled. For example "Allanfearn " with space at the end should be actually be "Allanfearn" and "Carbarn" should be actually included with "Carbarns".
+
+Let's do the filtering again keeping the genuine sites.
+
+```{r}
+filter(site_count, Count <5,Site != "Nigg - Aberdeen RI", Site != "Philipshill - Hairmyres Hospital")
+```
+We finally go a list of sites which needs to be replaced with the correct names. Now next step is to replace the misspelled names with the corrected ones
+
+# Replace the wrong sites
+## Use a dictionary to replace the misspelled names
+
+Lets try to use a dictionary to replace the wrong names
+
+```{r}
+dictionary <- data.frame(old_name = c("Allanfearn ", "Carbarn","Fort William ","Galashiels ","hatton - Fintry West", "Invurie", "Langhlm","Perth ","Philiphill","Sheildhall","Stevenson","Stevenson - Stevenston West"),
+                         new_name = c("Allanfearn", "Carbarns","Fort William","Galashiels","Hatton - Fintry West","Inverurie","Langholm","Perth","Philipshill","Shieldhall","Stevenston","Stevenston - Stevenston West"))
+curated_data <- renamed_data
+curated_data <- curated_data[order(curated_data$Site),]
+curated_data$Site[match(dictionary$old_name, curated_data$Site)] <-dictionary$new_name
+```
+Now let's run again determine the count of each distinct site
+
+```{r}
+library (dplyr)
+site_count <- curated_data %>% 
+group_by(Site) %>% 
+summarize("Count" = n())
+
+wrong_sites <- filter(site_count, Count <5 , Site != "Nigg - Aberdeen RI", Site != "Philipshill - Hairmyres Hospital" )
+wrong_sites
+```
+
+We can see from the above table that only the first match is replaced as the count is now reduced by one. The Site "hatton - Fintry West", "Invurie", "Langhlm", "Philiphil", and "Sheildhall" is repeating more than one time. So that causes the issue
+
+## Use recode function to replace the misspelled names
+We can see the dictionary approach is not helpful to replace all the matches. Let's try with recode function in dplyr library
+
+```{r}
+curated_data <- renamed_data
+curated_data$Site <-
+  recode(curated_data$Site, "Allanfearn "= "Allanfearn", "Carbarn"="Carbarns" ,"Fort William "="Fort William","Galashiels "="Galashiels","hatton - Fintry West" = "Hatton - Fintry West", "Invurie"="Inverurie", "Langhlm"="Langholm","Perth "="Perth","Philiphill"="Philipshill","Sheildhall"="Shieldhall","Stevenson"="Stevenston","Stevenson - Stevenston West"="Stevenston - Stevenston West")
+```
+Let's now find out the wrong sites if any exists 
+
+```{r}
+site_count <- curated_data %>% 
+group_by(Site) %>% 
+summarize("Count" = n())  
+site_count
+filter(site_count, Count <5 , Site != "Nigg - Aberdeen RI", Site != "Philipshill - Hairmyres Hospital" )-> wrong_sites
+wrong_sites
+```
+So we have got now 162 sites which are corrected and good to go forward!
+
+# The factors variables
+
+Now lets check whether N1_Description column  doesn't have any misspelled values and check the levels to find any misspelled description. We can convert the N1.Description column as factor. 
+
+Factors are variables that have only limited set of options. In our case N1_description is such a variable, as it describes the virus levels as Negative, Weak Positive, Positive, Positive(DNQ).
+
+Using base R first we can determine the factor levels
+
+```{r}
+levels(as.factor(curated_data$N1_description))
+
+```
+As we can clearly see from the above printed result, "neg","negative" and "Possitive" are the misspelled description. We can use the recode function again to replace all these.
+
+```{r}
+curated_data$N1_description <-recode(curated_data$N1_description,"negative" = "Negative", "neg" = "Negative", "Possitive"="Positive") 
+```
+
+Now lets check again whether it is changed
+
+```{r}
+levels(as.factor(curated_data$N1_description))
+
+```
+We can see only 5 levels which are right. So the Description have been corrected to right ones and we are good to go
+
+# Dates
+## Change the date format to iso
+
+We will now convert the dates in to iso format.
+
+Firstly, Lets check the current date format of our curated_data file 
+
+```{r}
+glimpse(curated_data$Date_collected)
+```
+We can see that the date format is DD/MM/YYYY. So we can use dmy function from lubridate package to convert the dates to YYYY-MM-DD format. In other words dmy is a lubridate's parse function which converts the dates arranged in DD/MM/YYYY format to iso format.
+
+```{r}
+
+curated_data$Date_analysed<- dmy(curated_data$Date_analysed) #Change the date format to YYYY-MM-DD
+curated_data$Date_collected<- dmy(curated_data$Date_collected) #Change the date format to YYYY-MM-DD
+glimpse(curated_data)
+```
+Note: We can see some warnings because the Date_analysed column contains null values. Those warnings can be ignored.
+
+## Correct any wrong date value
+Let's now look at the date ranges by sorting the data according to the ascending order of Date_collected
+```{r}
+glimpse(curated_data[order(curated_data$Date_collected),]$Date_collected)
+glimpse(curated_data[order(curated_data$Date_analysed),]$Date_analysed)
+```
+Clearly COVID-19 did not exists in "1899-12-31" so we need to fix the date in the Date_collected column.
+Upon verification with the SEPA data, it was figured out that the wrong date needs to replaced with correct date as  "2022-02-09"
+
+Lets do that by using Base R
+
+```{r}
+curated_data["Date_collected"][curated_data["Date_collected"] == "1899-12-31" ] <- "2022-02-09"
+```
+
+# Number
+Now we can check for the summary of  data value column to find if any values are negative. The column names containing character "-" should be given in double quotes. Other wise R can't read that.
+```{r}
+
+summary(select(curated_data,"N1_Reported_value-gc_per_L","N1_Repl_1-gc_per_L" ,"N1_Repl_2-gc_per_L","N1_Repl_3-gc_per_L" ,Calculated_mean,Standard_Deviation,"Flow-L_per_day","Ammonia-mg_per_L", pH_value ,"Modelled_flow-L_per_day" , Million_gene_copies_per_person_per_day))
+```
+We can see that summary statistics of all the data columns are positive
+
+# Adding missing Health Board information
+
+Let's sort the curated data by Site names and print out the distinct Health board and Site combinations
+
+```{r}
+
+curated_data <- curated_data[order(curated_data$Site),]
+glimpse(unique(select(curated_data,Health_Board,Site)))
+```
+Here we can clearly see that many sites are having missing Health board information. For example the site: "Allers - St Leonards" is having Health board entered as "(Empty)" but the actual Health board is "Lanakshire" the same one as for "Allers". As the Sites are sorted alphabetically , now we can write a code to fill in the missing Health board information corresponding to each site.
+
+```{r}
+for (i in 1:nrow(curated_data)) {ifelse (curated_data$Health_Board[i] != "(Empty)", x <- curated_data$Health_Board[i],curated_data$Health_Board[i]<-x)}
+```
+
+For each row, if the value of the Health board is there it is kept as such but if it is missing, it is populated from preceding non empty health board information. 
+
+The for statement is for looping through each row(there are 10316 rows here). While looping through each row, if the value of the health board is not "(Empty)", the value is stored in to a variable x and whenever the Health board value is "(Empty)" the value stored in the variable is used to replace it. 
+
+Lets try to print again the unique Health board and Site combination to know whether the problem is fixed
+
+```{r}
+glimpse(unique(select(curated_data,Health_Board,Site)))
+```
+Here we can see that the missing health boards have been filled
+
+Let's save our curated data into a file.
+```{r}
+if (!file.exists('../data')) {
+  dir.create(file.path('..', 'data'))  
+}
+
+fName = '../data/curated_data.csv'
+write.csv(curated_data, fName, row.names = FALSE)
+
+```
+We first checked if the output directory exists, if not create it and then we saved the file.
+
+------------
+*The misspelled sites were: "Allanfearn ","Fort William ","Galashiels ","Perth " (all of these having an extra space at the end),
+"Carbarn","hatton - Fintry West","Invurie","Langhlm","Philiphill","Sheildhall","Stevenson", "Stevenson - Stevenston West" 

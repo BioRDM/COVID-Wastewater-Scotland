@@ -1,0 +1,219 @@
+---
+title: "Data wrangling with R - P1 Renaming"
+author: "Sumy V Baby, Tomasz Zielinski"
+date: "2022-03-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Welcome to data wrangling with R.
+
+This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in wastewater around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
+
+Firstly, check our raw data.
+
+## Inspecting RAW DATA
+
+Our raw data are included in the raw_data folder of this project. Let's check what it contains
+
+```{r}
+list.files("../raw_data")
+```
+*** The `../raw_data` means that we are going to navigate to the parent folder (we are in src folder) cause we use `..` and then we will list the content of the `raw_data` folder. ***
+
+Let's read measurements from the COVID RNA Monitoring Project file
+
+```{r}
+raw_data <- read.csv("../raw_data/COVID_RNA_Monitoring.csv")
+head(raw_data)
+
+```
+`read.csv` read content of the file into `raw_data` variable.  
+`head(raw_data)` printed first few rows of the data.
+
+To have it as a nice wide table rather than wrapped around when generating r-markdown report we can use:
+
+```{r}
+knitr::kable(
+  head(raw_data),
+  caption = "COVID RNA levels in wastewater"
+)
+```
+Some of the columns have . in their name, it is because the original file contained columns names with space. It is generally a bad practice to have spaces in columns names.
+Also some columns are not descriptive enough, for example `HBOARD` stands for health board and the `Date` is actually a date on which the samples were collected.
+
+So let's rename the columns.
+
+## Renaming columns
+
+```{r}
+renamed_data <- raw_data
+names(renamed_data)[1] <- "Health_Board"
+names(renamed_data)[3] <- "Date_collected"
+head(renamed_data[1:5])
+
+```
+`names` in base R can be used to both read the column names or to set it, depending if it is used in assignment or not.
+
+That approach is error prone and tedious as we need to use the correct column index (see that date was in column 3 not 2).
+
+### Renaming by selection
+It would be better if we could select which columns we want to rename and provide new names.  
+For example:
+
+```{r}
+old_name = c("HBNAME","Date","Date.Analysed")
+new_name = c("Health_Board","Date_collected","Date_analysed")
+renamed_data <- raw_data
+names(renamed_data)[names(renamed_data) %in% old_name] = new_name
+head(renamed_data[1:5])
+
+```
+We still need to provide the new names in the right order!
+
+Probably less error prone is actually to get all the existing names, change them and set back.
+
+### Renaming all
+For that we need a vector with new names, we could generate a text template with a following command
+```{r }
+print(paste0("'", names(raw_data),"'", collapse=","))
+```
+We used ' so that the escape \" character won't be printed
+Now we can edit the columns ones by one and use to set the new names
+```{r}
+new_name = c('Health_Board','Site','Date_collected','Date_analysed','SW_sample_number','N1.Description','N1.Reported.Value','N1.Sample.1','N1.Sample.2','N1.Sample.3','Calculated.Mean','Standard.Deviation','Flow..l.day.','Ammonia..mg.l.','pH.Value','Modelled.Flow..l.day.','Million.Gene.Copies.Per.Person.per.Day','Analysis.Lab','Row_Count')
+renamed_data <- raw_data
+names(renamed_data) = new_name
+head(renamed_data[1:5])
+
+```
+
+The best solution would be to provide names dictionary, which will match old names with new names. That way we will be resilient to changes in the columns order.
+
+### Renaming with dictionary
+
+```{r}
+dictionary <- data.frame(
+  old_name = c("Date",          "Date.Analysed", "HBNAME"),
+  new_name = c("Date_collected","Date_analysed", "Health_Board")
+)
+renamed_data <- raw_data
+names(renamed_data)[match(dictionary$old_name, names(renamed_data))] <- dictionary$new_name
+head(renamed_data[1:5])
+```
+Look how the first column was renamed even it was the last one in our dictionary.
+
+We could of course create a file with the old and new names, and read the mappings from there. Try to do it yourself.
+
+So lets rename all the columns using two lists of names
+
+
+```{r}
+dictionary <- data.frame(
+  old_name = c('HBNAME','Site','Date','Date.Analysed','SW.Sample.Number','N1.Description','N1.Reported.Value','N1.Sample.1','N1.Sample.2','N1.Sample.3','Calculated.Mean','Standard.Deviation','Flow..l.day.','Ammonia..mg.l.','pH.Value','Modelled.Flow..l.day.','Million.Gene.Copies.Per.Person.per.Day','Analysis.Lab','X.Row.Count.'),
+
+  new_name = c("Health_Board","Site","Date_collected","Date_analysed", "SW_sample_number","N1_description", "N1_Reported_value-gc_per_L","N1_Repl_1-gc_per_L","N1_Repl_2-gc_per_L","N1_Repl_3-gc_per_L","Calculated_mean","Standard_Deviation","Flow-L_per_day","Ammonia-mg_per_L","pH_value","Modelled_flow-L_per_day","Million_gene_copies_per_person_per_day","Analysis_lab","Row_Count")
+)
+renamed_data <- raw_data
+names(renamed_data)[match(dictionary$old_name, names(renamed_data))] <- dictionary$new_name
+head(renamed_data[1:5])
+```
+
+Let's save our renamed data into a file.
+
+```{r}
+if (!file.exists('../data')) {
+  dir.create(file.path('..', 'data'))  
+}
+
+fName = '../data/renamed_data.csv'
+write.csv(renamed_data, fName, row.names = FALSE)
+
+```
+
+We first checked if the output directory exists, if not create it and then we saved the file.
+
+### Automatic correction
+
+You may noticed that in majority of the cases we just replaced . with _ in our new columm names.
+Segure it could be done in some automatic way.
+
+Indeed, it can be done using pattern matching with regular expressions. 
+You will need to read more about regular expressions on your own, but here we will deal with replacing one character with other.
+
+The command to replace is called sub or gsub (the first one replace only the first appearance) and we pass it to it "what to replace", "with what" and "Where". 
+
+So lets try it
+```{r}
+
+sub(".","_",names(raw_data))
+```
+
+OK that does not look good, it is cause '.' means any character, so every starting letter was replaced with _. We need to "escape" the  '.', using \\ which says it is just a . character
+
+```{r}
+
+sub("\\.","_",names(raw_data))
+```
+
+That worked, but only for the first ., we need gsub
+
+```{r}
+
+gsub("\\.","_",names(raw_data))
+```
+
+If we look at 13, 'Flow__l_day_' looks weird it is cause it was 'Flow..l.day.' with two dots.
+We can tell gsup to match multiple consecutive appearence of a character with + (which means at least 1), or * which means (0 or many)
+
+```{r}
+
+gsub("\\.+","_",names(raw_data))
+```
+Now the only annoying part is the last, handing _
+
+We can match the end of word with $ sign, so we can replace only the last occurence.
+For example,
+
+```{r}
+
+gsub("\\.$","ZZZ",names(raw_data))
+```
+Attached ZZZ to the last ., what we want is replacing the last . with empty string ""
+
+
+```{r}
+
+gsub("\\.$","",names(raw_data))
+```
+We can chain our two operations (it is called pipe) by using `%>%`
+
+```{r}
+library(magrittr)
+gsub("\\.$","",names(raw_data)) %>% gsub("\\.+","_",.)
+```
+The first gsub removed the last ., the second replaced other .(.) with _
+Look like in the second gsub we passed the "Where" using . as argument, it means that the
+output of first gsub was passed to the second. 
+
+For this code to work we needed to loead library which defines the pipe %>% library(magrittr).
+
+We can do it for better readibility also for the first gsub and finally use it set the column names
+
+```{r}
+names(raw_data) %>%
+    gsub("\\.$","", .) %>% 
+    gsub("\\.+","_",.) -> new_name
+
+new_name[1] <- "Health_Board"
+new_name[3] <- "Date_collected"
+
+renamed_data = raw_data
+names(renamed_data) = new_name
+head(renamed_data[1:5])
+```
+
+It is not exactly the same as our manually curated names, but it could be good enough for your use cases.

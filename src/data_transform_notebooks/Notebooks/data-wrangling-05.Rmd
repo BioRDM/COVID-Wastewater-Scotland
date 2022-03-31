@@ -1,0 +1,86 @@
+---
+title: "Data wrangling with R - P2 Sampling sites file generation"
+author: "Sumy V Baby, Tomasz Zielinski"
+date: "2022-03-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We continue our work with the data, now we will focus on Sampling sites file generation
+
+This and the following R-Markdown notebooks have been inspired by our real data curation work for the project about monitoring COVID virus levels in waste water around Scotland ([see project page](https://biordm.github.io/COVID-Wastewater-Scotland/)).
+
+## Reading the data files after loading necessary libraries
+
+We need to read the curated_site_coordinate_data.csv and curated_population_data.csv files first
+
+```{r}
+library("lubridate")
+library("sgo")
+library("tidyverse")
+
+site_coordinates<- read.csv("../data/curated_site_coordinate_data.csv")
+site_population<- read.csv("../data/curated_population_data.csv")
+glimpse(site_coordinates)
+glimpse(site_population)
+
+```
+We can use command `glimpse` to see all the columns (variables) and first data in each column.
+
+As we can see the Latitude and Longitude measurements are in different system (UK grid). Now we need to convert geographic locations into GPS DD unit. 
+The function "sgo_points" in "sgo" library take the "Longitude" and "Latitude" from site_coordinates which is in UK grid system (specified by espg: 27700) and converts to an object of class sgo_points.
+
+```{r}
+locs <- sgo_points(site_coordinates, coords=c("Longitude", "Latitude"), epsg=27700)
+
+```
+
+Now we can use the function  "sgo_bng_lonlat" from "sgo" library that converts Ordnance Survey grid reference easting/northing coordinates to GCS longitude/latitude. The "to=4326" in the function specifies epsg code. EPSG Geodetic Parameter Dataset (also EPSG registry) is a public registry of geodetic datums, spatial reference systems, Earth ellipsoids, coordinate transformations and related units of measurement. EPSG:4326 - WGS 84, latitude/longitude coordinate system based on the Earth's center of mass, used by the Global Positioning System among others.
+
+```{r}
+Data_sgo_4326 <- sgo_bng_lonlat(locs, to=4326)
+Data_4326 <- as.data.frame(Data_sgo_4326)
+head(Data_4326)
+```
+
+We can see that the Column names needs to be changed. x here means Longitude_dd and y means Latitude_dd. Let's change that.
+
+```{r}
+colnames(Data_4326) = c("Longitude_dd", "Latitude_dd", "Health_Board","Site")
+head(Data_4326)
+```
+
+Now let's merge the coordinate information with population data and check how it looks
+
+```{r}
+merged <- merge( site_population, Data_4326,by = "Site")
+head(merged)
+```
+
+As we know that there are Health_Board information in both site_population and Data_4326. So when these are merged we can see two columns Health_Board.x from site_population and Health_Board.y from Data_4326. We need to select one of these columns as both are the same. We can avoid the column 3 that is "Health_Board" in Data_4326 while merging and check how it looks.
+
+```{r}
+merged <- merge( site_population, Data_4326[,c(1,2,4)],by = "Site")
+head(merged)
+```
+Now we need to arrange the columns in specific order as : Site, Health_Board, Latitude_dd, Longitude_dd, Population, Population_Band. We can do it by simply rearranging by column numbers or using the "select" function 
+```{r}
+merged <- merged[,c(1,2,6,5,4,3)]
+#merged <- select(merged,Site,Health_Board,Latitude_dd,Longitude_dd,Population,Population_Band) 
+head(merged)
+```
+
+The file is ready. We can create the out directory if it doesn't exist and save the file
+
+```{r}
+if (!file.exists('../out')) {
+  dir.create(file.path('..', 'out'))  
+}
+
+fName = '../out/sampling_sites.csv'
+write.csv(merged, fName, row.names = FALSE)
+```
+
