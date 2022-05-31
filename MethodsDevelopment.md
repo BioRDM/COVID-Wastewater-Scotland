@@ -2,16 +2,33 @@
 title: COVID Wastewater Scotland
 ---
 {% include navbar.html %} 
-# Methods development
 
-Methods development is an iterative process in which we learn from both failures and successes.
+# Summary of methodology development
 
+This project used three approaches for detection and quantification of new SARS-COV2 variants in wastewater: RT-qPCR, droplet digital PCR (ddPCR) and next generation sequencing (NGS). 
 
-What we tried ...
+RT-qPCR
 
-What did not work...
+The first technique tried was RT-qPCR. Several tests were performed, from choosing the best kits for RT-PCR to testing different sets of primers and probes to check if they were able to amplify SARS2 from wastewater samples. 
+More specifically, the team focused on detecting new variants by targeting mutations that can discriminate between the different SARS2 lineages, which are often found in the S-gene.
+To test the specificity of variant detection, primers and probes were optimised using synthetic RNA templates that were a mix of WT and mutant sequences.
+After several attempts of quantifying the SARS2 variants using RT-qPCR with different sets of primers and probes, the group found that the probes developed could discriminate between variants in synthetic samples, but they could not measure the levels of different variants in wastewater with sufficient level of certainty. They concluded that because wastewater samples contain a mix of variants that are all themselves mutating, different primer/probe combinations struggle to discriminate between them, making this type of sample more challenging to analyse. 
 
-How we work:
+ddPCR (Digital Droplet PCR)
+
+The group then followed on to try a novel technique called droplet digital PCR (also known as Crystal digital PCR) to detect variants. This technique had the potential to be more successful to detect viral RNA as it has been demonstrated that this is a more sensitive technique for detecting mutations in target sequences.
+ddPCR worked well for discriminating between synthetic viral variants that were present at high concentrations in samples, but the team consistently found that ddPCR was less sensitive than RT-qPCR. 
+
+NGS (Next Generation Sequencing)
+
+In parallel to using qPCR and digital PCR, the team have developed NGS methods for analysing SARS2 variants in wastewater. The advantages of this approach are that it is unnecessary to make a priori assumptions about the presence of mutations and that new variants can be identified in samples de novo. Little material is required for characterising the spectrum of variants. However, there are also disadvantages. The laboratory methods are challenging and time consuming. It takes at least 4 days for results to be generated from a wastewater sample, and then the information needs to be analysed by a bioinformatics team. However, the information provided is extremely rich and can be analysed in multiple different ways.
+Since optimising the NGS methodology, the research team has analysed over 2000 wastewater samples from across Scotland and with the support of Biomathematics & Statistics Scotland (BioSS) this information has been used to monitor the spread of the omicron variant in some of the  wastewater treatment works. 
+
+![image](https://user-images.githubusercontent.com/29427778/160816030-8c869aee-9bc7-4112-aac6-3bdbf6891bdf.png)
+
+Source: Coronavirus (Covid-19): modelling the epidemic in Scotland (Issue No. 92)
+
+{% include footer.html %} 
 
 Links to ELN records
 
