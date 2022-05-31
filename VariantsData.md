@@ -25,6 +25,6 @@ since have developed and implemented methodologies for screening saliva for SARS
 is supported by a £1.8M UKRI grant. TestEd both screens for SARS2 but has also developed PCR assays to identify alpha, 
 beta, gamma and delta variants.
 
-
+{% include bottomnavbar.html %}
 
 
