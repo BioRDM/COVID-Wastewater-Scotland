@@ -28,7 +28,7 @@ Since optimising the NGS methodology, the research team has analysed over 2000 w
 
 Source: Coronavirus (Covid-19): modelling the epidemic in Scotland (Issue No. 92)
 
-{% include footer.html %} 
+
 
 # Open Notebooks
 
@@ -39,5 +39,6 @@ We share some of the Electronic Laboratory Notebooks (ELNs) used by Gilbert lab 
 * [Testing different qPCR mixes on crystal PCR](https://benchling.com/s/etr-8u10BD9KalyiIh9ASHXA?m=slm-IOyleZlGh3xMpJXoWRrO)
 * [Test of NGS Library Prep on successfully amplified cDNA from wastewater](https://benchling.com/s/etr-Cj7F4V7aeiOidiV8ZQzI?m=slm-4X00YePdQLjw8oR2kQDE)
 * [Attempting ARTIC SARS-CoV-2 cDNA amplification on concentrated wastewater](https://benchling.com/s/etr-0FdV1H0rpWeHk4H72NOg?m=slm-WgoF2PnZrLLK2lE5gfb1)
+
 
 {% include bottomnavbar.html %}
