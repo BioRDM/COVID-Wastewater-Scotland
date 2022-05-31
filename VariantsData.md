@@ -17,7 +17,8 @@ A summary of the methology development can be found here (link). Additionally, t
 
 https://www.gov.scot/binaries/content/documents/govscot/publications/research-and-analysis/2022/03/coronavirus-covid-19-modelling-epidemic-issue-no-92/documents/coronavirus-covid-19-modelling-epidemic-scotland-issue-no-92/coronavirus-covid-19-modelling-epidemic-scotland-issue-no-92/govscot%3Adocument/coronavirus-covid-19-modelling-epidemic-scotland-issue-no-92.pdf
 
-The ‘Variants’ research team
+# The variants research team 
+
 The research team with the expertise to deliver the ‘Variants’ component of this project is led by Prof. Nick Gilbert and are based at the MRC Human Genetics Unit, 
 University of Edinburgh (UOE). They have broad experience in molecular biology techniques, including next generation 
 sequencing. Importantly, the ‘Variants’ team started screening for SARS2 as a node for NHS Lothian in Summer 2020, and 
