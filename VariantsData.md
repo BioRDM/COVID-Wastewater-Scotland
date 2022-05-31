@@ -13,9 +13,8 @@ identify new variants. The UK, through the COG consortium, are leading efforts t
 Instead, this project aimed to develop methods for detection of these new variants to provide real-time data to Public Health 
 Scotland and related agencies to monitor and respond to new variants. 
 In addition to detecting new variants, this project attempted to quantify the amount of SARS2 in wastewater compared to human markers, for example crAssphage.
-A summary of the methology development can be found here (link). Additionally, the data obtained from the team and analysed with the support of Biomathematics & Statistics Scotland (BioSS), has been used in the "Coronavirus (Covid-19): modelling the epidemic in Scotland" governmental reports to assist with epidemic monitoring. 
 
-[BioSS report](https://www.gov.scot/binaries/content/documents/govscot/publications/research-and-analysis/2022/03/coronavirus-covid-19-modelling-epidemic-issue-no-92/documents/coronavirus-covid-19-modelling-epidemic-scotland-issue-no-92/coronavirus-covid-19-modelling-epidemic-scotland-issue-no-92/govscot%3Adocument/coronavirus-covid-19-modelling-epidemic-scotland-issue-no-92.pdf)
+A summary of the methology development can be found [here](https://biordm.github.io/COVID-Wastewater-Scotland/MethodsDevelopment). Additionally, the data obtained from the team and analysed with the support of Biomathematics & Statistics Scotland (BioSS), has been used in the "Coronavirus (Covid-19): modelling the epidemic in Scotland" governmental reports to assist with epidemic monitoring. [BioSS report](https://www.gov.scot/binaries/content/documents/govscot/publications/research-and-analysis/2022/03/coronavirus-covid-19-modelling-epidemic-issue-no-92/documents/coronavirus-covid-19-modelling-epidemic-scotland-issue-no-92/coronavirus-covid-19-modelling-epidemic-scotland-issue-no-92/govscot%3Adocument/coronavirus-covid-19-modelling-epidemic-scotland-issue-no-92.pdf)
 
 # The variants research team 
 
