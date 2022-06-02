@@ -40,4 +40,18 @@ Therefore, parameters such as the flow volume of wastewater and population size 
 The complete protocol is available under:
 [dx.doi.org/10.17504/protocols.io.b4eqqtdw](https://dx.doi.org/10.17504/protocols.io.b4eqqtdw)
 
+## cDNA library preparation using ARTIC v3 primers and NEB UDI UMI adaptors for NGS
+
+This is a cDNA library preparation protocol with the aim to quantify SARS-CoV-2 in wastewater and potentially detect its different variants using Next Generation Sequencing (Illumina). In this protocol, we amplified cDNA from viral RNA extracted from wastewater. The main steps involve:
+-Amplification of cDNA with ARTIC v3 primers
+-Ligation of amplified cDNA to NEB UDI UMI adaptors
+-PCR enrichment of the libraries
+-Pooling libraries together for sequencing
+The further analysis pipeline used to perform assembly and intra-host/low-frequency variant calling is the nf-core/viralrecon:  https://nf-co.re/viralrecon
+This protocol is still under revision
+
+The complete protocol is available under:
+[dx.doi.org/10.17504/protocols.io.3byl4b99ovo5/v1] (dx.doi.org/10.17504/protocols.io.3byl4b99ovo5/v1)
+
+
 {% include bottomnavbar.html %}
