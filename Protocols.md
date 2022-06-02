@@ -51,7 +51,7 @@ The further analysis pipeline used to perform assembly and intra-host/low-freque
 This protocol is still under revision
 
 The complete protocol is available under:
-[dx.doi.org/10.17504/protocols.io.3byl4b99ovo5/v1] (dx.doi.org/10.17504/protocols.io.3byl4b99ovo5/v1)
+[dx.doi.org/10.17504/protocols.io.3byl4b99ovo5/v1](dx.doi.org/10.17504/protocols.io.3byl4b99ovo5/v1)
 
 
 {% include bottomnavbar.html %}
