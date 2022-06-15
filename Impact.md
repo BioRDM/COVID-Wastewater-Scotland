@@ -13,4 +13,3 @@ We have presented our work at the [Edinburgh Open Research conference](https://t
 # Media
 Our published findings were covered by an article on [News Medical Life Sciences ](https://www.news-medical.net/news/20220614/Scotlands-monitoring-program-for-SARS-CoV-2-in-wastewater.aspx)
 
-{% include column.html %}
