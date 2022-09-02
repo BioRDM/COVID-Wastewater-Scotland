@@ -21,8 +21,9 @@ start_date_pattern = "X2021.29"
 
 #sites (and data) are split into two groups to manually control the position of the labels
 #only the sitesNames are permanently labelled
-sitesNames = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
-rightSitesNames = c("Hatton","Stevenston", "Seafield","Philipshill","Dunfermline","Kirkcaldy","Lockerbie","Hamilton","Shieldhall")
+sitesNames = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Seafield","Paisley","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
+#sitesNames = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
+rightSitesNames = c("Hatton","Stevenston", "Seafield","Kirkcaldy","Lockerbie","Hamilton","Shieldhall")
 leftSitesNames = unique(sitesNames[! sitesNames %in% rightSitesNames])
 
 
