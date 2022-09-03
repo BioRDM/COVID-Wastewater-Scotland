@@ -21,9 +21,9 @@ start_date_pattern = "X2021.29"
 
 #sites (and data) are split into two groups to manually control the position of the labels
 #only the sitesNames are permanently labelled
-sitesNames = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Seafield","Paisley","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
+sitesNames = c("Allanfearn","Helensburgh","Hamilton","Seafield","Paisley","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Meadowhead","Stevenston","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
 #sitesNames = c("Allanfearn","Helensburgh","Carbarns","Hamilton","Philipshill","Seafield","East Calder","Linlithgow","Shieldhall","Dalmuir","Paisley","Daldowie","Nigg","Peterhead","Kirkwall","Lerwick","Hatton","Forfar","Stirling","Falkirk","Alloa","Meadowhead","Stevenston","Dunfermline","Levenmouth","Kirkcaldy","Troqueer","Lockerbie","Galashiels","Hawick","Stornoway")
-rightSitesNames = c("Hatton","Stevenston", "Seafield","Kirkcaldy","Lockerbie","Hamilton","Shieldhall")
+rightSitesNames = c("Hatton","Stevenston", "Seafield","Kirkcaldy","Lockerbie","Hamilton")
 leftSitesNames = unique(sitesNames[! sitesNames %in% rightSitesNames])
 
 
@@ -134,10 +134,10 @@ addLegend_decreasing <- function (map, position = c("topright", "bottomright", "
 # it should be a factory method that returns a closure but I do not know now how to do it
 # that is good enough
 breakPal = function(val) {
-  pal <- colorNumeric(palette = c("orange", "blue"),domain = 0:90,na.color = "grey")                         
+  max = 90
+  pal <- colorNumeric(palette = c("orange", "blue"),domain = 0:max,na.color = "grey")                         
   
   res <- vector(mode="character", length=length(val))
-  
   res = pal(val)
   res[val < 2.9] = "yellow"
   return(res)
