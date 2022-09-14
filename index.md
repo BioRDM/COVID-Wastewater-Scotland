@@ -5,7 +5,7 @@ title: COVID Wastewater Scotland
 
 ## <span style="color: black;"> An overview </span>
 
-![covid_virus](covid%20virus%202.jpg)
+![covid_virus](Novel_Coronavirus_SARS-CoV-2.jpg)
 
 ### We have moved to [https://covid-ww-scotland.github.io/](https://covid-ww-scotland.github.io/)
 
