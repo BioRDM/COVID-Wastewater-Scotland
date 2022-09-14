@@ -6,6 +6,7 @@ title: COVID Wastewater Scotland
 ## <span style="color: black;"> An overview </span>
 
 ![covid_virus](Novel_Coronavirus_SARS-CoV-2.jpg)
+Image attribution: NIAID-RML (https://www.niaid.nih.gov/ & https://www.niaid.nih.gov/about/rocky-mountain-laboratories), CC BY 2.0, via Wikimedia Commons
 
 ### We have moved to [https://covid-ww-scotland.github.io/](https://covid-ww-scotland.github.io/)
 
