@@ -11,4 +11,6 @@ We have presented our work at the [Edinburgh Open Research conference](https://t
 ![poster-image](https://user-images.githubusercontent.com/29427778/173812425-8ea2840b-6898-4488-a5c4-bf5007792af7.jpg)
 
 # Scientific publications
-The SARS-CoV-2 prevalence in wastewater dataset is currently published in a preprint form on MedRxiv [SARS-CoV-2 RNA levels in Scotland's wastewater](https://www.medrxiv.org/content/10.1101/2022.06.08.22276093v1)
+The SARS-CoV-2 prevalence in wastewater dataset is currently published in [Scientific Data](https://www.nature.com/articles/s41597-022-01788-3)
+
+It has been previously published as a preprint form on MedRxiv [SARS-CoV-2 RNA levels in Scotland's wastewater](https://www.medrxiv.org/content/10.1101/2022.06.08.22276093v1)
