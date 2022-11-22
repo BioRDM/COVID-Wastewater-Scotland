@@ -11,7 +11,7 @@ These wastewater data are contributing to estimates of disease prevalence and th
 The detailes of methodology for viral quantification and data analysis can be found at 
 [COVID Wastewater Scotland](https://biordm.github.io/COVID-Wastewater-Scotland/). 
 
-This dataset has been described in a data paper [XXX](XXX)
+This dataset has been described in a data paper in Scientific Data: [SARS-CoV-2 RNA levels in Scotland’s wastewater](https://doi.org/10.1038/s41597-022-01788-3)
 
 ## Files organization
 
