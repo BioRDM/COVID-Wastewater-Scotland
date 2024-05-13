@@ -4,6 +4,11 @@ title: COVID Wastewater Scotland
 {% include navbar.html %} 
 # Useful links
 
+> ## EU Wastewater Observatory for Public Health
+> [Encyclopaedia Cloacae](https://wastewater-observatory.jrc.ec.europa.eu/#/encyclopaedia-cloacae): This is a comprehensive collection of pathogens and other emerging concerns in wastewater.
+> The project is a collaboration among the European Commission's EU Science, Research and Innovation, Istituto Superiore di Sanità, Bangor University, Universität des Saarlandes, and the SUEN Turkish Water Institute.
+> 
+
 > ## Covid Poops 19
 >
 > [COVIDPoops Twitter](https://twitter.com/COVIDPoops19)  - Tweeting/retweeting all things wastewater & SARS-CoV-2
